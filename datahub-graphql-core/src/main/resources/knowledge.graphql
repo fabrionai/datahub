@@ -511,6 +511,18 @@ input SearchDocumentsInput {
   parentDocument: String
 
   """
+  Optional list of parent document URNs to filter by (for batch child lookups).
+  If both parentDocument and parentDocuments are provided, parentDocuments takes precedence.
+  """
+  parentDocuments: [String!]
+
+  """
+  If true, only returns documents with no parent (root-level documents).
+  If false or not provided, returns all documents regardless of parent.
+  """
+  rootOnly: Boolean
+
+  """
   Optional list of document types to filter by (ANDed with other filters)
   """
   types: [String!]

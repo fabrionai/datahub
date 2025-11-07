@@ -59,7 +59,7 @@ public class DocumentResolvers {
                 .dataFetcher(
                     "searchDocuments",
                     new com.linkedin.datahub.graphql.resolvers.knowledge.SearchDocumentsResolver(
-                        documentService)));
+                        documentService, entityClient)));
 
     // Mutation resolvers
     builder.type(
