@@ -91,6 +91,10 @@ public class DocumentResolvers {
                     new com.linkedin.datahub.graphql.resolvers.knowledge
                         .UpdateDocumentStatusResolver(documentService))
                 .dataFetcher(
+                    "updateDocumentSubType",
+                    new com.linkedin.datahub.graphql.resolvers.knowledge
+                        .UpdateDocumentSubTypeResolver(documentService))
+                .dataFetcher(
                     "mergeDraft",
                     new com.linkedin.datahub.graphql.resolvers.knowledge.MergeDraftResolver(
                         documentService, entityService)));

@@ -18,6 +18,7 @@ export type EditorProps = {
     dataTestId?: string;
     onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
     hideBorder?: boolean;
+    fixedBottomToolbar?: boolean;
     uploadFile?: (file: File) => Promise<string>;
     onFileUploadAttempt?: (fileType: string, fileSize: number, source: FileUploadSource) => void;
     onFileUploadFailed?: (

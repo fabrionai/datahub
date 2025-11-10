@@ -67,7 +67,7 @@ public class DocumentService {
    * @param source optional source information for externally ingested documents
    * @param state optional initial state (UNPUBLISHED or PUBLISHED). If draftOfUrn is provided, this
    *     will be forced to UNPUBLISHED.
-   * @param content the document content text
+   * @param text the document text text
    * @param parentDocumentUrn optional parent document URN
    * @param relatedAssetUrns optional list of related asset URNs
    * @param relatedDocumentUrns optional list of related document URNs
@@ -84,7 +84,7 @@ public class DocumentService {
       @Nullable String title,
       @Nullable com.linkedin.knowledge.DocumentSource source,
       @Nullable com.linkedin.knowledge.DocumentState state,
-      @Nonnull String content,
+      @Nonnull String text,
       @Nullable Urn parentDocumentUrn,
       @Nullable List<Urn> relatedAssetUrns,
       @Nullable List<Urn> relatedDocumentUrns,
@@ -126,9 +126,9 @@ public class DocumentService {
       documentInfo.setSource(source, SetMode.IGNORE_NULL);
     }
 
-    // Set contents
+    // Set text
     final DocumentContents documentContents = new DocumentContents();
-    documentContents.setText(content);
+    documentContents.setText(text);
     documentInfo.setContents(documentContents);
 
     // Set created audit stamp
@@ -256,7 +256,7 @@ public class DocumentService {
    *
    * @param opContext the operation context
    * @param documentUrn the document URN
-   * @param content the new content text
+   * @param text the new text
    * @param title optional updated title
    * @param subTypes optional updated sub-types
    * @throws Exception if update fails
@@ -264,7 +264,7 @@ public class DocumentService {
   public void updateDocumentContents(
       @Nonnull OperationContext opContext,
       @Nonnull Urn documentUrn,
-      @Nonnull String content,
+      @Nullable String text,
       @Nullable String title,
       @Nullable List<String> subTypes,
       @Nonnull Urn actorUrn)
@@ -277,10 +277,12 @@ public class DocumentService {
           String.format("Document with URN %s does not exist", documentUrn));
     }
 
-    // Update contents
-    final DocumentContents documentContents = new DocumentContents();
-    documentContents.setText(content);
-    existingInfo.setContents(documentContents);
+    // Update text if provided
+    if (text != null) {
+      final DocumentContents documentContents = new DocumentContents();
+      documentContents.setText(text);
+      existingInfo.setContents(documentContents);
+    }
 
     // Update title if provided
     if (title != null) {
@@ -529,6 +531,67 @@ public class DocumentService {
     entityClient.ingestProposal(opContext, mcp, false);
 
     log.info("Updated status of document {} to {}", documentUrn, newState);
+  }
+
+  /**
+   * Updates the sub-type of a document.
+   *
+   * @param opContext the operation context
+   * @param documentUrn the document URN
+   * @param subType the new sub-type value
+   * @param actorUrn the actor performing the update
+   * @throws Exception if update fails
+   */
+  public void updateDocumentSubType(
+      @Nonnull OperationContext opContext,
+      @Nonnull Urn documentUrn,
+      @Nonnull String subType,
+      @Nonnull Urn actorUrn)
+      throws Exception {
+
+    // Verify document exists
+    if (!entityClient.exists(opContext, documentUrn)) {
+      throw new IllegalArgumentException(
+          String.format("Document with URN %s does not exist", documentUrn));
+    }
+
+    // Create SubTypes aspect
+    final com.linkedin.common.SubTypes subTypesAspect = new com.linkedin.common.SubTypes();
+    subTypesAspect.setTypeNames(
+        new com.linkedin.data.template.StringArray(java.util.Collections.singletonList(subType)));
+
+    // Create metadata change proposal for SubTypes
+    final MetadataChangeProposal subTypesMcp = new MetadataChangeProposal();
+    subTypesMcp.setEntityUrn(documentUrn);
+    subTypesMcp.setEntityType(Constants.DOCUMENT_ENTITY_NAME);
+    subTypesMcp.setAspectName(Constants.SUB_TYPES_ASPECT_NAME);
+    subTypesMcp.setChangeType(ChangeType.UPSERT);
+    subTypesMcp.setAspect(GenericRecordUtils.serializeAspect(subTypesAspect));
+
+    // Also update lastModified timestamp in DocumentInfo
+    final DocumentInfo info = getDocumentInfo(opContext, documentUrn);
+    if (info != null) {
+      final AuditStamp lastModified = new AuditStamp();
+      lastModified.setTime(System.currentTimeMillis());
+      lastModified.setActor(actorUrn);
+      info.setLastModified(lastModified);
+
+      final MetadataChangeProposal infoMcp = new MetadataChangeProposal();
+      infoMcp.setEntityUrn(documentUrn);
+      infoMcp.setEntityType(Constants.DOCUMENT_ENTITY_NAME);
+      infoMcp.setAspectName(Constants.DOCUMENT_INFO_ASPECT_NAME);
+      infoMcp.setChangeType(ChangeType.UPSERT);
+      infoMcp.setAspect(GenericRecordUtils.serializeAspect(info));
+
+      // Batch ingest both proposals
+      entityClient.batchIngestProposals(
+          opContext, java.util.Arrays.asList(subTypesMcp, infoMcp), false);
+    } else {
+      // Just ingest subTypes if info doesn't exist (shouldn't happen)
+      entityClient.ingestProposal(opContext, subTypesMcp, false);
+    }
+
+    log.info("Updated sub-type for document {} to {}", documentUrn, subType);
   }
 
   /**

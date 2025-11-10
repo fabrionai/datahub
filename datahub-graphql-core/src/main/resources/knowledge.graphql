@@ -6,7 +6,7 @@ extend type Mutation {
   createDocument(input: CreateDocumentInput!): String!
 
   """
-  Update the contents of an existing Document.
+  Update the title or text of an existing Document.
   Requires the EDIT_ENTITY_DOCS or EDIT_ENTITY privilege for the document, or MANAGE_DOCUMENTS platform privilege.
   """
   updateDocumentContents(input: UpdateDocumentContentsInput!): Boolean!
@@ -36,6 +36,12 @@ extend type Mutation {
   Requires the EDIT_ENTITY_DOCS or EDIT_ENTITY privilege for the document, or MANAGE_DOCUMENTS platform privilege.
   """
   updateDocumentStatus(input: UpdateDocumentStatusInput!): Boolean!
+
+  """
+  Update the sub-type of a Document (e.g., "FAQ", "Tutorial", "Runbook").
+  Requires the EDIT_ENTITY_DOCS or EDIT_ENTITY privilege for the document, or MANAGE_DOCUMENTS platform privilege.
+  """
+  updateDocumentSubType(input: UpdateDocumentSubTypeInput!): Boolean!
 
   """
   Merge a draft document into its parent (the document it is a draft of).
@@ -421,14 +427,14 @@ input UpdateDocumentContentsInput {
   urn: String!
 
   """
-  The new contents for the Document
-  """
-  contents: DocumentContentInput!
-
-  """
-  Optional updated title for the document
+  Optional updated title for the document. If not provided, the existing title will not be updated.
   """
   title: String
+
+  """
+  The new text contents for the Document. If not provided, the existing contents will not be updated.
+  """
+  contents: DocumentContentInput
 
   """
   Optional updated sub-type for the document (e.g., "FAQ", "Tutorial", "Reference")
@@ -484,6 +490,21 @@ input UpdateDocumentStatusInput {
   The new state for the document
   """
   state: DocumentState!
+}
+
+"""
+Input required to update the sub-type of a Document
+"""
+input UpdateDocumentSubTypeInput {
+  """
+  The URN of the Document to update
+  """
+  urn: String!
+
+  """
+  The new sub-type for the document (e.g., "FAQ", "Tutorial", "Runbook")
+  """
+  subType: String!
 }
 
 """
