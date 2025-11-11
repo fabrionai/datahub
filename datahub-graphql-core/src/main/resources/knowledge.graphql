@@ -664,9 +664,14 @@ enum DocumentChangeType {
   CREATED
 
   """
-  Document content or title was modified
+  Document title was modified
   """
-  CONTENT_MODIFIED
+  TITLE_CHANGED
+
+  """
+  Document text content was modified
+  """
+  TEXT_CHANGED
 
   """
   Document was moved to a different parent

@@ -171,5 +171,17 @@ public class DocumentResolvers {
                         ((com.linkedin.datahub.graphql.generated.DocumentDraftOf) env.getSource())
                             .getDocument()
                             .getUrn())));
+
+    // Resolve DocumentChange.actor -> CorpUser (resolved)
+    builder.type(
+        "DocumentChange",
+        typeWiring ->
+            typeWiring.dataFetcher(
+                "actor",
+                new EntityTypeResolver(
+                    entityTypes,
+                    (env) ->
+                        ((com.linkedin.datahub.graphql.generated.DocumentChange) env.getSource())
+                            .getActor())));
   }
 }

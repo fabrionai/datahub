@@ -134,7 +134,7 @@ public class DocumentChangeHistoryResolverTest {
 
     assertNotNull(result);
     assertEquals(result.size(), 1);
-    assertEquals(result.get(0).getChangeType(), DocumentChangeType.CONTENT_MODIFIED);
+    assertEquals(result.get(0).getChangeType(), DocumentChangeType.TITLE_CHANGED);
   }
 
   @Test
