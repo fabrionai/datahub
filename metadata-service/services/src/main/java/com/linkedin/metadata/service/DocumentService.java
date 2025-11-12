@@ -561,7 +561,8 @@ public class DocumentService {
       subTypesAspect.setTypeNames(
           new com.linkedin.data.template.StringArray(java.util.Collections.singletonList(subType)));
     } else {
-      subTypesAspect.setTypeNames(new com.linkedin.data.template.StringArray(java.util.Collections.emptyList()));
+      subTypesAspect.setTypeNames(
+          new com.linkedin.data.template.StringArray(java.util.Collections.emptyList()));
     }
 
     // Create metadata change proposal for SubTypes
