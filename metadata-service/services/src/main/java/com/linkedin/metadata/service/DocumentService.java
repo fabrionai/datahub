@@ -545,7 +545,7 @@ public class DocumentService {
   public void updateDocumentSubType(
       @Nonnull OperationContext opContext,
       @Nonnull Urn documentUrn,
-      @Nonnull String subType,
+      @Nullable String subType,
       @Nonnull Urn actorUrn)
       throws Exception {
 
@@ -557,8 +557,12 @@ public class DocumentService {
 
     // Create SubTypes aspect
     final com.linkedin.common.SubTypes subTypesAspect = new com.linkedin.common.SubTypes();
-    subTypesAspect.setTypeNames(
-        new com.linkedin.data.template.StringArray(java.util.Collections.singletonList(subType)));
+    if (subType != null) {
+      subTypesAspect.setTypeNames(
+          new com.linkedin.data.template.StringArray(java.util.Collections.singletonList(subType)));
+    } else {
+      subTypesAspect.setTypeNames(new com.linkedin.data.template.StringArray(java.util.Collections.emptyList()));
+    }
 
     // Create metadata change proposal for SubTypes
     final MetadataChangeProposal subTypesMcp = new MetadataChangeProposal();

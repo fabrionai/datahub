@@ -509,9 +509,9 @@ input UpdateDocumentSubTypeInput {
   urn: String!
 
   """
-  The new sub-type for the document (e.g., "FAQ", "Tutorial", "Runbook")
+  The new sub-type for the document (e.g., "FAQ", "Tutorial", "Runbook"). Set to null to clear the sub-type.
   """
-  subType: String!
+  subType: String
 }
 
 """
