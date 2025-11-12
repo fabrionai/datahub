@@ -175,6 +175,12 @@ type Document implements Entity {
     """
     limit: Int = 50
   ): [DocumentChange!]!
+
+  """
+  Recursively get the lineage of parent documents for this document.
+  Returns parents with direct parent first followed by the parent's parent, etc.
+  """
+  parentDocuments: ParentDocumentsResult
 }
 
 """
@@ -361,9 +367,10 @@ input CreateDocumentInput {
   id: String
 
   """
-  The sub-type of the Document (e.g., "FAQ", "Tutorial", "Reference")
+  Optional sub-type of the Document (e.g., "FAQ", "Tutorial", "Reference").
+  If not provided, the document will have no type set.
   """
-  subType: String!
+  subType: String
 
   """
   Optional title for the document
@@ -697,4 +704,19 @@ enum DocumentChangeType {
   Document was deleted
   """
   DELETED
+}
+
+"""
+All of the parent documents for a given document. Returns parents with direct parent first followed by the parent's parent, etc.
+"""
+type ParentDocumentsResult {
+  """
+  The number of parent documents bubbling up for this document
+  """
+  count: Int!
+
+  """
+  The ordered list of parent documents, starting with the direct parent
+  """
+  documents: [Document!]!
 }

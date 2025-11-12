@@ -110,13 +110,21 @@ public class DocumentResolvers {
                     new com.linkedin.datahub.graphql.WeaklyTypedAspectsResolver(
                         entityClient, entityRegistry))
                 .dataFetcher(
+                    "privileges",
+                    new com.linkedin.datahub.graphql.resolvers.entity.EntityPrivilegesResolver(
+                        entityClient))
+                .dataFetcher(
                     "drafts",
                     new com.linkedin.datahub.graphql.resolvers.knowledge.DocumentDraftsResolver(
                         documentService))
                 .dataFetcher(
                     "changeHistory",
                     new com.linkedin.datahub.graphql.resolvers.knowledge
-                        .DocumentChangeHistoryResolver(timelineService)));
+                        .DocumentChangeHistoryResolver(timelineService))
+                .dataFetcher(
+                    "parentDocuments",
+                    new com.linkedin.datahub.graphql.resolvers.knowledge.ParentDocumentsResolver(
+                        entityClient)));
 
     // Resolve DocumentInfo.relatedAssets[].asset -> Entity (resolved)
     builder.type(

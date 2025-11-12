@@ -95,6 +95,7 @@ export const DEFAULT_APP_CONFIG = {
         showHomepageUserRole: false,
         assetSummaryPageV1: false,
         documentationFileUploadV1: false,
+        contextDocumentsEnabled: false,
     },
     chromeExtensionConfig: {
         enabled: false,

@@ -595,10 +595,10 @@ public class DocumentService {
   }
 
   /**
-   * Deletes a document.
+   * Soft deletes a document by setting the Status aspect removed field to true.
    *
    * @param opContext the operation context
-   * @param documentUrn the document URN to delete
+   * @param documentUrn the document URN to soft delete
    * @throws Exception if deletion fails
    */
   public void deleteDocument(@Nonnull OperationContext opContext, @Nonnull Urn documentUrn)
@@ -610,18 +610,19 @@ public class DocumentService {
           String.format("Document with URN %s does not exist", documentUrn));
     }
 
-    entityClient.deleteEntity(opContext, documentUrn);
-    log.info("Deleted document {}", documentUrn);
+    // Soft delete by setting Status aspect removed = true
+    final com.linkedin.common.Status status = new com.linkedin.common.Status();
+    status.setRemoved(true);
 
-    // Asynchronously delete all references
-    try {
-      entityClient.deleteEntityReferences(opContext, documentUrn);
-    } catch (Exception e) {
-      log.error(
-          "Failed to clear entity references for Document with URN {}: {}",
-          documentUrn,
-          e.getMessage());
-    }
+    final MetadataChangeProposal statusProposal = new MetadataChangeProposal();
+    statusProposal.setEntityUrn(documentUrn);
+    statusProposal.setEntityType(Constants.DOCUMENT_ENTITY_NAME);
+    statusProposal.setAspectName(Constants.STATUS_ASPECT_NAME);
+    statusProposal.setChangeType(ChangeType.UPSERT);
+    statusProposal.setAspect(GenericRecordUtils.serializeAspect(status));
+
+    entityClient.ingestProposal(opContext, statusProposal, false);
+    log.info("Soft deleted document {}", documentUrn);
   }
 
   /**
