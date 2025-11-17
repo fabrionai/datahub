@@ -55,6 +55,7 @@ export const Editor = forwardRef((props: EditorProps, ref) => {
         onKeyDown,
         hideBorder,
         uploadFileProps,
+        fixedBottomToolbar,
     } = props;
     const { manager, state, getContext } = useRemirror({
         extensions: () => [
