@@ -44,20 +44,20 @@ const colors = {
         1100: '#E5E2F8',
     },
 
-    // by default, our primary pallette is the same as our violet pallette
+    // by default, our primary pallette uses Fabrion red
     primary: {
-        0: '#F1F3FD',
-        100: '#CAC3F1',
-        200: '#B0A7EA',
-        300: '#8C7EE0',
-        400: '#7565DA',
-        500: '#533FD1', // primary value
-        600: '#4C39BE',
-        700: '#3B2D94',
-        800: '#2E2373',
-        900: '#231A58',
-        1000: '#E5E2F8',
-        1100: '#E5E2F8',
+        0: '#FFF1F2',
+        100: '#FFE5E6',
+        200: '#FFCCCE',
+        300: '#FF9BA0',
+        400: '#FF6A72',
+        500: '#ff161e', // primary value
+        600: '#E61219',
+        700: '#CC1015',
+        800: '#B30E12',
+        900: '#990C0F',
+        1000: '#FFE5E6',
+        1100: '#FFE5E6',
     },
 
     green: {

@@ -1,6 +1,6 @@
 {
-    "primary-color": "#533FD1",
-    "link-color": "#533FD1",
+    "primary-color": "#ff161e",
+    "link-color": "#ff161e",
     "layout-header-background": "white",
     "layout-header-color": "#434343",
     "layout-body-background": "white",
@@ -14,5 +14,5 @@
     "divider-color": "fade(black, 6%)",
     "disabled-color": "fade(black, 25%)",
     "steps-nav-arrow-color": "fade(black, 25%)",
-    "highlight-color": "#ece9f8"
+    "highlight-color": "#ffe5e6"
 }

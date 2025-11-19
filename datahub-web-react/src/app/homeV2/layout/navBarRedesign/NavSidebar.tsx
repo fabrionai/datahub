@@ -46,6 +46,7 @@ import { EntityType } from '@src/types.generated';
 import { resolveRuntimePath } from '@utils/runtimeBasePath';
 
 import AcrylIcon from '@images/acryl-light-mark.svg?react';
+import ThemeToggle from '@app/homeV2/layout/navBarRedesign/ThemeToggle';
 
 const Container = styled.div`
     height: 100vh;
@@ -122,7 +123,11 @@ export const NavSidebar = () => {
 
     const customLogoUrl = appConfig.config.visualConfig.logoUrl;
     const hasCustomLogo = customLogoUrl && customLogoUrl !== DEFAULT_LOGO;
-    const logoComponent = hasCustomLogo ? <CustomLogo alt="logo" src={customLogoUrl} /> : <AcrylIcon />;
+    const logoComponent = hasCustomLogo ? (
+        <CustomLogo alt="logo" src={isCollapsed ? 'assets/logos/fabrion-icon-black.png' : 'assets/logos/fabrion-full.png'} />
+    ) : (
+        <AcrylIcon />
+    );
 
     const HelpContentMenuItems = themeConfig.content.menu.items.map((value) => ({
         title: value.label,
@@ -243,6 +248,11 @@ export const NavSidebar = () => {
                 type: NavBarMenuItemTypes.Custom,
                 key: 'spacer',
                 render: () => <Spacer />,
+            },
+            {
+                type: NavBarMenuItemTypes.Custom,
+                key: 'themeToggle',
+                render: () => <ThemeToggle isCollapsed={isCollapsed} />,
             },
             {
                 type: NavBarMenuItemTypes.Item,

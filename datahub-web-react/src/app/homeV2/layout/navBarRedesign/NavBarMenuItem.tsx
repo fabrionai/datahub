@@ -65,11 +65,11 @@ const StyledMenuItem = styled(Menu.Item)<{ isCollapsed?: boolean }>`
     &&.ant-menu-item-selected {
         background: linear-gradient(
             180deg,
-            rgba(83, 63, 209, 0.04) -3.99%,
-            rgba(112, 94, 228, 0.04) 53.04%,
-            rgba(112, 94, 228, 0.04) 100%
+            rgba(255, 22, 30, 0.04) -3.99%,
+            rgba(255, 56, 68, 0.04) 53.04%,
+            rgba(255, 56, 68, 0.04) 100%
         );
-        box-shadow: 0px 0px 0px 1px rgba(108, 71, 255, 0.08);
+        box-shadow: 0px 0px 0px 1px rgba(255, 22, 30, 0.08);
     }
 `;
 
