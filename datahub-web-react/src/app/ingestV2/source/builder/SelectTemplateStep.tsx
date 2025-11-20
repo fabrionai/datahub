@@ -14,6 +14,7 @@ const Container = styled.div`
     max-height: 82vh;
     display: flex;
     flex-direction: column;
+    background-color: ${(props) => props.theme.colors?.bgSurface || 'transparent'};
 `;
 
 const Section = styled.div`
@@ -21,6 +22,7 @@ const Section = styled.div`
     flex-direction: column;
     padding-bottom: 12px;
     overflow: hidden;
+    background-color: ${(props) => props.theme.colors?.bgSurface || 'transparent'};
 `;
 
 const SearchBarContainer = styled.div`
@@ -31,17 +33,33 @@ const SearchBarContainer = styled.div`
 `;
 
 const StyledSearchBar = styled(Input)`
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 0px 30px 0px rgb(239 239 239);
-    border: 1px solid #e0e0e0;
-    margin: 0 0 15px 0px;
-    max-width: 300px;
-    font-size: 16px;
+    && {
+        background-color: ${(props) => props.theme.colors?.bgSurfaceDarker || 'white'};
+        border-radius: 8px;
+        box-shadow: 0px 0px 30px 0px rgb(239 239 239);
+        border: 1px solid ${(props) => props.theme.colors?.border || '#e0e0e0'};
+        margin: 0 0 15px 0px;
+        max-width: 300px;
+        font-size: 16px;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+        &::placeholder {
+            color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+        }
+
+        input {
+            background-color: ${(props) => props.theme.colors?.bgSurfaceDarker || 'white'};
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+
+        .ant-input-clear-icon {
+            color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+        }
+    }
 `;
 
 const StyledSearchOutlined = styled(SearchOutlined)`
-    color: #a9adbd;
+    color: ${(props) => props.theme.colors?.textSecondary || '#a9adbd'};
 `;
 
 const PlatformListContainer = styled.div`
@@ -59,7 +77,7 @@ const NoResultsMessage = styled.div`
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
-    color: #666;
+    color: ${(props) => props.theme.colors?.textSecondary || '#666'};
     font-size: 16px;
     text-align: center;
 `;

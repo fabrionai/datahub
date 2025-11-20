@@ -34,11 +34,85 @@ const SourceContainer = styled.div`
 const PaginationContainer = styled.div`
     display: flex;
     justify-content: center;
+
+    .ant-pagination-item {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+
+        a {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+
+        &:hover {
+            border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+            a {
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-item-active {
+        background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+        border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+        a {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+        }
+
+        &:hover {
+            background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+            border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+            a {
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-prev,
+    .ant-pagination-next {
+        button {
+            background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
+            border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+            &:hover {
+                border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-disabled {
+        button {
+            background-color: ${(props) => props.theme.colors?.bgDisabled || '#f5f5f5'};
+            border-color: ${(props) => props.theme.colors?.borderDisabled || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+
+            &:hover {
+                border-color: ${(props) => props.theme.colors?.borderDisabled || '#d9d9d9'};
+                color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+            }
+        }
+    }
 `;
 
-const PolicyName = styled.span`
+const PolicyName = styled.span<{ $editable?: boolean }>`
     cursor: pointer;
     font-weight: 700;
+    color: ${(props) => {
+        // If theme colors are available (dark mode), use them
+        if (props.theme.colors?.text) {
+            return props.$editable ? props.theme.colors.text : props.theme.colors.textSecondary;
+        }
+        // Otherwise use original light mode colors
+        return props.$editable ? '#000000' : '#8C8C8C';
+    }};
+`;
+
+const PolicyDescription = styled.span`
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
 `;
 
 const PoliciesType = styled(Tag)`
@@ -55,6 +129,12 @@ const ActorTag = styled(Tag)`
     }
 `;
 
+const StyledEmpty = styled(Empty)`
+    .ant-empty-description {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
+
 const ActionButtonContainer = styled.div`
     display: flex;
     justify-content: right;
@@ -62,6 +142,51 @@ const ActionButtonContainer = styled.div`
 
 const EditPolicyButton = styled(Button)`
     margin-right: 16px;
+`;
+
+const StyledButton = styled(Button)`
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+        &:hover {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.04)'};
+        }
+    }
+`;
+
+const DeactivateButton = styled(Button)<{ $editable?: boolean }>`
+    && {
+        width: 100px;
+        color: ${(props) => {
+            if (!props.$editable) {
+                // Use textTertiary for better visibility in dark mode (#94a3b8 instead of #71717a)
+                return props.theme.colors?.textTertiary || ANTD_GRAY[6];
+            }
+            return 'red';
+        }};
+    }
+`;
+
+const ActivateButton = styled(Button)<{ $editable?: boolean }>`
+    && {
+        width: 100px;
+        color: ${(props) => {
+            if (!props.$editable) {
+                // Use textTertiary for better visibility in dark mode (#94a3b8 instead of #71717a)
+                return props.theme.colors?.textTertiary || ANTD_GRAY[6];
+            }
+            return 'green';
+        }};
+    }
+`;
+
+const DeleteButton = styled(Button)`
+    && {
+        &.ant-btn-dangerous:disabled {
+            color: ${(props) => props.theme.colors?.textTertiary || ANTD_GRAY[6]};
+        }
+    }
 `;
 
 const PageContainer = styled.span`
@@ -223,7 +348,7 @@ export const ManagePolicies = () => {
                 return (
                     <PolicyName
                         onClick={() => onViewPolicy(record.policy)}
-                        style={{ color: record?.editable ? '#000000' : '#8C8C8C' }}
+                        $editable={record?.editable}
                     >
                         {record?.name}
                     </PolicyName>
@@ -243,7 +368,7 @@ export const ManagePolicies = () => {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
-            render: (description: string) => description || '',
+            render: (description: string) => <PolicyDescription>{description || ''}</PolicyDescription>,
         },
         {
             title: 'Actors',
@@ -285,8 +410,9 @@ export const ManagePolicies = () => {
                         EDIT
                     </EditPolicyButton>
                     {record?.state === PolicyState.Active ? (
-                        <Button
+                        <DeactivateButton
                             disabled={!record?.editable}
+                            $editable={record?.editable}
                             onClick={() => {
                                 onToggleActiveDuplicate(record?.policy);
                                 analytics.event({
@@ -294,13 +420,13 @@ export const ManagePolicies = () => {
                                     policyUrn: record?.policy?.urn,
                                 });
                             }}
-                            style={{ color: record?.editable ? 'red' : ANTD_GRAY[6], width: 100 }}
                         >
                             DEACTIVATE
-                        </Button>
+                        </DeactivateButton>
                     ) : (
-                        <Button
+                        <ActivateButton
                             disabled={!record?.editable}
+                            $editable={record?.editable}
                             onClick={() => {
                                 onToggleActiveDuplicate(record?.policy);
                                 analytics.event({
@@ -308,12 +434,11 @@ export const ManagePolicies = () => {
                                     policyUrn: record?.policy?.urn,
                                 });
                             }}
-                            style={{ color: record?.editable ? 'green' : ANTD_GRAY[6], width: 100 }}
                         >
                             ACTIVATE
-                        </Button>
+                        </ActivateButton>
                     )}
-                    <Button
+                    <DeleteButton
                         disabled={!record?.editable}
                         onClick={() => onRemovePolicy(record?.policy)}
                         type="text"
@@ -321,7 +446,7 @@ export const ManagePolicies = () => {
                         danger
                     >
                         <DeleteOutlined />
-                    </Button>
+                    </DeleteButton>
                 </ActionButtonContainer>
             ),
         },
@@ -355,14 +480,14 @@ export const ManagePolicies = () => {
             <SourceContainer>
                 <TabToolbar>
                     <div>
-                        <Button
+                        <StyledButton
                             id={POLICIES_CREATE_POLICY_ID}
                             type="text"
                             onClick={onClickNewPolicy}
                             data-testid="add-policy-button"
                         >
                             <PlusOutlined /> Create new policy
-                        </Button>
+                        </StyledButton>
                     </div>
                     <SelectContainer>
                         <SearchBar
@@ -408,7 +533,7 @@ export const ManagePolicies = () => {
                     dataSource={tableData}
                     rowKey="urn"
                     locale={{
-                        emptyText: <Empty description="No Policies!" image={Empty.PRESENTED_IMAGE_SIMPLE} />,
+                        emptyText: <StyledEmpty description="No Policies!" image={Empty.PRESENTED_IMAGE_SIMPLE} />,
                     }}
                     pagination={false}
                 />

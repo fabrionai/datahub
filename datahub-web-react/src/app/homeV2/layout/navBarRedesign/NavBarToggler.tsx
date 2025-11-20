@@ -15,16 +15,16 @@ const Toggler = styled.button<{ $isCollapsed?: boolean }>`
     display: flex;
     transition: left 250ms ease-in-out;
     transition: background 300ms ease-in;
-    background: ${colors.gray[1600]};
+    background: ${(props) => props.theme.colors?.bgSurfaceDarker || colors.gray[1600]};
 
-    &: hover {
-        background: #ebecf080;
+    &:hover {
+        background: ${(props) => props.theme.colors?.bgSurfaceNewNav || '#ebecf080'};
     }
 
     & svg {
         height: 20px;
         width: 20px;
-        color: ${colors.gray[1800]};
+        color: ${(props) => props.theme.colors?.icon || colors.gray[1800]};
     }
 `;
 

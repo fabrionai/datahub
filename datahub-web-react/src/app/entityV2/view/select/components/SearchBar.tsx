@@ -11,7 +11,9 @@ import { useShowNavBarRedesign } from '@app/useShowNavBarRedesign';
 const StyledInput = styled(Input)<{ $isShowNavBarRedesign?: boolean; $minWidth?: string; $fullWidth?: boolean }>`
     ${(props) => !props.$isShowNavBarRedesign && 'max-width: 330px;'}
     background-color: ${(props) =>
-        props.$isShowNavBarRedesign ? 'white' : REDESIGN_COLORS.BACKGROUND_OVERLAY_BLACK_SEARCH};
+        props.$isShowNavBarRedesign
+            ? props.theme.colors?.bgSurface || 'white'
+            : REDESIGN_COLORS.BACKGROUND_OVERLAY_BLACK_SEARCH};
     border-radius: ${(props) => (props.$isShowNavBarRedesign ? '8px' : '7px')};
 
     ${(props) => !props.$isShowNavBarRedesign && 'border: unset;'}
@@ -23,7 +25,7 @@ const StyledInput = styled(Input)<{ $isShowNavBarRedesign?: boolean; $minWidth?:
         ${props.$fullWidth && 'width: 100%;'}
         height: 40px;
         border: 1px solid;
-        border-color: ${colors.gray[100]};
+        border-color: ${props.theme.colors?.border || colors.gray[100]};
         box-shadow: 0px 1px 2px 0px rgba(33, 23, 95, 0.07);
 
         &&:hover {
@@ -33,22 +35,22 @@ const StyledInput = styled(Input)<{ $isShowNavBarRedesign?: boolean; $minWidth?:
         &.ant-input-affix-wrapper-focused {
             border-color: ${props.theme.styles['primary-color']};
         }
-        
+
         & .ant-input::placeholder {
-            color: ${colors.gray[1800]};
+            color: ${props.theme.colors?.textTertiary || colors.gray[1800]};
         }
 
         & .ant-input-prefix {
             margin-right: 8px;
             svg {
-                color: ${colors.gray[1800]}
+                color: ${props.theme.colors?.icon || colors.gray[1800]}
             }
         }
     `}
 
     & .ant-input {
         background-color: transparent;
-        ${(props) => !props.$isShowNavBarRedesign && `color: ${colors.gray[1800]};`}
+        color: ${(props) => props.theme.colors?.text || colors.gray[1800]};
         ${(props) => props.$isShowNavBarRedesign && 'font-size: 14px;'}
     }
 `;

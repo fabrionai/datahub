@@ -7,10 +7,12 @@ const ExploreForEntity = styled.span`
     font-weight: light;
     font-size: 16px;
     padding: 5px 0;
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
 `;
 
 const ExploreForEntityText = styled.span`
     margin-left: 10px;
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
 `;
 
 const ViewAllContainer = styled.div`
@@ -23,8 +25,11 @@ const ViewAllContainer = styled.div`
 const ReturnKey = styled(Typography.Text)`
     & kbd {
         border: none;
+        background-color: ${(props) => props.theme.colors?.bgSurfaceDarker || '#f5f5f5'};
+        color: ${(props) => props.theme.colors?.textSecondary || 'inherit'};
     }
     font-size: 12px;
+    color: ${(props) => props.theme.colors?.textSecondary || 'inherit'};
 `;
 
 function ViewAllSearchItem({ searchTarget: searchText }: { searchTarget?: string }) {

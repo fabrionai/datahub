@@ -14,10 +14,12 @@ export interface TagDetailsProps {
 
 const SectionContainer = styled.div`
     margin-bottom: 24px;
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
 `;
 
 const FormSection = styled.div`
     margin-bottom: 16px;
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
 `;
 
 /**

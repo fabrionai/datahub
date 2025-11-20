@@ -11,16 +11,17 @@ import { RecipeField } from '@app/ingest/source/builder/RecipeForm/common';
 export const Label = styled.div`
     font-weight: bold;
     padding-bottom: 8px;
+    color: ${(props) => props.theme.colors?.text};
 `;
 
 export const StyledButton = styled(Button)`
-    color: ${ANTD_GRAY[7]};
+    color: ${(props) => props.theme.colors?.text || ANTD_GRAY[7]};
     margin: 10px 0 0 30px;
     width: calc(100% - 72px);
 `;
 
 export const StyledQuestion = styled(QuestionCircleOutlined)`
-    color: rgba(0, 0, 0, 0.45);
+    color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
     margin-left: 4px;
 `;
 
@@ -33,7 +34,7 @@ const SectionWrapper = styled.div`
     display: flex;
     padding: 8px 0 0 30px;
     &:hover {
-        background-color: ${ANTD_GRAY[2]};
+        background-color: ${(props) => props.theme.colors?.bgHover || ANTD_GRAY[2]};
     }
 `;
 

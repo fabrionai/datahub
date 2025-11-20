@@ -7,6 +7,9 @@ import { OwnershipTypeEntity } from '@types';
 const DescriptionText = styled(Typography.Text)`
     font-size: 12px;
     font-weight: 400;
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
 `;
 
 type Props = {

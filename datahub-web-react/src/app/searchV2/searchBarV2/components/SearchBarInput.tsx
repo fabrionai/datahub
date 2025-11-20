@@ -14,7 +14,41 @@ const PRE_NAV_BAR_REDESIGN_SEARCHBAR_BACKGROUND = '#343444';
 
 const StyledSearchBar = styled(SearchBar)<{ $isShowNavBarRedesign?: boolean }>`
     border-width: 2px !important;
-    border-color: ${colors.gray[100]};
+    border-color: ${(props) => props.theme.colors?.border || colors.gray[100]} !important;
+    background-color: ${(props) => props.theme.colors?.bg || '#fff'} !important;
+
+    &.ant-input-affix-wrapper {
+        background-color: ${(props) => props.theme.colors?.bg || '#fff'} !important;
+        border-color: ${(props) => props.theme.colors?.border || colors.gray[100]} !important;
+    }
+
+    .ant-input-affix-wrapper,
+    input.ant-input {
+        background-color: ${(props) => props.theme.colors?.bg || '#fff'} !important;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    input.ant-input::placeholder {
+        color: ${(props) => props.theme.colors?.textTertiary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-within,
+    &.ant-input-affix-wrapper:hover,
+    &.ant-input-affix-wrapper:focus,
+    &.ant-input-affix-wrapper:focus-within,
+    &.ant-input-affix-wrapper-focused {
+        border-color: ${(props) => props.theme.styles['primary-color']} !important;
+    }
+
+    .ant-input-clear-icon {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+
+    .ant-input-prefix {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
 
     ${(props) =>
         !props.$isShowNavBarRedesign &&

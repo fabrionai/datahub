@@ -38,7 +38,7 @@ const StyledTabsPrimary = styled(AntTabs)<{
     .ant-tabs-tab {
         padding: 8px 0;
         font-size: 14px;
-        color: ${colors.gray[600]};
+        color: ${(props) => props.theme.colors?.textSecondary || colors.gray[600]};
     }
 
     ${({ $addPaddingLeft }) =>
@@ -60,14 +60,14 @@ const StyledTabsPrimary = styled(AntTabs)<{
                 display: none;
             }
         `}
-    ${({ $stickyHeader }) =>
+    ${({ $stickyHeader, theme }) =>
         $stickyHeader &&
         `
             .ant-tabs-nav {
                 position: sticky;
                 top: 0;
                 z-index: 10;
-                background-color: white;
+                background-color: ${theme.colors?.bgSurface || 'white'};
             }
         `}
     .ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -116,7 +116,7 @@ const StyledTabsSecondary = styled(AntTabs)<{
         padding: 8px 8px;
         border-radius: 4px;
         font-size: 14px;
-        color: ${colors.gray[600]};
+        color: ${(props) => props.theme.colors?.textSecondary || colors.gray[600]};
     }
 
     ${({ $addPaddingLeft }) =>
@@ -186,7 +186,7 @@ const StyledTabsSecondary = styled(AntTabs)<{
                 left: 0;
                 right: 0;
                 height: 1px;
-                background-color: ${colors.gray[200]};
+                background-color: ${(props: any) => props.theme.colors?.border || colors.gray[200]};
             }
         `}
 
@@ -204,7 +204,7 @@ const TabViewWrapper = styled.div<{ $disabled?: boolean }>`
     display: flex;
     align-items: center;
     gap: 4px;
-    ${({ $disabled }) => $disabled && `color: ${colors.gray[1800]};`}
+    ${({ $disabled, theme }) => $disabled && `color: ${theme.colors?.textDisabled || colors.gray[1800]};`}
 `;
 
 function TabView({ tab }: { tab: Tab }) {

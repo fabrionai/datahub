@@ -12,7 +12,6 @@ const checkboxBackgroundDefault = {
 const checkboxHoverColors = {
     default: colors.gray[100],
     error: colors.red[100],
-    checked: colors.violet[100],
 };
 
 export function getCheckboxColor(checked: boolean, error: string, disabled: boolean, mode: 'background' | undefined) {
@@ -24,9 +23,13 @@ export function getCheckboxColor(checked: boolean, error: string, disabled: bool
     return mode === 'background' ? checkboxBackgroundDefault.default : colors.gray[1800];
 }
 
-export function getCheckboxHoverBackgroundColor(checked: boolean, error: string) {
+export function getCheckboxHoverBackgroundColor(checked: boolean, error: string, primaryColor?: string) {
     if (error) return checkboxHoverColors.error;
-    if (checked) return checkboxHoverColors.checked;
+    if (checked) {
+        // Create a lighter version of the primary color for hover state
+        // For now, return a generic light background that works with any primary color
+        return 'rgba(255, 22, 30, 0.1)'; // Light red tint for primary hover
+    }
     return checkboxHoverColors.default;
 }
 

@@ -38,6 +38,7 @@ const FiltersContainer = styled.div`
 const FiltersHeader = styled.div`
     font-size: 14px;
     font-weight: 600;
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
 
     padding-left: 20px;
     padding-right: 4px;

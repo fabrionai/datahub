@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 import { getRadioBorderColor, getRadioCheckmarkColor } from '@components/components/Radio/utils';
-import { formLabelTextStyles } from '@components/components/commonStyles';
-import { borders, colors, radius, spacing } from '@components/theme';
+import { borders, colors, radius, spacing, typography } from '@components/theme';
 
 export const RadioWrapper = styled.div<{ disabled: boolean; error: string }>(({ disabled, error, theme }) => ({
     position: 'relative',
@@ -10,7 +9,7 @@ export const RadioWrapper = styled.div<{ disabled: boolean; error: string }>(({ 
     width: '20px',
     height: '20px',
     border: `${borders['2px']} ${getRadioBorderColor(disabled, error)}`,
-    backgroundColor: colors.white,
+    backgroundColor: theme.colors?.bgSurface || colors.white,
     borderRadius: radius.full,
     display: 'flex',
     justifyContent: 'flex-start',
@@ -20,18 +19,20 @@ export const RadioWrapper = styled.div<{ disabled: boolean; error: string }>(({ 
     transition: 'border 0.3s ease, outline 0.3s ease',
     '&:hover': {
         border: `${borders['2px']} ${!disabled && !error ? theme.styles['primary-color'] : getRadioBorderColor(disabled, error)}`,
-        outline: !disabled && !error ? `${borders['2px']} ${colors.gray[200]}` : 'none',
+        outline: !disabled && !error ? `${borders['2px']} ${theme.colors?.border || colors.gray[200]}` : 'none',
     },
 }));
 
 export const RadioBase = styled.div({});
 
-export const Label = styled.div({
-    ...formLabelTextStyles,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-});
+export const Label = styled.div`
+    font-weight: ${typography.fontWeights.normal};
+    font-size: ${typography.fontSizes.md};
+    color: ${(props) => props.theme.colors?.text || colors.gray[600]};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 
 export const RadioLabel = styled.div({
     display: 'flex',
@@ -55,11 +56,11 @@ export const RadioHoverState = styled.div({
 });
 
 export const Checkmark = styled.div<{ checked: boolean; disabled: boolean; error: string }>(
-    ({ checked, disabled, error }) => ({
+    ({ checked, disabled, error, theme }) => ({
         width: 'calc(100% - 6px)',
         height: 'calc(100% - 6px)',
         borderRadius: radius.full,
-        background: getRadioCheckmarkColor(checked, disabled, error),
+        background: getRadioCheckmarkColor(checked, disabled, error, theme.styles?.['primary-color']),
         display: checked ? 'inline-block' : 'none',
         position: 'absolute',
         top: '50%',

@@ -92,6 +92,7 @@ const ArrowButton = styled(Button)<{ isOpen: boolean }>`
     margin-left: 4px;
     background-color: transparent;
     height: 24px;
+    color: ${(props) => props.theme.colors.text};
 
     svg {
         height: 12px;
@@ -102,6 +103,7 @@ const ArrowButton = styled(Button)<{ isOpen: boolean }>`
     &:focus,
     &:active {
         background-color: transparent;
+        color: ${(props) => props.theme.colors.text};
     }
 
     ${(props) =>

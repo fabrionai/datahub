@@ -9,7 +9,7 @@ export const SidebarWrapper = styled.div<{ width: number; $isShowNavBarRedesign?
     width: ${(props) => props.width}px;
     min-width: ${(props) => props.width}px;
     display: ${(props) => (props.width ? 'block' : 'none')};
-    background-color: #fff;
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
     border-radius: ${(props) =>
         props.$isShowNavBarRedesign ? props.theme.styles['border-radius-navbar-redesign'] : '8px'};
     ${(props) => !props.$isShowNavBarRedesign && 'margin-bottom: 12px;'}
@@ -35,7 +35,7 @@ export function RotatingTriangle({
             size="small"
             type="ghost"
             deg={isOpen ? 90 : 0}
-            icon={<ChevronRightIcon style={{ color: 'black' }} />}
+            icon={<ChevronRightIcon style={{ color: 'currentColor' }} />}
             onClick={onClick}
             data-testid={dataTestId}
         />

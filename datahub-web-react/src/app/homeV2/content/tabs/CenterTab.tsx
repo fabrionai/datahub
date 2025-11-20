@@ -1,11 +1,11 @@
 import { Tooltip } from '@components';
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { useTheme } from 'styled-components/macro';
 
 import { ANTD_GRAY } from '@app/entity/shared/constants';
 import { CountBadge } from '@app/homeV2/content/tabs/CountBadge';
 
-const Tab = styled.div<{ selected: boolean; disabled: boolean }>`
+const Tab = styled.div<{ selected: boolean; disabled: boolean; $textColor?: string }>`
     font-size: 14px;
     line-height: 22px;
     padding: 10px 16px;
@@ -13,15 +13,14 @@ const Tab = styled.div<{ selected: boolean; disabled: boolean }>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    ${(props) => !props.selected && `color: ${ANTD_GRAY[9]};`}
-    ${(props) => props.disabled && `color: ${ANTD_GRAY[6]};`}
+    color: ${(props) => props.$textColor || ANTD_GRAY[9]} !important;
     ${(props) => props.selected && `background-color: ${props.theme.styles['primary-color']};`}
-    ${(props) => props.selected && 'color: #ffffff;'}
+    ${(props) => props.selected && 'color: #ffffff !important;'}
     ${(props) =>
         !props.disabled &&
         `:hover {
             cursor: pointer;
-            ${!props.selected && `color: ${props.theme.styles['primary-color']};`}
+            ${!props.selected && `color: ${props.theme.styles['primary-color']} !important;`}
         }`}
 `;
 
@@ -46,6 +45,17 @@ type Props = {
 };
 
 export const CenterTab = ({ id, name, description, icon: Icon, selected, count, disabled = false, onClick }: Props) => {
+    const theme = useTheme() as any;
+
+    // Debug: Log theme to console
+    console.log('CenterTab theme:', {
+        id: theme?.id,
+        textSecondary: theme?.colors?.textSecondary,
+        hasColors: !!theme?.colors,
+    });
+
+    const textColor = !selected && !disabled ? (theme?.colors?.textSecondary || ANTD_GRAY[9]) : undefined;
+
     return (
         <Tooltip title={description} placement="bottom" showArrow={false}>
             <Tab
@@ -54,6 +64,7 @@ export const CenterTab = ({ id, name, description, icon: Icon, selected, count, 
                 onClick={() => (!disabled ? onClick() : () => null)}
                 selected={selected}
                 disabled={disabled}
+                $textColor={textColor}
             >
                 {Icon && <Icon style={tabIconStyle} />}
                 <Name>{name}</Name>

@@ -14,6 +14,53 @@ const ControlsContainer = styled.div`
     margin-top: 8px;
 `;
 
+const StyledFormItem = styled(Form.Item)`
+    .ant-form-item-label > label {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-typography {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-input {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'} !important;
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'} !important;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-input::placeholder {
+        color: ${(props) => props.theme.colors?.textTertiary || 'rgba(0, 0, 0, 0.25)'} !important;
+    }
+`;
+
+const StyledCollapse = styled(Collapse)`
+    && .ant-collapse-item {
+        border-color: ${(props) => props.theme.colors?.border || 'transparent'};
+    }
+
+    && .ant-collapse-header {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+
+    && .ant-collapse-content {
+        background-color: transparent;
+        border-color: ${(props) => props.theme.colors?.border || 'transparent'};
+    }
+
+    .ant-collapse-arrow svg {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-typography {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-typography-secondary {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+`;
+
 const ExtraEnvKey = 'extra_env_vars';
 const ExtraReqKey = 'extra_pip_requirements';
 const ExtraPluginKey = 'extra_pip_plugins';
@@ -182,7 +229,7 @@ export const NameSourceStep = ({
     return (
         <>
             <RequiredFieldForm layout="vertical">
-                <Form.Item required label={<Text>Name</Text>} style={{ marginBottom: 16 }}>
+                <StyledFormItem required label={<Text>Name</Text>} style={{ marginBottom: 16 }}>
                     <Typography.Paragraph>Give this data source a name</Typography.Paragraph>
                     <Input
                         data-testid="source-name-input"
@@ -192,7 +239,7 @@ export const NameSourceStep = ({
                         onChange={(event) => setName(event.target.value)}
                         onBlur={(event) => handleBlur(event, setName)}
                     />
-                </Form.Item>
+                </StyledFormItem>
                 <OwnersSection
                     selectedOwnerUrns={selectedOwnerUrns}
                     setSelectedOwnerUrns={setSelectedOwnerUrns}
@@ -201,10 +248,10 @@ export const NameSourceStep = ({
                     sourceRefetch={sourceRefetch}
                     isEditForm={isEditing}
                 />
-                <Collapse ghost>
+                <StyledCollapse ghost>
                     <Collapse.Panel header={<Typography.Text type="secondary">Advanced</Typography.Text>} key="1">
                         {/* NOTE: Executor ID is OSS-only, used by actions pod */}
-                        <Form.Item label={<Typography.Text strong>Executor ID</Typography.Text>}>
+                        <StyledFormItem label={<Typography.Text strong>Executor ID</Typography.Text>}>
                             <Typography.Paragraph>
                                 Provide the ID of the executor that should execute this ingestion recipe. This ID is
                                 used to route execution requests of the recipe to the executor of the same ID. The
@@ -217,8 +264,8 @@ export const NameSourceStep = ({
                                 onChange={(event) => setExecutorId(event.target.value)}
                                 onBlur={(event) => handleBlur(event, setExecutorId)}
                             />
-                        </Form.Item>
-                        <Form.Item label={<Typography.Text strong>CLI Version</Typography.Text>}>
+                        </StyledFormItem>
+                        <StyledFormItem label={<Typography.Text strong>CLI Version</Typography.Text>}>
                             <Typography.Paragraph>
                                 Advanced: Provide a custom CLI version to use for ingestion.
                             </Typography.Paragraph>
@@ -230,8 +277,8 @@ export const NameSourceStep = ({
                                 onChange={(event) => setVersion(event.target.value)}
                                 onBlur={(event) => handleBlur(event, setVersion)}
                             />
-                        </Form.Item>
-                        <Form.Item label={<Typography.Text strong>Debug Mode</Typography.Text>}>
+                        </StyledFormItem>
+                        <StyledFormItem label={<Typography.Text strong>Debug Mode</Typography.Text>}>
                             <Typography.Paragraph>
                                 Advanced: Turn on debug mode in order to get more verbose logs.
                             </Typography.Paragraph>
@@ -239,8 +286,8 @@ export const NameSourceStep = ({
                                 checked={state.config?.debugMode || false}
                                 onChange={(event) => setDebugMode(event.target.checked)}
                             />
-                        </Form.Item>
-                        <Form.Item label={<Typography.Text strong>Extra Enviroment Variables</Typography.Text>}>
+                        </StyledFormItem>
+                        <StyledFormItem label={<Typography.Text strong>Extra Enviroment Variables</Typography.Text>}>
                             <Typography.Paragraph>
                                 Advanced: Set extra environment variables to an ingestion execution
                             </Typography.Paragraph>
@@ -251,8 +298,8 @@ export const NameSourceStep = ({
                                 onChange={(event) => setExtraEnvs(event.target.value)}
                                 onBlur={(event) => handleBlur(event, setExtraEnvs)}
                             />
-                        </Form.Item>
-                        <Form.Item label={<Typography.Text strong>Extra DataHub plugins</Typography.Text>}>
+                        </StyledFormItem>
+                        <StyledFormItem label={<Typography.Text strong>Extra DataHub plugins</Typography.Text>}>
                             <Typography.Paragraph>
                                 Advanced: Set extra DataHub plugins for an ingestion execution
                             </Typography.Paragraph>
@@ -263,8 +310,8 @@ export const NameSourceStep = ({
                                 onChange={(event) => setExtraDataHubPlugins(event.target.value)}
                                 onBlur={(event) => handleBlur(event, setExtraDataHubPlugins)}
                             />
-                        </Form.Item>
-                        <Form.Item label={<Typography.Text strong>Extra Pip Libraries</Typography.Text>}>
+                        </StyledFormItem>
+                        <StyledFormItem label={<Typography.Text strong>Extra Pip Libraries</Typography.Text>}>
                             <Typography.Paragraph>
                                 Advanced: Add extra pip libraries for an ingestion execution
                             </Typography.Paragraph>
@@ -275,9 +322,9 @@ export const NameSourceStep = ({
                                 onChange={(event) => setExtraReqs(event.target.value)}
                                 onBlur={(event) => handleBlur(event, setExtraReqs)}
                             />
-                        </Form.Item>
+                        </StyledFormItem>
                     </Collapse.Panel>
-                </Collapse>
+                </StyledCollapse>
             </RequiredFieldForm>
             <ControlsContainer>
                 <Button variant="outline" color="gray" onClick={prev}>

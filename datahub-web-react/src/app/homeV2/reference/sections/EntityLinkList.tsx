@@ -14,7 +14,7 @@ import { Entity, EntityType } from '@types';
 
 const Title = styled.div<{ hasAction: boolean }>`
     ${(props) => props.hasAction && `:hover { cursor: pointer; }`}
-    color: #403d5c;
+    color: ${(props) => props.theme.colors?.text || '#403d5c'};
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 8px;

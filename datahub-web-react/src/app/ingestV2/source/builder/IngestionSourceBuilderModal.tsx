@@ -19,6 +19,14 @@ const StepsContainer = styled.div`
     margin-right: 20px;
     margin-left: 20px;
     margin-bottom: 40px;
+
+    .ant-steps-item-title {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-steps-item-description {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
 `;
 
 /**

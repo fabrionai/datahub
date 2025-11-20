@@ -40,6 +40,59 @@ export const PostsPaginationContainer = styled.div`
 
 const PaginationInfo = styled(Typography.Text)`
     padding: 0px;
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+`;
+
+const StyledButton = styled(Button)`
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+        .anticon {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
+`;
+
+const StyledEmpty = styled(Empty)`
+    .ant-empty-description {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
+
+const StyledPagination = styled(Pagination)`
+    .ant-pagination-item {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+
+        a {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
+
+    .ant-pagination-item-active {
+        background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+        border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+        a {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+        }
+    }
+
+    .ant-pagination-prev, .ant-pagination-next {
+        .ant-pagination-item-link {
+            background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+            border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
+
+    .ant-pagination-disabled {
+        .ant-pagination-item-link {
+            color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+        }
+    }
 `;
 
 const DEFAULT_PAGE_SIZE = 10;
@@ -149,9 +202,9 @@ export const PostList = () => {
             {error && <Message type="error" content="Failed to load Posts! An unexpected error occurred." />}
             <PostsContainer>
                 <TabToolbar>
-                    <Button data-testid="posts-create-post-v2" type="text" onClick={() => setIsCreatingPost(true)}>
+                    <StyledButton data-testid="posts-create-post-v2" type="text" onClick={() => setIsCreatingPost(true)}>
                         <PlusOutlined /> New
-                    </Button>
+                    </StyledButton>
                     <SearchBar
                         initialQuery={query || ''}
                         placeholderText="Search..."
@@ -175,7 +228,7 @@ export const PostList = () => {
                     dataSource={tableData}
                     rowKey="urn"
                     pagination={false}
-                    locale={{ emptyText: <Empty description="No posts!" image={Empty.PRESENTED_IMAGE_SIMPLE} /> }}
+                    locale={{ emptyText: <StyledEmpty description="No posts!" image={Empty.PRESENTED_IMAGE_SIMPLE} /> }}
                 />
                 {totalPosts > pageSize && (
                     <PostsPaginationContainer>
@@ -185,7 +238,7 @@ export const PostList = () => {
                             </b>{' '}
                             of <b>{totalPosts}</b>
                         </PaginationInfo>
-                        <Pagination
+                        <StyledPagination
                             current={page}
                             pageSize={pageSize}
                             total={totalPosts}

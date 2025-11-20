@@ -24,7 +24,7 @@ export const getOptionLabelStyle = (
         alignItems: 'center',
         width: applyHoverWidth ? '100%' : 'auto',
         '&:hover': {
-            backgroundColor: isSelected ? colors.violet[0] : colors.gray[1500],
+            backgroundColor: isSelected ? 'rgba(255, 22, 30, 0.05)' : colors.gray[1500],
         },
     };
 };
@@ -121,7 +121,7 @@ export const getSelectStyle = (props: SelectStyleProps) => {
             color: colors.gray[1900],
         },
 
-        // Open Styles
+        // Open Styles - note: outline color will be overridden by theme in SelectBase component
         ...(isOpen
             ? {
                   borderColor: colors.gray[1800],

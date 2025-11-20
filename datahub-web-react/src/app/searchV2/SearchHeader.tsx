@@ -1,7 +1,7 @@
 import { ArrowRight } from '@phosphor-icons/react';
 import { Button, Layout } from 'antd';
 import React, { useContext, useState } from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 import { REDESIGN_COLORS } from '@app/entityV2/shared/constants';
 import { useNavBarContext } from '@app/homeV2/layout/navBarRedesign/NavBarContext';
@@ -19,10 +19,10 @@ import { EntityRegistry } from '@src/entityRegistryContext';
 
 import { AutoCompleteResultForEntity } from '@types';
 
-const getStyles = ($isShowNavBarRedesign?: boolean) => {
+const getStyles = ($isShowNavBarRedesign?: boolean, theme?: any) => {
     return {
         input: {
-            backgroundColor: $isShowNavBarRedesign ? 'white' : '#343444',
+            backgroundColor: $isShowNavBarRedesign ? (theme?.colors?.bg || 'white') : '#343444',
         },
         searchBox: {
             maxWidth: $isShowNavBarRedesign ? '100%' : 620,
@@ -156,7 +156,8 @@ export const SearchHeader = ({
     const showHomepageRedesign = useShowHomePageRedesign();
     const isHomePage = useIsHomePage();
     const hideNavToggler = showHomepageRedesign && isHomePage;
-    const styles = getStyles(isShowNavBarRedesign);
+    const theme = useTheme();
+    const styles = getStyles(isShowNavBarRedesign, theme);
 
     const showSearchBarAutocompleteRedesign = appConfig.config.featureFlags?.showSearchBarAutocompleteRedesign;
     const FinalSearchBar = showSearchBarAutocompleteRedesign ? SearchBarV2 : SearchBar;

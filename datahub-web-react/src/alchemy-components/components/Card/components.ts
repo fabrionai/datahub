@@ -3,30 +3,30 @@ import styled from 'styled-components';
 import { colors, radius, spacing, typography } from '@src/alchemy-components/theme';
 import { IconAlignmentOptions } from '@src/alchemy-components/theme/config';
 
-export const CardContainer = styled.div<{ isClickable?: boolean; width?: string; maxWidth?: string; height?: string }>(
-    ({ isClickable, width, maxWidth, height }) => ({
-        border: `1px solid ${colors.gray[100]}`,
-        borderRadius: radius.lg,
-        padding: spacing.md,
-        display: 'flex',
-        flex: `1 1 ${maxWidth}`,
-        minWidth: '150px',
-        boxShadow: '0px 1px 2px 0px rgba(33, 23, 95, 0.07)',
-        backgroundColor: colors.white,
-        flexDirection: 'column',
-        gap: spacing.md,
-        maxWidth,
-        width,
-        height,
+export const CardContainer = styled.div<{ isClickable?: boolean; width?: string; maxWidth?: string; height?: string }>`
+    border: 1px solid ${({ theme }) => theme.colors?.border || colors.gray[100]};
+    border-radius: ${radius.lg};
+    padding: ${spacing.md};
+    display: flex;
+    flex: ${({ maxWidth }) => (maxWidth ? `1 1 ${maxWidth}` : '1 1 auto')};
+    min-width: 150px;
+    box-shadow: 0px 1px 2px 0px rgba(33, 23, 95, 0.07);
+    background-color: ${({ theme }) => theme.colors?.bgSurface || colors.white};
+    flex-direction: column;
+    gap: ${spacing.md};
+    ${({ maxWidth }) => maxWidth && `max-width: ${maxWidth};`}
+    ${({ width }) => width && `width: ${width};`}
+    ${({ height }) => height && `height: ${height};`}
 
-        '&:hover': isClickable
-            ? {
-                  border: `1px solid ${({ theme }) => theme.styles['primary-color']}`,
-                  cursor: 'pointer',
-              }
-            : {},
-    }),
-);
+    ${({ isClickable, theme }) =>
+        isClickable &&
+        `
+        &:hover {
+            border: 1px solid ${theme.styles['primary-color']};
+            cursor: pointer;
+        }
+    `}
+`;
 
 export const Header = styled.div<{ iconAlignment?: IconAlignmentOptions }>(({ iconAlignment }) => ({
     display: 'flex',
@@ -43,14 +43,15 @@ export const TitleContainer = styled.div({
     width: '100%',
 });
 
-export const Title = styled.div<{ $isEmpty?: boolean }>(({ $isEmpty }) => ({
-    fontSize: typography.fontSizes.lg,
-    fontWeight: typography.fontWeights.bold,
-    color: $isEmpty ? colors.gray[1800] : colors.gray[600],
-    display: 'flex',
-    alignItems: 'center',
-    gap: spacing.xsm,
-}));
+export const Title = styled.div<{ $isEmpty?: boolean }>`
+    font-size: ${typography.fontSizes.lg};
+    font-weight: ${typography.fontWeights.bold};
+    color: ${({ $isEmpty, theme }) =>
+        $isEmpty ? theme.colors?.textDisabled || colors.gray[1800] : theme.colors?.text || colors.gray[600]};
+    display: flex;
+    align-items: center;
+    gap: ${spacing.xsm};
+`;
 
 export const SubTitleContainer = styled.div({
     display: 'flex',
@@ -58,8 +59,8 @@ export const SubTitleContainer = styled.div({
     alignItems: 'center',
 });
 
-export const SubTitle = styled.div({
-    fontSize: typography.fontSizes.md,
-    fontWeight: typography.fontWeights.normal,
-    color: colors.gray[1700],
-});
+export const SubTitle = styled.div`
+    font-size: ${typography.fontSizes.md};
+    font-weight: ${typography.fontWeights.normal};
+    color: ${({ theme }) => theme.colors?.textSecondary || colors.gray[1700]};
+`;

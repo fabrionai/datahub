@@ -24,17 +24,17 @@ const BorderedSection = styled.div`
     display: flex;
     flex-direction: column;
     padding-bottom: 16px;
-    border: solid ${ANTD_GRAY[4]} 0.5px;
+    border: solid ${(props) => props.theme.colors?.border || ANTD_GRAY[4]} 0.5px;
 `;
 
 const StyledButton = styled(Button)<{ $isSelected: boolean }>`
     ${(props) =>
         props.$isSelected &&
         `
-        color: #1890ff;
+        color: ${props.theme.styles?.['primary-color'] || '#1890ff'};
         &:focus {
-            color: #1890ff;
-        }    
+            color: ${props.theme.styles?.['primary-color'] || '#1890ff'};
+        }
     `}
 `;
 
@@ -42,6 +42,7 @@ const Title = styled(Typography.Title)`
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
 `;
 
 const ButtonsWrapper = styled.div`

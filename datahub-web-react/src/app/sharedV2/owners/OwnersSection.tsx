@@ -22,6 +22,7 @@ export interface PendingOwner {
 
 const SectionContainer = styled.div`
     margin-bottom: 24px;
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
 `;
 
 const SectionHeader = styled.div`
@@ -29,6 +30,7 @@ const SectionHeader = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
 `;
 
 const FormSection = styled.div`
@@ -38,6 +40,19 @@ const FormSection = styled.div`
 const SelectInput = styled(Select)`
     width: 100%;
 
+    .ant-select-selector {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'} !important;
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'} !important;
+    }
+
+    .ant-select-selection-search-input {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-select-selection-placeholder {
+        color: ${(props) => props.theme.colors?.textTertiary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+
     .ant-select-selection-item {
         display: flex;
         align-items: center;
@@ -46,12 +61,23 @@ const SelectInput = styled(Select)`
         height: 32px;
         padding-left: 4px;
         border: none;
+        background-color: ${(props) => props.theme.colors?.bgHover || '#fafafa'} !important;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
     }
 
     .ant-select-selection-item-remove {
         margin-left: 8px;
         margin-right: 8px;
-        color: rgba(0, 0, 0, 0.45);
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+
+    .ant-select-arrow {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+
+    &:hover .ant-select-selector,
+    &.ant-select-focused .ant-select-selector {
+        border-color: ${(props) => props.theme.styles['primary-color']} !important;
     }
 `;
 

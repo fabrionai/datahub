@@ -13,11 +13,12 @@ import { useQuickFiltersContext } from '@providers/QuickFiltersContext';
 import { QuickFilter as QuickFilterType } from '@types';
 
 const QuickFilterWrapper = styled(Button)<{ selected: boolean }>`
-    border: 1px solid ${ANTD_GRAY[4]};
+    border: 1px solid ${(props) => props.theme.colors?.border || ANTD_GRAY[4]};
     border-radius: 16px;
     box-shadow: none;
     font-weight: 400;
-    color: black;
+    color: ${(props) => props.theme.colors?.text || 'black'};
+    background-color: ${(props) => props.theme.colors?.bg || 'white'};
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -26,7 +27,8 @@ const QuickFilterWrapper = styled(Button)<{ selected: boolean }>`
     margin: 4px;
 
     &:hover {
-        color: black;
+        color: ${(props) => props.theme.colors?.text || 'black'};
+        background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.04)'};
     }
 
     ${(props) =>

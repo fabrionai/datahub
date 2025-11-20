@@ -35,60 +35,61 @@ export const StyledIcon = styled(Icon)({
     marginTop: spacing.sm,
 });
 
-export const TextAreaContainer = styled.div(
-    ({ isSuccess, warning, isDisabled, isInvalid }: TextAreaProps) => ({
-        border: `${borders['1px']} ${getStatusColors(isSuccess, warning, isInvalid)}`,
-        backgroundColor: isDisabled ? colors.gray[1500] : colors.white,
-    }),
-    {
-        ...defaultFlexStyles,
-        position: 'relative',
-        minWidth: '160px',
-        minHeight,
-        width: sizes.full,
-        borderRadius: radius.md,
-        flex: 1,
-        color: colors.gray[400], // first icon color
+export const TextAreaContainer = styled.div<TextAreaProps>`
+    ${({ isSuccess, warning, isDisabled, isInvalid, theme }) => `
+        border: ${borders['1px']} ${getStatusColors(isSuccess, warning, isInvalid)};
+        background-color: ${isDisabled ? (theme.colors?.bgSurface || colors.gray[1500]) : (theme.colors?.bgSurface || colors.white)};
+        position: relative;
+        min-width: 160px;
+        min-height: ${minHeight};
+        width: ${sizes.full};
+        border-radius: ${radius.md};
+        flex: 1;
+        color: ${theme.colors?.icon || colors.gray[400]};
+        display: ${defaultFlexStyles.display};
+        justify-content: ${defaultFlexStyles.justifyContent};
+        align-items: ${defaultFlexStyles.alignItems};
 
-        '&:focus-within': {
-            borderColor: colors.violet[200],
-            outline: `${borders['1px']} ${colors.violet[200]}`,
-        },
-    },
-);
+        &:focus-within {
+            border-color: ${theme.styles?.['primary-color'] || colors.violet[200]};
+            outline: ${borders['1px']} ${theme.styles?.['primary-color'] || colors.violet[200]};
+        }
+    `}
+`;
 
-export const TextAreaField = styled.textarea<{ icon?: IconNames }>(({ icon }) => ({
-    padding: `${spacing.sm} ${spacing.md}`,
-    borderRadius: radius.md,
-    border: borders.none,
-    width: '100%',
-    minHeight,
+export const TextAreaField = styled.textarea<{ icon?: IconNames }>`
+    padding: ${spacing.sm} ${spacing.md};
+    border-radius: ${radius.md};
+    border: ${borders.none};
+    width: 100%;
+    min-height: ${minHeight};
+    ${inputValueTextStyles()}
+    color: ${(props) => props.theme.colors?.text || colors.gray[700]};
+    background-color: ${(props) => props.theme.colors?.bgSurface || colors.white};
 
-    ...inputValueTextStyles(),
+    ${({ icon }) => icon && `padding-left: ${spacing.xsm};`}
 
-    // Account for icon placement
-    ...(icon && {
-        paddingLeft: spacing.xsm,
-    }),
+    &:focus {
+        outline: none;
+    }
 
-    '&:focus': {
-        outline: 'none',
-    },
+    &::placeholder {
+        ${inputPlaceholderTextStyles}
+        color: ${(props) => props.theme.colors?.textSecondary || colors.gray[400]};
+    }
 
-    '&::placeholder': {
-        ...inputPlaceholderTextStyles,
-    },
+    &:disabled {
+        background-color: ${(props) => props.theme.colors?.bgSurface || colors.gray[1500]};
+    }
+`;
 
-    '&:disabled': {
-        backgroundColor: colors.gray[1500],
-    },
-}));
-
-export const Label = styled.div({
-    ...formLabelTextStyles,
-    marginBottom: spacing.xxsm,
-    textAlign: 'left',
-});
+export const Label = styled.div`
+    font-weight: ${typography.fontWeights.normal};
+    font-size: ${typography.fontSizes.md};
+    color: ${(props) => props.theme.colors?.text || colors.gray[600]};
+    margin-bottom: ${spacing.xxsm};
+    text-align: left;
+`;
 
 export const Required = styled.span({
     color: colors.red[500],

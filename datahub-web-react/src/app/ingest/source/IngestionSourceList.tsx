@@ -88,6 +88,59 @@ const StyledSearchBar = styled(SearchBar)`
 
 const StyledPagination = styled(Pagination)`
     margin: 15px;
+
+    .ant-pagination-item {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+        a {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
+
+    .ant-pagination-item-active {
+        background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+        border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+        a {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+        }
+    }
+
+    .ant-pagination-prev,
+    .ant-pagination-next,
+    .ant-pagination-jump-prev,
+    .ant-pagination-jump-next {
+        .ant-pagination-item-link {
+            background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+            border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
+
+    .ant-pagination-disabled {
+        .ant-pagination-item-link {
+            color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+            background-color: ${(props) => props.theme.colors?.bgSurfaceDarker || '#f5f5f5'};
+            border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+        }
+    }
+
+    .ant-pagination-options {
+        .ant-select {
+            .ant-select-selector {
+                background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+                border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+                color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+            }
+
+            .ant-select-arrow {
+                color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.25)'};
+            }
+        }
+    }
+
+    .ant-pagination-total-text {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.65)'};
+    }
 `;
 
 const StyledSimpleSelect = styled(SimpleSelect)`

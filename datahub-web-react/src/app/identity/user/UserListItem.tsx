@@ -52,6 +52,18 @@ const MenuIcon = styled(MoreOutlined)<{ fontSize?: number }>`
     margin-left: 5px;
 `;
 
+const StyledText = styled(Typography.Text)`
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+`;
+
+const StyledSecondaryText = styled(Typography.Text)`
+    && {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
+
 export default function UserListItem({ user, canManageUserCredentials, selectRoleOptions, onDelete, refetch }: Props) {
     const entityRegistry = useEntityRegistry();
     const [isViewingResetToken, setIsViewingResetToken] = useState(false);
@@ -122,10 +134,10 @@ export default function UserListItem({ user, canManageUserCredentials, selectRol
                         />
                         <div style={{ marginLeft: 16, marginRight: 20 }}>
                             <div>
-                                <Typography.Text>{displayName}</Typography.Text>
+                                <StyledText>{displayName}</StyledText>
                             </div>
                             <div data-testid={`email-${shouldShowPasswordReset ? 'native' : 'non-native'}`}>
-                                <Typography.Text type="secondary">{user.username}</Typography.Text>
+                                <StyledSecondaryText type="secondary">{user.username}</StyledSecondaryText>
                             </div>
                         </div>
                         {userStatus && (

@@ -15,6 +15,7 @@ export interface PendingOwner {
 
 const SectionContainer = styled.div`
     margin-bottom: 24px;
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
 `;
 
 const SectionHeader = styled.div`
@@ -22,6 +23,7 @@ const SectionHeader = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
 `;
 
 const FormSection = styled.div`

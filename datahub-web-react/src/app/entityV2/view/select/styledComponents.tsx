@@ -40,7 +40,7 @@ export const ViewContainer = styled.div<{
         padding: 8px;
         border-radius: 8px;
         display: flex;
-        background-color: white;
+        background-color: ${props.theme.colors?.bgSurface || 'white'};
         gap: 8px;
         ${
             props.$fixedWidth
@@ -53,7 +53,7 @@ export const ViewContainer = styled.div<{
         }
 
         height: 72px;
-        border: 1px solid ${props.$selected ? props.theme.styles['primary-color'] : colors.gray[100]};
+        border: 1px solid ${props.$selected ? props.theme.styles['primary-color'] : (props.theme.colors?.border || colors.gray[100])};
 
         :hover {
             border: 1px solid ${props.theme.styles['primary-color']};
@@ -96,14 +96,15 @@ export const ViewContent = styled.div<{ $isShowNavBarRedesign?: boolean; $fixedW
     ${(props) =>
         props.$isShowNavBarRedesign &&
         `
-        color: black;
+        color: ${props.theme.colors?.text || 'black'};
         min-width: 160px;
         ${!props.$fixedWidth && 'width: 100%;'}
     `}
 `;
 
 export const ViewLabel = styled.div<{ $isShowNavBarRedesign?: boolean }>`
-    ${(props) => props.$isShowNavBarRedesign && `color: ${colors.gray[600]};`}
+    ${(props) =>
+        props.$isShowNavBarRedesign && `color: ${props.theme.colors?.textSecondary || colors.gray[600]};`}
     font-size: 14px;
     font-weight: 400;
     white-space: nowrap;
@@ -119,6 +120,7 @@ export const CardViewLabel = styled(ViewLabel)<{ $isShowNavBarRedesign?: boolean
         font-family: ${typography.fonts.body};
         font-size: 16px;
         font-weight: 700;
+        color: ${props.theme.colors?.text || 'black'};
     `}
 `;
 
@@ -130,7 +132,7 @@ export const ViewDescription = styled.div<{ $isShowNavBarRedesign?: boolean }>`
         `
         font-size: 14px;
         font-weight: 500;
-        color: ${colors.gray[1700]};
+        color: ${props.theme.colors?.textSecondary || colors.gray[1700]};
         font-family: ${typography.fonts.body};
     `}
     white-space: nowrap;

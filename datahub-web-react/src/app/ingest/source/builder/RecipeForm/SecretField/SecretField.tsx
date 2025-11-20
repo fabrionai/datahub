@@ -12,6 +12,25 @@ import { Secret } from '@types';
 
 const StyledDivider = styled(Divider)`
     margin: 0;
+    border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+`;
+
+const StyledAutoComplete = styled(AutoComplete)`
+    .ant-select-dropdown {
+        background-color: ${(props) => props.theme.colors?.bgSurfaceNewNav || '#ffffff'};
+    }
+
+    .ant-select-item {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-select-item-option-selected {
+        background-color: ${(props) => props.theme.colors?.bgHover || '#f5f5f5'};
+    }
+
+    .ant-select-item-option-active {
+        background-color: ${(props) => props.theme.colors?.bgHover || '#f5f5f5'};
+    }
 `;
 
 export const StyledFormItem = styled(Form.Item)<{
@@ -20,6 +39,45 @@ export const StyledFormItem = styled(Form.Item)<{
     $isSecretField?: boolean;
 }>`
     margin-bottom: ${(props) => (props.$removeMargin ? '0' : '16px')};
+
+    .ant-form-item-label > label {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-input,
+    .ant-input-affix-wrapper,
+    .ant-select-selector,
+    .ant-picker {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'} !important;
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'} !important;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-input::placeholder,
+    .ant-select-selection-placeholder {
+        color: ${(props) => props.theme.colors?.textTertiary || 'rgba(0, 0, 0, 0.25)'} !important;
+    }
+
+    .ant-select-arrow,
+    .ant-picker-suffix {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'};
+    }
+
+    .ant-input:hover,
+    .ant-input-affix-wrapper:hover,
+    .ant-select-selector:hover,
+    .ant-picker:hover {
+        border-color: ${(props) => props.theme.colors?.textBrand || '#40a9ff'} !important;
+    }
+
+    .ant-input:focus,
+    .ant-input-affix-wrapper-focused,
+    .ant-select-focused .ant-select-selector,
+    .ant-picker-focused {
+        border-color: ${(props) => props.theme.colors?.textBrand || '#40a9ff'} !important;
+        box-shadow: 0 0 0 2px
+            ${(props) => (props.theme.colors?.textBrand ? `${props.theme.colors.textBrand}1a` : 'rgba(24, 144, 255, 0.2)')};
+    }
 
     ${(props) =>
         props.$alignLeft &&
@@ -41,7 +99,7 @@ export const StyledFormItem = styled(Form.Item)<{
         .ant-form-item-label {
             &:after {
                 content: 'Secret Field';
-                color: ${ANTD_GRAY[7]};
+                color: ${props.theme.colors?.textSecondary || ANTD_GRAY[7]};
                 font-style: italic;
                 font-weight: 100;
                 margin-left: 5px;
@@ -102,7 +160,7 @@ function SecretField({ field, secrets, removeMargin, updateFormValue, refetchSec
             $removeMargin={!!removeMargin}
             $isSecretField
         >
-            <AutoComplete
+            <StyledAutoComplete
                 placeholder={field.placeholder}
                 filterOption={(input, option) => !!option?.value?.toLowerCase().includes(input.toLowerCase())}
                 notFoundContent={<>No secrets found</>}

@@ -17,13 +17,22 @@ import { FieldType, RecipeField } from '@app/ingest/source/builder/RecipeForm/co
 import { Secret } from '@types';
 
 const StyledButton = styled(Button)`
-    color: ${ANTD_GRAY[7]};
+    color: ${(props) => props.theme.colors?.text || ANTD_GRAY[7]};
     width: 80%;
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+    border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+
+    &:hover {
+        color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+        background-color: ${(props) => props.theme.colors?.bgHover || '#fafafa'};
+        border-color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+    }
 `;
 
 const StyledRemoveIcon = styled(MinusCircleOutlined)`
     font-size: 14px;
     margin-left: 10px;
+    color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'};
 `;
 
 interface CommonFieldProps {

@@ -9,16 +9,17 @@ import {
     getSliderTransformPosition,
     getToggleSize,
 } from '@components/components/Switch/utils';
-import { formLabelTextStyles } from '@components/components/commonStyles';
-import { borders, colors, shadows, spacing, transition } from '@components/theme';
+import { borders, colors, shadows, spacing, transition, typography } from '@components/theme';
 import { ColorOptions, SizeOptions } from '@components/theme/config';
 import { getColor } from '@components/theme/utils';
 
-export const Label = styled.div({
-    ...formLabelTextStyles,
-    display: 'flex',
-    alignItems: 'flex-start',
-});
+export const Label = styled.div`
+    font-weight: ${typography.fontWeights.normal};
+    font-size: ${typography.fontSizes.md};
+    color: ${(props) => props.theme.colors?.text || colors.gray[600]};
+    display: flex;
+    align-items: flex-start;
+`;
 
 export const SwitchContainer = styled.label<{ labelPosition: SwitchLabelPosition; isDisabled?: boolean }>(
     ({ labelPosition, isDisabled }) => ({
@@ -83,7 +84,7 @@ export const StyledInput = styled.input<{
     &:checked + ${Slider} {
         background: ${(props) =>
             !props.disabled
-                ? 'linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(83.44, 63, 209, 0.20) 100%), #533FD1'
+                ? props.theme.styles?.['primary-color'] || '#533FD1'
                 : colors.gray[100]};
 
         &:before {
@@ -100,10 +101,10 @@ export const StyledInput = styled.input<{
 `;
 
 export const StyledIcon = styled(Icon)<{ checked?: boolean; size: SizeOptions }>(
-    ({ checked, size }) => ({
+    ({ checked, size, theme }) => ({
         left: getIconTransformPositionLeft(size, checked || false),
         top: getIconTransformPositionTop(size),
-        color: checked ? colors.violet[500] : colors.gray[500],
+        color: checked ? (theme.styles?.['primary-color'] || colors.violet[500]) : colors.gray[500],
     }),
     {
         transition: `${transition.duration.normal} all`,

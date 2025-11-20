@@ -13,7 +13,7 @@ export const PageContainer = styled.div<{ $isShowNavBarRedesign?: boolean }>`
     flex: 1;
     flex-direction: column;
     gap: 20px;
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.colors?.bgSurface || colors.white};
     ${(props) => props.$isShowNavBarRedesign && 'max-height: calc(100vh - 88px);'};
     ${(props) =>
         props.$isShowNavBarRedesign &&
@@ -143,9 +143,9 @@ export const CheckboxWrapper = styled.div`
     align-items: center;
     gap: 10px;
     margin: 10px 0;
-    color: #374066;
+    color: ${(props) => props.theme.colors?.text || '#374066'};
     p {
-        color: #374066;
+        color: ${(props) => props.theme.colors?.text || '#374066'};
         font-weight: 500;
     }
 `;
@@ -193,14 +193,14 @@ export const GridFormItem = styled(Form.Item)`
 export const FieldLabel = styled.div`
     font-size: 14px;
     font-weight: 500;
-    color: ${colors.gray[600]};
+    color: ${(props) => props.theme.colors?.text || colors.gray[600]};
     margin-bottom: 24px;
 `;
 
 export const InputLabel = styled.div`
     font-size: 14px;
     font-weight: 500;
-    color: ${colors.gray[600]};
+    color: ${(props) => props.theme.colors?.text || colors.gray[600]};
     display: flex;
     gap: 2px;
 `;
@@ -208,7 +208,7 @@ export const InputLabel = styled.div`
 export const StyledLabel = styled.div`
     font-size: 12px;
     font-weight: 700;
-    color: ${colors.gray[1700]};
+    color: ${(props) => props.theme.colors?.text || colors.gray[1700]};
 `;
 
 export const DescriptionContainer = styled.div`
@@ -223,12 +223,43 @@ export const FlexContainer = styled.div`
 `;
 
 export const StyledDrawer = styled(Drawer)`
+    .ant-drawer-content {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+    }
+
+    .ant-drawer-header {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        border-bottom: 1px solid ${(props) => props.theme.colors?.border || '#f0f0f0'};
+    }
+
     .ant-drawer-body {
         padding: 16px;
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
     }
 
     .ant-drawer-header {
         padding: 16px;
+    }
+
+    .ant-form-item-label > label {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-input,
+    .ant-input-textarea textarea {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+    }
+
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+    }
+
+    .ant-select-selection-item {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
     }
 `;
 
@@ -247,7 +278,7 @@ export const StyledCollapse = styled(Collapse)`
 `;
 
 export const CollapseHeader = styled.div`
-    border-top: 1px solid ${colors.gray[1400]};
+    border-top: 1px solid ${(props) => props.theme.colors?.border || colors.gray[1400]};
     padding: 16px 0;
     margin-left: -16px;
     width: calc(100% + 32px);
@@ -396,7 +427,7 @@ export const ModalFooter = styled.div`
 `;
 
 export const VerticalDivider = styled(Divider)`
-    color: ${colors.gray[1400]};
+    color: ${(props) => props.theme.colors?.border || colors.gray[1400]};
     height: 20px;
     width: 2px;
 `;
@@ -450,12 +481,12 @@ export const SelectOptionContainer = styled.div`
 `;
 
 export const StyledDivider = styled(Divider)`
-    color: ${colors.gray[1400]};
+    color: ${(props) => props.theme.colors?.border || colors.gray[1400]};
     margin: 16px 0;
 `;
 
 export const ViewDivider = styled(Divider)`
-    color: ${colors.gray[1400]};
+    color: ${(props) => props.theme.colors?.border || colors.gray[1400]};
     margin: 16px 0 0 -16px;
     width: calc(100% + 32px);
 `;

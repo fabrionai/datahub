@@ -107,17 +107,17 @@ const HeaderAndTabsFlex = styled.div`
     &::-webkit-scrollbar {
         height: 12px;
         width: 2px;
-        background: #f2f2f2;
+        background: ${(props) => props.theme.colors?.bgHover || '#f2f2f2'};
     }
     &::-webkit-scrollbar-thumb {
-        background: #cccccc;
+        background: ${(props) => props.theme.colors?.border || '#cccccc'};
         -webkit-border-radius: 1ex;
         -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
     }
 `;
 
 const Header = styled.div`
-    border-bottom: 1px solid ${ANTD_GRAY[4.5]};
+    border-bottom: 1px solid ${(props) => props.theme.colors?.border || ANTD_GRAY[4.5]};
     padding: 20px 20px 0 20px;
     flex-shrink: 0;
 `;

@@ -20,6 +20,12 @@ const LoadingWrapper = styled.div`
     padding: 16px;
 `;
 
+const StyledEmpty = styled(Empty)`
+    .ant-empty-description {
+        color: ${(props) => props.theme.colors?.textSecondary || ANTD_GRAY[7]};
+    }
+`;
+
 interface Props {
     domainUrnToHide?: string;
     selectDomainOverride?: (domain: Domain) => void;
@@ -41,10 +47,9 @@ export default function DomainNavigator({
         <NavigatorWrapper>
             {error && <Alert message="Loading Domains failed." showIcon type="error" />}
             {hasInitialized && domains.length === 0 && (
-                <Empty
+                <StyledEmpty
                     description="No Domains Found"
                     image={Empty.PRESENTED_IMAGE_SIMPLE}
-                    style={{ color: ANTD_GRAY[7] }}
                 />
             )}
             {domains?.map((domain) => (

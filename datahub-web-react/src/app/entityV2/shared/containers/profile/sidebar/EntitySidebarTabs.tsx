@@ -79,7 +79,8 @@ const UnborderedTabs = styled(Tabs)<{ $isClosed: boolean }>`
         }
         &:hover {
             background: ${(props) =>
-                props.$isClosed
+                props.theme.colors?.bgHover ||
+                (props.$isClosed
                     ? `linear-gradient(
                 180deg,
                 rgba(243, 244, 246, 0.5) -3.99%,
@@ -91,8 +92,8 @@ const UnborderedTabs = styled(Tabs)<{ $isClosed: boolean }>`
                 rgba(243, 244, 246, 0.5) -3.99%,
                 rgba(235, 236, 240, 0.5) 53.04%,
                 rgba(235, 236, 240, 0.5) 100%
-            )`} !important;
-            box-shadow: 0px 0px 0px 1px rgba(139, 135, 157, 0.08);
+            )`)} !important;
+            box-shadow: 0px 0px 0px 1px ${(props) => props.theme.colors?.border || 'rgba(139, 135, 157, 0.08)'};
         }
         &:last-child {
             margin-bottom: 0 !important;
@@ -102,39 +103,46 @@ const UnborderedTabs = styled(Tabs)<{ $isClosed: boolean }>`
         background: ${(props) =>
             props.$isClosed
                 ? 'transparent !important'
-                : `linear-gradient(
+                : props.theme.colors?.bgSurfaceBrand ||
+                  `linear-gradient(
             180deg,
             rgba(83, 63, 209, 0.04) -3.99%,
             rgba(112, 94, 228, 0.04) 53.04%,
             rgba(112, 94, 228, 0.04) 100%
         ) !important`};
         box-shadow: ${(props) =>
-            props.$isClosed ? 'none !important' : '0px 0px 0px 1px rgba(108, 71, 255, 0.08) !important'};
+            props.$isClosed
+                ? 'none !important'
+                : props.theme.colors?.borderBrand
+                  ? `0px 0px 0px 1px ${props.theme.colors.borderBrand} !important`
+                  : '0px 0px 0px 1px rgba(108, 71, 255, 0.08) !important'};
         .ant-tabs-tab-btn {
             color: inherit !important;
         }
         &:hover {
             background: ${(props) =>
                 props.$isClosed
-                    ? `linear-gradient(
+                    ? props.theme.colors?.bgHover ||
+                      `linear-gradient(
                 180deg,
                 rgba(243, 244, 246, 0.5) -3.99%,
                 rgba(235, 236, 240, 0.5) 53.04%,
                 rgba(235, 236, 240, 0.5) 100%
             )`
-                    : `linear-gradient(
+                    : props.theme.colors?.bgSurfaceBrand ||
+                      `linear-gradient(
                 180deg,
                 rgba(83, 63, 209, 0.04) -3.99%,
                 rgba(112, 94, 228, 0.04) 53.04%,
                 rgba(112, 94, 228, 0.04) 100%
             )`} !important;
-            box-shadow: 0px 0px 0px 1px rgba(139, 135, 157, 0.08);
+            box-shadow: 0px 0px 0px 1px ${(props) => props.theme.colors?.border || 'rgba(139, 135, 157, 0.08)'};
         }
     }
     &&& .ant-tabs-content-holder {
         display: none;
     }
-    background-color: #ffffff;
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
 `;
 
 const Tab = styled(Tabs.TabPane)`
@@ -150,7 +158,7 @@ const TabIconContainer = styled.div<{ $isSelected?: boolean }>`
     align-items: center;
     justify-content: center;
     transition: none !important;
-    color: #8088a3;
+    color: ${(props) => props.theme.colors?.icon || '#8088a3'};
     width: 48px;
     height: 48px;
     padding: 0;
@@ -173,7 +181,8 @@ const TabText = styled.span<{ $isSelected?: boolean }>`
     text-overflow: ellipsis;
     white-space: nowrap;
     /* Override any Ant Design styling that could cause blue text */
-    color: ${(props) => (props.$isSelected ? 'transparent !important' : '#8088a3 !important')};
+    color: ${(props) =>
+        props.$isSelected ? 'transparent !important' : props.theme.colors?.textSecondary || '#8088a3 !important'};
     ${(props) =>
         props.$isSelected &&
         `
@@ -217,7 +226,10 @@ const IconWrapper = styled.div<{ $isSelected?: boolean }>`
 
     /* For Phosphor icons */
     && svg {
-        ${(props) => (props.$isSelected ? 'fill: url(#menu-item-selected-gradient) #533fd1;' : 'color: #8088a3;')}
+        ${(props) =>
+            props.$isSelected
+                ? 'fill: url(#menu-item-selected-gradient) #533fd1;'
+                : `color: ${props.theme.colors?.icon || '#8088a3'};`}
         width: 20px !important;
         height: 20px !important;
         min-width: 20px !important;
@@ -234,7 +246,10 @@ const IconWrapper = styled.div<{ $isSelected?: boolean }>`
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        ${(props) => (props.$isSelected ? 'color: url(#menu-item-selected-gradient) #533fd1;' : 'color: #8088a3;')}
+        ${(props) =>
+            props.$isSelected
+                ? 'color: url(#menu-item-selected-gradient) #533fd1;'
+                : `color: ${props.theme.colors?.icon || '#8088a3'};`}
         width: 20px !important;
         height: 20px !important;
 
@@ -250,7 +265,8 @@ const IconWrapper = styled.div<{ $isSelected?: boolean }>`
 
     /* Ensure Phosphor icon weights are correctly applied */
     & .ph-fill {
-        fill: ${(props) => (props.$isSelected ? 'url(#menu-item-selected-gradient) #533fd1' : '#8088a3')};
+        fill: ${(props) =>
+            props.$isSelected ? 'url(#menu-item-selected-gradient) #533fd1' : props.theme.colors?.icon || '#8088a3'};
     }
 `;
 

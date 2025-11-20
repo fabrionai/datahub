@@ -43,10 +43,10 @@ export const SideBarSubSection = styled.div`
     &::-webkit-scrollbar {
         height: 12px;
         width: 1px;
-        background: #d6d6d6;
+        background: ${(props) => props.theme.colors?.bgHover || '#d6d6d6'};
     }
     &::-webkit-scrollbar-thumb {
-        background: #d6d6d6;
+        background: ${(props) => props.theme.colors?.border || '#d6d6d6'};
         -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
     }
 `;
@@ -54,7 +54,7 @@ export const SideBarSubSection = styled.div`
 export const EmptyValue = styled.div<{ color?: string }>`
     &:after {
         content: 'None';
-        color: ${(props) => (props.color ? props.color : '#b7b7b7')};
+        color: ${(props) => (props.color ? props.color : props.theme.colors?.textSecondary || '#b7b7b7')};
         font-style: italic;
         font-weight: 100;
     }
@@ -63,7 +63,7 @@ export const EmptyValue = styled.div<{ color?: string }>`
 export const Name = styled.div`
     font-size: 12px;
     line-height: 18px;
-    color: ${ANTD_GRAY_V2['11']};
+    color: ${(props) => props.theme.colors?.text || props.theme.colors?.textReverse || REDESIGN_COLORS.WHITE};
     text-align: left;
     display: flex;
     align-items: center;
@@ -74,26 +74,26 @@ export const Name = styled.div`
         white-space: nowrap;
     }
     @media only screen and (min-width: 1200px) {
-        color: ${REDESIGN_COLORS.WHITE};
+        color: ${(props) => props.theme.colors?.textReverse || REDESIGN_COLORS.WHITE};
     }
 `;
 
 export const TitleRole = styled.div`
     font-size: 12px;
     line-height: 18px;
-    color: ${ANTD_GRAY_V2['11']};
+    color: ${(props) => props.theme.colors?.text || props.theme.colors?.textReverse || REDESIGN_COLORS.WHITE};
     text-align: left;
     white-space: wrap;
     @media only screen and (min-width: 1200px) {
-        color: ${REDESIGN_COLORS.WHITE};
+        color: ${(props) => props.theme.colors?.textReverse || REDESIGN_COLORS.WHITE};
     }
 `;
 
 export const RoleName = styled.div`
     text-align: center;
-    color: ${REDESIGN_COLORS.WHITE};
+    color: ${(props) => props.theme.colors?.textReverse || REDESIGN_COLORS.WHITE};
     border-radius: 30px;
-    background-color: #565657;
+    background-color: ${(props) => props.theme.colors?.bgHover || '#565657'};
     padding: 3px 5px;
     text-transform: uppercase;
     font-size: 7px;
@@ -101,14 +101,14 @@ export const RoleName = styled.div`
     position: relative;
     z-index: 2;
     @media only screen and (min-width: 1200px) {
-        background-color: ${ANTD_GRAY[1]}4a;
+        background-color: ${(props) => props.theme.colors?.bgHover || `${ANTD_GRAY[1]}4a`};
     }
 `;
 
 export const Team = styled.div`
     font-size: 12px;
     line-height: 20px;
-    color: #8c8c8c;
+    color: ${(props) => props.theme.colors?.textSecondary || '#8c8c8c'};
 `;
 
 export const SocialDetails = styled.div`
@@ -117,7 +117,7 @@ export const SocialDetails = styled.div`
     gap: 0.4rem;
     font-size: 12px;
     line-height: 20px;
-    color: ${ANTD_GRAY_V2['11']};
+    color: ${(props) => props.theme.colors?.text || props.theme.colors?.textReverse || REDESIGN_COLORS.WHITE};
     text-align: left;
     span {
         text-overflow: ellipsis;
@@ -144,7 +144,7 @@ export const EditButton = styled.div`
         width: 100%;
         font-size: 12px;
         line-height: 20px;
-        color: #262626;
+        color: ${(props) => props.theme.colors?.text || '#262626'};
     }
 `;
 
@@ -153,21 +153,27 @@ export const AboutSection = styled.div`
     font-weight: bold;
     font-size: 14px;
     line-height: 22px;
-    color: #262626;
+    color: ${(props) => props.theme.colors?.text || '#262626'};
 `;
 
 export const AboutSectionText = styled.div`
     font-size: 12px;
     font-weight: 100;
     line-height: 15px;
-    color: #434863;
+    color: ${(props) => props.theme.colors?.text || '#434863'};
 
     &&& .ant-typography {
         margin-bottom: 0;
+        color: ${(props) => props.theme.colors?.text || '#434863'};
     }
     &&& .ant-typography-edit-content {
         padding-left: 15px;
         padding-top: 5px;
+    }
+    &&& .ant-input {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
     }
 `;
 
@@ -189,7 +195,7 @@ export const TagsSection = styled.div`
 
 export const NoDataFound = styled.span`
     font-size: 12px;
-    color: #262626;
+    color: ${(props) => props.theme.colors?.text || '#262626'};
     font-weight: 100;
 `;
 
@@ -201,7 +207,7 @@ export const GroupsSeeMoreText = styled.span`
     font-weight: 500;
     font-size: 12px;
     line-height: 20px;
-    color: #1890ff;
+    color: ${(props) => props.theme.styles?.['primary-color'] || '#1890ff'};
     cursor: pointer;
 `;
 
@@ -211,7 +217,7 @@ export const DisplayCount = styled.span`
     font-weight: 500;
     font-size: 12px;
     line-height: 20px;
-    color: #8c8c8c;
+    color: ${(props) => props.theme.colors?.textSecondary || '#8c8c8c'};
 `;
 
 export const GroupSectionTitle = styled.span`
@@ -234,7 +240,7 @@ export const Content = styled.div`
         width: 100%;
         &:not(:last-child) {
             border-bottom: 1px solid;
-            border-color: ${colors.gray[100]};
+            border-color: ${(props) => props.theme.colors?.border || colors.gray[100]};
         }
     }
 `;
@@ -253,7 +259,7 @@ export const UserInfo = styled(Row)`
     display: flex;
     gap: 1rem;
     padding: 10px 10px;
-    background: ${ANTD_GRAY_V2['14']};
+    background: ${(props) => props.theme.colors?.bgSurface || ANTD_GRAY_V2['14']};
     border-radius: 10px;
     justify-content: center;
     @media only screen and (min-width: 1200px) {
@@ -268,7 +274,7 @@ export const GroupInfo = styled.div`
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    background: ${ANTD_GRAY_V2['14']};
+    background: ${(props) => props.theme.colors?.bgSurface || ANTD_GRAY_V2['14']};
     border-radius: 10px;
     overflow: hidden;
 `;
@@ -284,7 +290,7 @@ export const SocialInfo = styled.div`
 
 export const GradientContainer = styled.div<{ gradient?: string; height?: number }>`
     border-radius: 10px 10px 0px 0px;
-    background: ${(props) => (props.gradient ? props.gradient : REDESIGN_COLORS.PROFILE_AVATAR_STYLE_GRADIENT)};
+    background: ${(props) => (props.gradient ? props.gradient : props.theme.styles?.['primary-color'] || REDESIGN_COLORS.PROFILE_AVATAR_STYLE_GRADIENT)};
     height: 65px;
     width: 100%;
     z-index: 1;

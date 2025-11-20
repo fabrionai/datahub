@@ -34,6 +34,7 @@ const Title = styled.div`
     display: flex;
     justify-content: space-between;
     cursor: pointer;
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
 `;
 
 const CheckBox = styled(Checkbox)`

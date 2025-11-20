@@ -22,8 +22,62 @@ const PAGE_HEADER_HEIGHT = 395;
 const StyledSourceTable = styled(StyledTable)`
     .cliIngestion {
         td {
-            background-color: ${ANTD_GRAY[2]} !important;
+            background-color: ${(props) => props.theme.colors?.bgHover || ANTD_GRAY[2]} !important;
         }
+    }
+
+    &&& .ant-table {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+    }
+
+    &&& .ant-table-thead > tr > th {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+        border-color: ${(props) => props.theme.colors?.border || '#f0f0f0'};
+        font-weight: 600;
+    }
+
+    &&& .ant-table-thead th {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    &&& .ant-table-column-title {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    &&& .ant-table-column-sorters {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    &&& .ant-table-thead .ant-table-cell {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    &&& .ant-table-tbody > tr > td {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        border-color: ${(props) => props.theme.colors?.border || '#f0f0f0'};
+    }
+
+    &&& .ant-table-tbody > tr:hover > td {
+        background-color: ${(props) => props.theme.colors?.bgHover || '#fafafa'} !important;
+    }
+
+    &&& .ant-empty {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    &&& .ant-empty-description {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.45)'};
+    }
+
+    &&& .ant-table-column-sorter {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+
+    &&& .ant-table-column-sorter-up.active,
+    &&& .ant-table-column-sorter-down.active {
+        color: ${(props) => props.theme.styles?.['primary-color'] || '#1890ff'};
     }
 ` as typeof StyledTable;
 

@@ -23,7 +23,7 @@ const sharedTransition = `${transition.property.colors} ${transition.easing['eas
  * Base Select component styling
  */
 export const SelectBase = styled.div<SelectStyleProps>(
-    ({ isDisabled, isReadOnly, fontSize, isOpen, width, position }) => ({
+    ({ isDisabled, isReadOnly, fontSize, isOpen, width, position, theme }) => ({
         ...getSelectStyle({ isDisabled, isReadOnly, fontSize, isOpen }),
         display: 'flex',
         flexDirection: 'row' as const,
@@ -35,8 +35,13 @@ export const SelectBase = styled.div<SelectStyleProps>(
         alignItems: 'center',
         overflow: 'auto',
         textWrapMode: 'nowrap',
-        backgroundColor: isDisabled ? colors.gray[1500] : colors.white,
+        backgroundColor: isDisabled ? (theme.colors?.bgSurface || colors.gray[1500]) : (theme.colors?.bgSurface || colors.white),
+        color: theme.colors?.text || colors.gray[600],
         width: width === 'full' ? '100%' : 'max-content',
+        // Override outline color when open to use theme primary color
+        ...(isOpen ? {
+            outline: `1px solid ${theme.styles?.['primary-color'] || colors.violet[200]}`,
+        } : {}),
     }),
 );
 
@@ -94,33 +99,35 @@ export const Container = styled.div<ContainerProps>(({ size, width, $selectLabel
     };
 });
 
-export const DropdownContainer = styled.div<{ ignoreMaxHeight?: boolean }>(({ ignoreMaxHeight }) => ({
-    ...getDropdownStyle(),
-    borderRadius: radius.md,
-    background: colors.white,
-    zIndex: zIndices.dropdown,
-    transition: sharedTransition,
-    boxShadow: shadows.dropdown,
-    padding: spacing.xsm,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-    marginTop: '4px',
-    overflow: 'auto',
-    width: '100%',
-    maxHeight: ignoreMaxHeight ? undefined : '360px',
-}));
+export const DropdownContainer = styled.div<{ ignoreMaxHeight?: boolean }>`
+    ${({ ignoreMaxHeight, theme }) => `
+        ${getDropdownStyle()};
+        border-radius: ${radius.md};
+        background: ${theme.colors?.bgSurface || colors.white};
+        z-index: ${zIndices.dropdown};
+        transition: ${sharedTransition};
+        box-shadow: ${shadows.dropdown};
+        padding: ${spacing.xsm};
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 4px;
+        overflow: auto;
+        width: 100%;
+        max-height: ${ignoreMaxHeight ? 'none' : '360px'};
+    `}
+`;
 
 // Styled components for SelectValue (Selected value display)
-export const SelectValue = styled.span({
-    ...inputValueTextStyles(),
-    color: colors.gray[600],
-});
+export const SelectValue = styled.span`
+    ${inputValueTextStyles()}
+    color: ${(props) => props.theme.colors?.text || colors.gray[600]};
+`;
 
-export const Placeholder = styled.span({
-    ...inputPlaceholderTextStyles,
-    color: colors.gray[1800],
-});
+export const Placeholder = styled.span`
+    ${inputPlaceholderTextStyles}
+    color: ${(props) => props.theme.colors?.textSecondary || colors.gray[1800]};
+`;
 
 export const ActionButtonsContainer = styled.div({
     display: 'flex',
@@ -152,16 +159,16 @@ export const OptionContainer = styled.div({
     flexDirection: 'column',
 });
 
-export const DescriptionContainer = styled.span({
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    width: '100%',
-    color: colors.gray[500],
-    lineHeight: 'normal',
-    fontSize: typography.fontSizes.sm,
-    marginTop: spacing.xxsm,
-});
+export const DescriptionContainer = styled.span`
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    color: ${(props) => props.theme.colors?.textSecondary || colors.gray[500]};
+    line-height: normal;
+    font-size: ${typography.fontSizes.sm};
+    margin-top: ${spacing.xxsm};
+`;
 
 export const LabelsWrapper = styled.div<{ shouldShowGap?: boolean }>(({ shouldShowGap = false }) => ({
     display: 'flex',
@@ -180,50 +187,52 @@ export const OptionLabel = styled.label<{
     ...getOptionLabelStyle(isSelected, isMultiSelect, isDisabled, applyHoverWidth),
 }));
 
-export const SelectLabel = styled.label({
-    ...formLabelTextStyles,
-    marginBottom: spacing.xxsm,
-    textAlign: 'left',
-});
+export const SelectLabel = styled.label`
+    font-weight: ${typography.fontWeights.normal};
+    font-size: ${typography.fontSizes.md};
+    color: ${(props) => props.theme.colors?.text || colors.gray[600]};
+    margin-bottom: ${spacing.xxsm};
+    text-align: left;
+`;
 
-export const StyledIcon = styled(Icon)({
-    flexShrink: 0,
-    color: colors.gray[1800],
-});
+export const StyledIcon = styled(Icon)`
+    flex-shrink: 0;
+    color: ${(props) => props.theme.colors?.icon || colors.gray[1800]};
+`;
 
 export const StyledClearButton = styled(Button).attrs({
     variant: 'text',
-})({
-    color: colors.gray[1800],
-    padding: '0px',
+})`
+    color: ${(props) => props.theme.colors?.icon || colors.gray[1800]};
+    padding: 0px;
 
-    '&:hover': {
-        border: 'none',
-        backgroundColor: colors.transparent,
-        borderColor: colors.transparent,
-        boxShadow: shadows.none,
-    },
+    &:hover {
+        border: none;
+        background-color: ${colors.transparent};
+        border-color: ${colors.transparent};
+        box-shadow: ${shadows.none};
+    }
 
-    '&:focus': {
-        border: 'none',
-        backgroundColor: colors.transparent,
-        boxShadow: `0 0 0 2px ${colors.white}, 0 0 0 4px ${colors.violet[50]}`,
-    },
-});
+    &:focus {
+        border: none;
+        background-color: ${colors.transparent};
+        box-shadow: 0 0 0 2px ${(props) => props.theme.colors?.bgSurface || colors.white}, 0 0 0 4px ${(props) => props.theme.styles?.['primary-color'] || colors.violet[50]};
+    }
+`;
 
 export const ClearIcon = styled.span({
     cursor: 'pointer',
     marginLeft: '8px',
 });
 
-export const ArrowIcon = styled.span<{ isOpen: boolean }>(({ isOpen }) => ({
-    marginLeft: 'auto',
-    border: 'solid black',
-    borderWidth: '0 1px 1px 0',
-    display: 'inline-block',
-    padding: '3px',
-    transform: isOpen ? 'rotate(-135deg)' : 'rotate(45deg)',
-}));
+export const ArrowIcon = styled.span<{ isOpen: boolean }>`
+    margin-left: auto;
+    border: solid ${(props) => props.theme.colors?.text || 'black'};
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: ${(props) => props.isOpen ? 'rotate(-135deg)' : 'rotate(45deg)'};
+`;
 
 export const StyledCheckbox = styled(Checkbox)({
     '.ant-checkbox-checked:not(.ant-checkbox-disabled) .ant-checkbox-inner': {
@@ -232,17 +241,17 @@ export const StyledCheckbox = styled(Checkbox)({
     },
 });
 
-export const StyledBubbleButton = styled(Button)({
-    backgroundColor: colors.gray[200],
-    border: `1px solid ${colors.gray[200]}`,
-    color: colors.black,
-    padding: '1px',
-});
+export const StyledBubbleButton = styled(Button)`
+    background-color: ${(props) => props.theme.colors?.bgHover || colors.gray[200]};
+    border: 1px solid ${(props) => props.theme.colors?.border || colors.gray[200]};
+    color: ${(props) => props.theme.colors?.text || colors.black};
+    padding: 1px;
+`;
 
 export const HighlightedLabel = styled.span`
-    background-color: ${colors.gray[100]};
+    background-color: ${(props) => props.theme.colors?.bgHover || colors.gray[100]};
     padding: 4px 6px;
     border-radius: 8px;
     font-size: ${typography.fontSizes.sm};
-    color: ${colors.gray[500]};
+    color: ${(props) => props.theme.colors?.textSecondary || colors.gray[500]};
 `;

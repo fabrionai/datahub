@@ -12,6 +12,33 @@ const modalWidth = 700;
 const modalStyle = { top: 40 };
 const modalBodyStyle = { paddingRight: 60, paddingLeft: 60, paddingBottom: 40 };
 
+const StyledModal = styled(Modal)`
+    && .ant-modal-content {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+    }
+
+    && .ant-modal-header {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        border-bottom-color: ${(props) => props.theme.colors?.border || '#f0f0f0'};
+    }
+
+    && .ant-modal-body {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+    }
+
+    && .ant-modal-title {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    && .ant-modal-close-x {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'};
+    }
+
+    .ant-typography {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+`;
+
 const TitleContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -68,7 +95,7 @@ export const ViewBuilderModal = ({ mode, urn, initialState, onSubmit, onCancel }
 
     return (
         <ClickOutside onClickOutside={confirmClose} wrapperClassName="test-builder-modal">
-            <Modal
+            <StyledModal
                 wrapClassName="view-builder-modal"
                 footer={null}
                 title={
@@ -98,7 +125,7 @@ export const ViewBuilderModal = ({ mode, urn, initialState, onSubmit, onCancel }
                         </Button>
                     )}
                 </SaveButtonContainer>
-            </Modal>
+            </StyledModal>
         </ClickOutside>
     );
 };

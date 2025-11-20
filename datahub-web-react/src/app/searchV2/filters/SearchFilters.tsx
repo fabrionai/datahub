@@ -33,11 +33,11 @@ import { useShowNavBarRedesign } from '@src/app/useShowNavBarRedesign';
 import { FacetFilterInput, FacetMetadata } from '@types';
 
 const Container = styled.div<{ $isShowNavBarRedesign?: boolean }>`
-    background-color: ${colors.white};
+    background-color: ${(props) => props.theme.colors?.bgSurface || colors.white};
     border-radius: ${(props) =>
         props.$isShowNavBarRedesign ? props.theme.styles['border-radius-navbar-redesign'] : '8px'};
     padding: 16px 0px 8px 0px;
-    border: 1px solid ${colors.gray[100]};
+    border: 1px solid ${(props) => props.theme.colors?.border || colors.gray[100]};
     box-shadow: ${(props) =>
         props.$isShowNavBarRedesign ? props.theme.styles['box-shadow-navbar-redesign'] : '0px 4px 10px 0px #a8a8a840'};
 `;
@@ -52,7 +52,7 @@ const FiltersContainerTop = styled.div`
 `;
 
 const CustomSwitch = styled.div`
-    border: 1px solid ${colors.gray[100]};
+    border: 1px solid ${(props) => props.theme.colors?.border || colors.gray[100]};
     border-radius: 30px;
     display: flex;
     gap: 2px;
@@ -68,14 +68,14 @@ const IconContainer = styled.div<{ isActive?: boolean }>`
     display: flex;
     padding: 4px;
     transition: left 0.5s ease;
-    color: ${colors.gray[1800]};
+    color: ${(props) => props.theme.colors?.icon || colors.gray[1800]};
 
     ${(props) =>
         props.isActive &&
         `
-        background: ${colors.gray[100]};
+        background: ${props.theme.styles?.['primary-color'] || colors.violet[600]};
         border-radius: 100%;
-        color: ${colors.gray[1700]};
+        color: ${props.theme.colors?.textBrandOnBgFill || 'white'};
     `}
 `;
 
@@ -109,7 +109,7 @@ const ControlsContainer = styled.div`
 `;
 
 const RecommendedFiltersContainer = styled.div`
-    border-top: 1px solid ${colors.gray[100]};
+    border-top: 1px solid ${(props) => props.theme.colors?.border || colors.gray[100]};
     padding: 16px 16px 8px 16px;
 `;
 

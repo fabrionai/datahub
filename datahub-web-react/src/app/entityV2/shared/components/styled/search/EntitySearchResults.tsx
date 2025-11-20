@@ -37,11 +37,17 @@ const StyledCheckbox = styled(Checkbox)`
     margin-right: 12px;
 `;
 
+const StyledEmpty = styled(Empty)`
+    .ant-empty-description {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
+
 export const ListItem = styled.div<{ isSelectMode: boolean; areMatchesExpanded; compactUserSearchCardStyle: boolean }>`
     padding: 20px;
     display: flex;
     align-items: center;
-    background-color: #ffffff;
+    background-color: ${(props) => props.theme.colors?.bgContainer || '#ffffff'};
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: ${({ areMatchesExpanded, compactUserSearchCardStyle }) => {
@@ -50,7 +56,7 @@ export const ListItem = styled.div<{ isSelectMode: boolean; areMatchesExpanded; 
         return MATCHES_CONTAINER_HEIGHT + 20;
     }}px;
     transition: margin-bottom 0.3s ease;
-    border: 1px solid #ebecf0;
+    border: 1px solid ${(props) => props.theme.colors?.border || '#ebecf0'};
     ${(props) =>
         props.areMatchesExpanded &&
         `
@@ -142,12 +148,10 @@ export const EntitySearchResults = ({
         <StyledList
             locale={{
                 emptyText: (
-                    <>
-                        <Empty
-                            description={noResultsMessage || 'No results found'}
-                            image={Empty.PRESENTED_IMAGE_SIMPLE}
-                        />
-                    </>
+                    <StyledEmpty
+                        description={noResultsMessage || 'No results found'}
+                        image={Empty.PRESENTED_IMAGE_SIMPLE}
+                    />
                 ),
             }}
             bordered={bordered}

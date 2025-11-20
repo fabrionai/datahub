@@ -15,9 +15,15 @@ const { Option } = Select;
 
 const StyledSelect = styled(Select)`
     border-radius: 5px;
-    background: ${ANTD_GRAY[4]};
+    background: ${(props) => props.theme.colors?.bgHover || ANTD_GRAY[4]};
+    color: ${(props) => props.theme.colors?.text || 'inherit'};
     :hover {
-        background: ${ANTD_GRAY[4.5]};
+        background: ${(props) => props.theme.colors?.bgSurface || ANTD_GRAY[4.5]};
+    }
+
+    .ant-select-selector {
+        background: transparent !important;
+        color: ${(props) => props.theme.colors?.text || 'inherit'};
     }
 `;
 

@@ -12,11 +12,11 @@ const Container = styled(Button)`
     border-radius: 8px;
     align-items: start;
     flex-direction: column;
-    border: 1px solid #e0e0e0;
-    background-color: #ffffff;
+    border: 1px solid ${(props) => props.theme.colors?.border || '#e0e0e0'};
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
     &&:hover {
-        border: 1px solid ${REDESIGN_COLORS.BLUE};
-        background-color: #ffffff;
+        border: 1px solid ${(props) => props.theme.styles?.['primary-color'] || REDESIGN_COLORS.BLUE};
+        background-color: ${(props) => props.theme.colors?.bgHover || '#ffffff'};
     }
     white-space: unset;
 `;
@@ -35,7 +35,7 @@ const LogoContainer = styled.div`
 
 const Title = styled.div`
     word-break: break-word;
-    color: #464646;
+    color: ${(props) => props.theme.colors?.text || '#464646'};
     font-weight: bold;
     font-size: 16px;
     margin-bottom: 8px;
@@ -44,7 +44,7 @@ const Title = styled.div`
 const Description = styled.div`
     word-break: break-word;
     text-align: left;
-    color: #7c7c7c;
+    color: ${(props) => props.theme.colors?.textSecondary || '#7c7c7c'};
 `;
 
 type Props = {

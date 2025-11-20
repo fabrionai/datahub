@@ -40,6 +40,18 @@ const GroupItemButtonGroup = styled.div`
     align-items: center;
 `;
 
+const StyledText = styled(Typography.Text)`
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+`;
+
+const StyledSecondaryText = styled(Typography.Text)`
+    && {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
+
 export default function GroupListItem({ group, onDelete, selectRoleOptions, refetch }: Props) {
     const entityRegistry = useEntityRegistry();
     const displayName = entityRegistry.getDisplayName(EntityType.CorpGroup, group);
@@ -63,10 +75,10 @@ export default function GroupListItem({ group, onDelete, selectRoleOptions, refe
                         />
                         <div style={{ marginLeft: 16, marginRight: 16 }}>
                             <div>
-                                <Typography.Text>{displayName}</Typography.Text>
+                                <StyledText>{displayName}</StyledText>
                             </div>
                             <div>
-                                <Typography.Text type="secondary">{group.properties?.description}</Typography.Text>
+                                <StyledSecondaryText type="secondary">{group.properties?.description}</StyledSecondaryText>
                             </div>
                         </div>
                         <Tag>{getElasticCappedTotalValueText((group as any).memberCount?.total || 0)} members</Tag>

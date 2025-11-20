@@ -22,7 +22,7 @@ import { DataHubView, FacetFilterInput, FacetMetadata, SearchResults as SearchRe
 const SearchBody = styled.div<{ showFilters?: boolean }>`
     height: 100%;
     overflow: hidden;
-    background-color: ${REDESIGN_COLORS.BACKGROUND};
+    background-color: ${(props) => props.theme.colors?.bgSurface || REDESIGN_COLORS.BACKGROUND};
     display: grid;
     grid-template-rows: minmax(0, 1fr) auto;
     grid-template-columns: ${(p) => (p.showFilters ? '0.2fr auto' : '1fr')};
@@ -44,7 +44,7 @@ const PaginationInfo = styled(Typography.Text)`
 
 const FiltersContainer = styled.div`
     grid-area: filters;
-    background-color: ${REDESIGN_COLORS.WHITE};
+    background-color: ${(props) => props.theme.colors?.bgSurface || REDESIGN_COLORS.WHITE};
     display: flex;
     flex-direction: column;
     max-width: 260px;
@@ -69,7 +69,7 @@ const PaginationInfoContainer = styled.div`
     padding-left: 16px;
     border-top: 1px solid;
     border-color: ${(props) => props.theme.styles['border-color-base']};
-    background-color: ${REDESIGN_COLORS.WHITE};
+    background-color: ${(props) => props.theme.colors?.bgSurface || REDESIGN_COLORS.WHITE};
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -91,6 +91,35 @@ const ViewMessageRow = styled.div`
 const StyledPagination = styled(Pagination)`
     margin: 0px;
     padding: 0px;
+
+    .ant-pagination-item {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+
+        a {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
+
+    .ant-pagination-item-active {
+        background-color: ${(props) => props.theme.styles['primary-color']};
+        border-color: ${(props) => props.theme.styles['primary-color']};
+
+        a {
+            color: #fff;
+        }
+    }
+
+    .ant-pagination-prev button,
+    .ant-pagination-next button {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+    }
+
+    .ant-pagination-disabled button {
+        color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+    }
 `;
 
 const LoadingContainer = styled.div`
@@ -108,7 +137,7 @@ const StyledLoading = styled(LoadingOutlined)`
 `;
 
 const ViewsContainer = styled.div`
-    background-color: ${REDESIGN_COLORS.BORDER_2};
+    background-color: ${(props) => props.theme.colors?.bgHover || REDESIGN_COLORS.BORDER_2};
     padding: 10px 16px;
     width: 100%;
     display: flex;
@@ -150,7 +179,7 @@ const LanguageIconStyle = styled(LanguageIcon)<{ selected?: boolean }>`
 
 const ViewLabel = styled.span`
     font-weight: 700;
-    color: #5f6685;
+    color: ${(props) => props.theme.colors?.text || '#5f6685'};
     font-size: 16px;
     margin-right: 8px;
 `;

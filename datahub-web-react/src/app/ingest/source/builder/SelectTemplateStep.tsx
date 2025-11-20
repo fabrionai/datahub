@@ -32,17 +32,34 @@ const SearchBarContainer = styled.div`
 `;
 
 const StyledSearchBar = styled(Input)`
-    background-color: white;
+    background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
     border-radius: 8px;
-    box-shadow: 0px 0px 30px 0px rgb(239 239 239);
-    border: 1px solid #e0e0e0;
+    box-shadow: 0px 0px 30px 0px ${(props) => props.theme.colors?.border || 'rgb(239 239 239)'};
+    border: 1px solid ${(props) => props.theme.colors?.border || '#e0e0e0'};
     margin: 0 0 15px 0px;
     max-width: 300px;
     font-size: 16px;
+
+    && input {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    && input::placeholder {
+        color: ${(props) => props.theme.colors?.textTertiary || 'rgba(0, 0, 0, 0.25)'};
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+        border-color: ${(props) => props.theme.colors?.borderBrand || '#40a9ff'};
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
+    }
 `;
 
 const StyledSearchOutlined = styled(SearchOutlined)`
-    color: #a9adbd;
+    color: ${(props) => props.theme.colors?.icon || '#a9adbd'};
 `;
 
 const PlatformListContainer = styled.div`

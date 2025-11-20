@@ -83,7 +83,7 @@ const getButtonColorStyles = (variant: ButtonVariant, color: ColorOptions, theme
 
             bgColor: colors.transparent,
             borderColor: colors.transparent,
-            hoverBgColor: colors.gray[1500],
+            hoverBgColor: theme?.colors?.bgHover || colors.gray[1500],
             activeBgColor: colors.transparent,
             disabledBgColor: colors.transparent,
             disabledBorderColor: colors.transparent,

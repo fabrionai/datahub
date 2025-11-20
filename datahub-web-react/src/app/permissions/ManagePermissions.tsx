@@ -23,6 +23,13 @@ const PageHeaderContainer = styled.div`
 const PageTitle = styled(Typography.Title)`
     && {
         margin-bottom: 12px;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+`;
+
+const PageDescription = styled(Typography.Paragraph)`
+    && {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
     }
 `;
 
@@ -30,13 +37,25 @@ const Content = styled.div`
     &&& .ant-tabs-nav {
         margin: 0;
     }
-    color: #262626;
+    color: ${(props) => props.theme.colors?.text || '#262626'};
     display: flex;
     flex-direction: column;
     overflow: auto;
 
     &&& .ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap {
         padding-left: 28px;
+    }
+
+    &&& .ant-tabs-tab {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+
+    &&& .ant-tabs-tab-active .ant-tabs-tab-btn {
+        color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+    }
+
+    &&& .ant-tabs-ink-bar {
+        background: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
     }
 `;
 
@@ -79,9 +98,9 @@ export const ManagePermissions = () => {
         <PageContainer>
             <PageHeaderContainer>
                 <PageTitle level={3}>Manage Permissions</PageTitle>
-                <Typography.Paragraph type="secondary">
+                <PageDescription type="secondary">
                     View your DataHub permissions. Take administrative actions.
-                </Typography.Paragraph>
+                </PageDescription>
             </PageHeaderContainer>
             <Content>
                 <RoutedTabs defaultPath={defaultTabPath} tabs={getTabs()} onTabChange={onTabChange} />

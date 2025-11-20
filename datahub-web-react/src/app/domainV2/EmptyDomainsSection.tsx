@@ -28,6 +28,12 @@ const StyledEmpty = styled(Empty)`
     .ant-empty-image {
         display: none;
     }
+    .ant-typography {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+    .ant-typography-secondary {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
 `;
 
 const StyledButton = styled(Button)`

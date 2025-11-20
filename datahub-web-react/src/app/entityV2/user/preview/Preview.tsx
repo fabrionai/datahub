@@ -28,6 +28,7 @@ const PlatformInfo = styled.div`
 
 const TitleContainer = styled.div`
     margin-bottom: 8px;
+    color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.65)'};
 `;
 
 const PreviewImage = styled.div`
@@ -44,6 +45,7 @@ const EntityTitle = styled(Typography.Text)`
         font-size: 16px;
         font-weight: 600;
         vertical-align: middle;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
     }
 `;
 
@@ -51,7 +53,7 @@ const PlatformText = styled(Typography.Text)`
     font-size: 12px;
     line-height: 20px;
     font-weight: 700;
-    color: ${ANTD_GRAY[7]};
+    color: ${(props) => props.theme.colors?.textSecondary || ANTD_GRAY[7]};
 `;
 
 export const Preview = ({

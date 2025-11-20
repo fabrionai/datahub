@@ -50,7 +50,7 @@ import ThemeToggle from '@app/homeV2/layout/navBarRedesign/ThemeToggle';
 
 const Container = styled.div`
     height: 100vh;
-    background-color: ${colors.gray[1600]};
+    background-color: ${(props) => props.theme.colors?.bgSurfaceNewNav || colors.gray[1600]};
     display: flex;
     flex: column;
     align-items: center;
@@ -121,10 +121,22 @@ export const NavSidebar = () => {
     // Update education steps allow list
     useUpdateEducationStepsAllowList(!!showDataSources, HOME_PAGE_INGESTION_ID);
 
+    const theme = useTheme();
+    const isDarkMode = theme?.id === 'fabrionDark';
+
     const customLogoUrl = appConfig.config.visualConfig.logoUrl;
     const hasCustomLogo = customLogoUrl && customLogoUrl !== DEFAULT_LOGO;
+
+    // Choose logo based on dark mode and collapsed state
+    const getLogoSrc = () => {
+        if (isDarkMode) {
+            return isCollapsed ? 'assets/logos/fabrion-icon.png' : 'assets/logos/fabrion-light.png';
+        }
+        return isCollapsed ? 'assets/logos/fabrion-icon-black.png' : 'assets/logos/fabrion-full.png';
+    };
+
     const logoComponent = hasCustomLogo ? (
-        <CustomLogo alt="logo" src={isCollapsed ? 'assets/logos/fabrion-icon-black.png' : 'assets/logos/fabrion-full.png'} />
+        <CustomLogo alt="logo" src={getLogoSrc()} />
     ) : (
         <AcrylIcon />
     );

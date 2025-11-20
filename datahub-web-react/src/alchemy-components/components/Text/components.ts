@@ -31,7 +31,12 @@ const baseStyles = {
 const propStyles = (props: TextProps, isText = false) => {
     const styles = {} as any;
     if (props.size) styles.fontSize = getFontSize(props.size);
-    if (props.color) styles.color = getColor(props.color, props.colorLevel, props.theme);
+    if (props.color) {
+        styles.color = getColor(props.color, props.colorLevel, props.theme);
+    } else {
+        // Default color when no color prop is provided
+        styles.color = props.theme?.colors?.text || colors.gray[600];
+    }
     if (props.weight) styles.fontWeight = typography.fontWeights[props.weight];
     if (isText) styles.lineHeight = typography.lineHeights[props.lineHeight || props.size || 'md'];
     return styles;

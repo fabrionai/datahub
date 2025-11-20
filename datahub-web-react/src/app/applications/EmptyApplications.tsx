@@ -18,6 +18,9 @@ const StyledEmpty = styled(Empty)`
     .ant-empty-description {
         margin-bottom: 12px;
     }
+    .ant-typography {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
 `;
 
 const EmptyApplications = ({ isEmptySearch }: Props) => {

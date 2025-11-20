@@ -15,6 +15,7 @@ export interface PostEntry {
 
 const PostText = styled.div<{ minWidth?: number }>`
     ${(props) => props.minWidth !== undefined && `min-width: ${props.minWidth}px;`}
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
 `;
 
 export function PostListMenuColumn(handleDelete: (urn: string) => void, handleEdit: (urn: PostEntry) => void) {

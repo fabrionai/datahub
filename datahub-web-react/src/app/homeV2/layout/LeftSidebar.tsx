@@ -39,11 +39,11 @@ const Container = styled.div<{ $isShowNavBarRedesign?: boolean }>`
 `;
 
 const Content = styled.div<{ $isShowNavBarRedesign?: boolean }>`
-    background-color: #ffffff;
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
     border-radius: ${(props) =>
         props.$isShowNavBarRedesign ? props.theme.styles['border-radius-navbar-redesign'] : '18px'};
     min-height: 100%;
-    ${(props) => !props.$isShowNavBarRedesign && 'border: 1.5px solid #efefef;'}
+    ${(props) => !props.$isShowNavBarRedesign && `border: 1.5px solid ${props.theme.colors?.border || '#efefef'};`}
 `;
 
 const Body = styled.div<{ $isShowNavBarRedesign?: boolean }>`

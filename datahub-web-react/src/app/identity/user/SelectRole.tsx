@@ -2,7 +2,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { useApolloClient } from '@apollo/client';
 import { Select } from 'antd';
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import { ANTD_GRAY } from '@app/entity/shared/constants';
 import AssignRoleConfirmation from '@app/identity/user/AssignRoleConfirmation';
@@ -21,9 +21,46 @@ type Props = {
     refetch?: () => void;
 };
 
+const RoleSelectDropdownStyles = createGlobalStyle`
+    .ant-select-dropdown {
+        ${(props) => props.theme.colors?.bgSurface && `background-color: ${props.theme.colors.bgSurface} !important;`}
+        ${(props) => props.theme.colors?.border && `border: 1px solid ${props.theme.colors.border} !important;`}
+    }
+
+    .ant-select-item {
+        ${(props) => props.theme.colors?.text && `color: ${props.theme.colors.text} !important;`}
+        ${(props) => props.theme.colors?.bgSurface && `background-color: ${props.theme.colors.bgSurface} !important;`}
+
+        &:hover {
+            ${(props) => props.theme.colors?.bgHover && `background-color: ${props.theme.colors.bgHover} !important;`}
+        }
+    }
+
+    .ant-select-item-option-selected {
+        ${(props) => props.theme.colors?.bgHover && `background-color: ${props.theme.colors.bgHover} !important;`}
+    }
+
+    .ant-select-item-option-active {
+        ${(props) => props.theme.colors?.bgHover && `background-color: ${props.theme.colors.bgHover} !important;`}
+    }
+`;
+
 const RoleSelect = styled(Select)<{ color?: string }>`
     min-width: 105px;
     ${(props) => (props.color ? ` color: ${props.color};` : '')}
+
+    .ant-select-selector {
+        ${(props) => props.theme.colors?.bgSurface && `background-color: ${props.theme.colors.bgSurface} !important;`}
+        ${(props) => props.theme.colors?.border && `border: 1px solid ${props.theme.colors.border} !important;`}
+    }
+
+    .ant-select-selection-item {
+        ${(props) => props.theme.colors?.text && `color: ${props.theme.colors.text} !important;`}
+    }
+
+    .ant-select-arrow {
+        ${(props) => props.theme.colors?.icon && `color: ${props.theme.colors.icon} !important;`}
+    }
 `;
 
 const RoleIcon = styled.span`
@@ -78,6 +115,7 @@ export default function SelectRole({ user, userRoleUrn, selectRoleOptions, refet
 
     return (
         <>
+            <RoleSelectDropdownStyles />
             <RoleSelect
                 placeholder={
                     <>

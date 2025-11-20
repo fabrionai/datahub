@@ -38,6 +38,7 @@ export const DomainsPaginationContainer = styled.div`
 
 const PaginationInfo = styled(Typography.Text)`
     padding: 0px;
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
 `;
 
 const DEFAULT_PAGE_SIZE = 25;

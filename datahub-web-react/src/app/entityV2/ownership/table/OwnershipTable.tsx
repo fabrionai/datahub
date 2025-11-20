@@ -1,5 +1,6 @@
 import { Empty } from 'antd';
 import React from 'react';
+import styled from 'styled-components/macro';
 
 import { ActionsColumn } from '@app/entityV2/ownership/table/ActionsColumn';
 import { DescriptionColumn } from '@app/entityV2/ownership/table/DescriptionColumn';
@@ -7,6 +8,12 @@ import { NameColumn } from '@app/entityV2/ownership/table/NameColumn';
 import { StyledTable } from '@app/entityV2/shared/components/styled/StyledTable';
 
 import { OwnershipTypeEntity } from '@types';
+
+const StyledEmpty = styled(Empty)`
+    .ant-empty-description {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
 
 type Props = {
     ownershipTypes: OwnershipTypeEntity[];
@@ -54,7 +61,7 @@ export const OwnershipTable = ({ ownershipTypes, setIsOpen, setOwnershipType, re
             dataSource={ownershipTypes}
             rowKey={getRowKey}
             locale={{
-                emptyText: <Empty description="No Ownership Types found!" image={Empty.PRESENTED_IMAGE_SIMPLE} />,
+                emptyText: <StyledEmpty description="No Ownership Types found!" image={Empty.PRESENTED_IMAGE_SIMPLE} />,
             }}
             pagination={false}
         />

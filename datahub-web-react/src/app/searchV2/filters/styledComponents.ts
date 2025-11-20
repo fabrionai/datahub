@@ -9,18 +9,32 @@ import { REDESIGN_COLORS } from '@app/entityV2/shared/constants';
 export const SearchFilterLabel = styled(Button)<{ $isActive: boolean }>`
     font-size: 14px;
     font-weight: 700;
-    border: none;
+    border: 1px solid ${(props) => props.theme.colors?.border || '#d9d9d9'};
     border-radius: 8px;
     display: flex;
     align-items: center;
     box-shadow: none;
-    color: ${REDESIGN_COLORS.TEXT_HEADING};
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+
+    &:hover {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        background-color: ${(props) => props.theme.colors?.bgHover || '#fafafa'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+    }
+
     ${(props) =>
         props.$isActive &&
         `
         background-color: ${props.theme.styles['primary-color']};
         border: 1px solid ${getColor('primary', 0, props.theme)};
         color: white;
+
+        &:hover {
+            color: white;
+            background-color: ${props.theme.styles['primary-color']};
+            border-color: ${getColor('primary', 0, props.theme)};
+        }
     `}
 `;
 
@@ -31,13 +45,14 @@ export const MoreFilterOptionLabel = styled.div<{ $isActive: boolean; isOpen?: b
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
 
     &:hover {
-        background-color: ${ANTD_GRAY[3]};
+        background-color: ${(props) => props.theme.colors?.bgHover || ANTD_GRAY[3]};
     }
 
     ${(props) => props.$isActive && `color: ${props.theme.styles['primary-color']};`}
-    ${(props) => props.isOpen && `background-color: ${ANTD_GRAY[3]};`}
+    ${(props) => props.isOpen && `background-color: ${props.theme.colors?.bgHover || ANTD_GRAY[3]};`}
 `;
 
 export const TextButton = styled(Button)<{ marginTop?: number; height?: number }>`
@@ -47,7 +62,8 @@ export const TextButton = styled(Button)<{ marginTop?: number; height?: number }
     ${(props) => props.height !== undefined && `height: ${props.height}px;`}
 
     &:hover {
-        background-color: white;
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+        color: ${(p) => p.theme.styles['primary-color']};
     }
 `;
 

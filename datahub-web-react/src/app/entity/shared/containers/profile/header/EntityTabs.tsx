@@ -17,6 +17,26 @@ const UnborderedTabs = styled(Tabs)`
             border-bottom: none;
         }
     }
+
+    &&& .ant-tabs-tab {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.65)'};
+
+        &:hover {
+            color: ${(props) => props.theme.styles?.['primary-color'] || '#1890ff'};
+        }
+    }
+
+    &&& .ant-tabs-tab-active .ant-tabs-tab-btn {
+        color: ${(props) => props.theme.styles?.['primary-color'] || '#1890ff'};
+    }
+
+    &&& .ant-tabs-ink-bar {
+        background: ${(props) => props.theme.styles?.['primary-color'] || '#1890ff'};
+    }
+
+    &&& .ant-tabs-tab-disabled {
+        color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+    }
 `;
 
 const Tab = styled(Tabs.TabPane)`

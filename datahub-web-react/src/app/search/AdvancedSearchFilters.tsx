@@ -13,12 +13,13 @@ import { FacetFilterInput, FacetMetadata } from '@types';
 
 const AnyAllSection = styled.div`
     padding: 6px;
-    color: ${ANTD_GRAY[8]};
+    color: ${(props) => props.theme.colors?.text || ANTD_GRAY[8]};
 `;
 
 const EmptyStateSection = styled.div`
     border-radius: 5px;
-    background-color: ${ANTD_GRAY[2]};
+    background-color: ${(props) => props.theme.colors?.bgHover || ANTD_GRAY[2]};
+    color: ${(props) => props.theme.colors?.textSecondary || 'inherit'};
     padding: 22px;
     margin-top: 10px;
 `;

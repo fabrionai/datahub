@@ -1,7 +1,8 @@
 import { Button, Card, colors } from '@components';
 import { Globe, Plugs, UserPlus } from '@phosphor-icons/react';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTheme } from 'styled-components';
 
 import { useUserContext } from '@app/context/useUserContext';
 import ViewInviteTokenModal from '@app/identity/user/ViewInviteTokenModal';
@@ -15,6 +16,7 @@ export const OnboardingCards = () => {
     const { platforms, loading } = useGetPlatforms(user);
     const { isUserInitializing } = useContext(OnboardingContext);
     const [isViewingInviteToken, setIsViewingInviteToken] = useState(false);
+    const theme = useTheme() as any;
 
     if (loading || platforms?.length || isUserInitializing || !user) {
         return null;
@@ -28,11 +30,13 @@ export const OnboardingCards = () => {
         setIsViewingInviteToken(true);
     };
 
+    const iconColor = theme?.colors?.icon || colors.gray[1800];
+
     return (
         <div style={{ display: 'flex', gap: '16px' }} id={HOME_PAGE_ONBOARDING_CARDS_ID}>
             <Link to={`${PageRoutes.INGESTION}`}>
                 <Card
-                    icon={<Plugs color={colors.gray[1800]} size={32} />}
+                    icon={<Plugs color={iconColor} size={32} />}
                     title="Add Data Sources"
                     subTitle="Connect your data platforms"
                     button={<Button variant="text">Add</Button>}
@@ -40,7 +44,7 @@ export const OnboardingCards = () => {
             </Link>
             {canManageUsers ? (
                 <Card
-                    icon={<UserPlus color={colors.gray[1800]} size={32} />}
+                    icon={<UserPlus color={iconColor} size={32} />}
                     title="Invite Users"
                     subTitle="Invite users to DataHub"
                     onClick={openInviteUsers}
@@ -49,7 +53,7 @@ export const OnboardingCards = () => {
             ) : null}
             <Link to={`${PageRoutes.DOMAINS}?create=true`}>
                 <Card
-                    icon={<Globe color={colors.gray[1800]} size={32} />}
+                    icon={<Globe color={iconColor} size={32} />}
                     title="Add Domains"
                     subTitle="Configure your data domains"
                     button={<Button variant="text">Add</Button>}

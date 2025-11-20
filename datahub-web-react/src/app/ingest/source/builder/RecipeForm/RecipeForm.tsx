@@ -29,19 +29,49 @@ export const ControlsContainer = styled.div`
 const StyledCollapse = styled(Collapse)`
     margin-bottom: 16px;
 
-    .ant-collapse-header {
+    && .ant-collapse-item {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+    }
+
+    && .ant-collapse-header {
         font-size: 14px;
         font-weight: bold;
         padding: 12px 0;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    && .ant-collapse-content {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+    }
+
+    && .ant-collapse-content-box {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+    }
+
+    .ant-collapse-arrow svg {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    h4.ant-typography,
+    h5.ant-typography,
+    .ant-typography {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
     }
 `;
 
 const HeaderTitle = styled.span`
     margin-left: 8px;
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
 `;
 
 const MarginWrapper = styled.div`
     margin-left: 20px;
+
+    .ant-typography {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
 `;
 
 const TestConnectionWrapper = styled.div`
@@ -53,7 +83,7 @@ const TestConnectionWrapper = styled.div`
 const HeaderTooltipWrapper = styled(QuestionCircleOutlined)`
     margin-left: 5px;
     font-size: 12px;
-    color: rgba(0, 0, 0, 0.45);
+    color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
     cursor: help;
 `;
 

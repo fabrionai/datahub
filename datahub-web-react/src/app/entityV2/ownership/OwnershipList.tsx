@@ -21,6 +21,48 @@ const PaginationContainer = styled.div`
 
 const StyledPagination = styled(Pagination)`
     margin: 40px;
+
+    .ant-pagination-item {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+
+        a {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
+
+    .ant-pagination-item-active {
+        background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+        border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+        a {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+        }
+    }
+
+    .ant-pagination-prev, .ant-pagination-next {
+        .ant-pagination-item-link {
+            background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+            border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
+
+    .ant-pagination-disabled {
+        .ant-pagination-item-link {
+            color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+        }
+    }
+`;
+
+const StyledButton = styled(Button)`
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+        .anticon {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
 `;
 
 const searchBarStyle = {
@@ -91,9 +133,9 @@ export const OwnershipList = () => {
                     duration: 3,
                 })}
             <TabToolbar>
-                <Button type="text" onClick={onClickCreateOwnershipType} data-testid="create-owner-type-v2">
+                <StyledButton type="text" onClick={onClickCreateOwnershipType} data-testid="create-owner-type-v2">
                     <PlusOutlined /> Create Ownership Type
-                </Button>
+                </StyledButton>
                 <SearchBar
                     initialQuery=""
                     placeholderText="Search by Name..."

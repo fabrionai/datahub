@@ -18,4 +18,4 @@ export interface HeadingProps extends Partial<HeadingPropsDefaults>, Omit<HTMLAt
     colorLevel?: FontColorLevelOptions;
 }
 
-export type HeadingStyleProps = Omit<HeadingPropsDefaults, 'type'> & Pick<HeadingProps, 'colorLevel'>;
+export type HeadingStyleProps = Omit<HeadingPropsDefaults, 'type'> & Pick<HeadingProps, 'colorLevel'> & { theme?: any };

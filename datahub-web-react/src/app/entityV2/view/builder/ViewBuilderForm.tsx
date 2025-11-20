@@ -13,6 +13,57 @@ import { DataHubViewType } from '@types';
 
 const StyledFormItem = styled(Form.Item)`
     margin-bottom: 8px;
+
+    .ant-form-item-label > label {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-typography {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-typography-secondary {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+
+    .ant-input,
+    .ant-input-affix-wrapper,
+    .ant-select-selector,
+    textarea.ant-input {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'} !important;
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'} !important;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-input::placeholder,
+    textarea.ant-input::placeholder,
+    .ant-select-selection-placeholder {
+        color: ${(props) => props.theme.colors?.textTertiary || 'rgba(0, 0, 0, 0.25)'} !important;
+    }
+
+    .ant-select-arrow {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'};
+    }
+
+    .ant-input:hover,
+    .ant-input-affix-wrapper:hover,
+    .ant-select-selector:hover,
+    textarea.ant-input:hover {
+        border-color: ${(props) => props.theme.colors?.textBrand || '#40a9ff'} !important;
+    }
+
+    .ant-input:focus,
+    .ant-input-affix-wrapper-focused,
+    .ant-select-focused .ant-select-selector,
+    textarea.ant-input:focus {
+        border-color: ${(props) => props.theme.colors?.textBrand || '#40a9ff'} !important;
+        box-shadow: 0 0 0 2px
+            ${(props) => (props.theme.colors?.textBrand ? `${props.theme.colors.textBrand}1a` : 'rgba(24, 144, 255, 0.2)')};
+    }
+
+    .ant-select-selection-item {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
 `;
 
 type Props = {

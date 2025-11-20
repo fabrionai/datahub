@@ -19,6 +19,36 @@ type TableCellProps = {
 const StyledTable = styled(Table)`
     padding-top: 16px;
     width: 100%;
+
+    &&& .ant-table {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    &&& .ant-table-thead > tr > th {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+        border-color: ${(props) => props.theme.colors?.border || '#f0f0f0'};
+        font-weight: 600;
+    }
+
+    &&& .ant-table-tbody > tr > td {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        border-color: ${(props) => props.theme.colors?.border || '#f0f0f0'};
+    }
+
+    &&& .ant-table-tbody > tr:hover > td {
+        background-color: ${(props) => props.theme.colors?.bgHover || '#fafafa'} !important;
+    }
+
+    &&& .ant-table-column-title {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    &&& .ant-table-cell {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
 `;
 
 const TableLink = styled(Button)`
@@ -27,6 +57,12 @@ const TableLink = styled(Button)`
         font-weight: 400;
         margin-top: -6px;
         margin-bottom: -6px;
+        color: ${(props) => props.theme.styles?.['primary-color'] || '#1890ff'};
+
+        &:hover {
+            color: ${(props) => props.theme.styles?.['primary-color'] || '#1890ff'};
+            opacity: 0.8;
+        }
     }
 `;
 
@@ -71,7 +107,7 @@ const TableCell = ({ cell }: TableCellProps) => {
             </TableLink>
         );
     }
-    return <span>{cell.value}</span>;
+    return <span style={{ color: 'inherit' }}>{cell.value}</span>;
 };
 
 export const TableChart = ({ chartData }: Props) => {

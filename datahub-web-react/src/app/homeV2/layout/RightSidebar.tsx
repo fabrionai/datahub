@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { Announcements } from '@app/homeV2/action/announcement/Announcements';
@@ -15,7 +15,7 @@ const Container = styled.div<{ $isHidden?: boolean; $isShowNavBarRedesign?: bool
         margin: 5px;
         border-radius: ${props.theme.styles['border-radius-navbar-redesign']};
         box-shadow: ${props.theme.styles['box-shadow-navbar-redesign']};
-        background-color: white;
+        background-color: ${props.theme.colors?.bgSurface || 'white'};
     `}
 
     /* Hide scrollbar for Chrome, Safari, and Opera */

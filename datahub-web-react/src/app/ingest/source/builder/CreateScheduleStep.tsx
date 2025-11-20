@@ -24,6 +24,7 @@ const Section = styled.div`
 const SelectTemplateHeader = styled(Typography.Title)`
     && {
         margin-bottom: 8px;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
     }
 `;
 
@@ -31,12 +32,19 @@ const CronText = styled(Typography.Paragraph)`
     &&& {
         margin-bottom: 0px;
     }
-    color: ${ANTD_GRAY[7]};
+    color: ${(props) => props.theme.colors?.textSecondary || ANTD_GRAY[7]} !important;
 `;
 
 const CronInput = styled(Input)`
     margin-bottom: 8px;
     max-width: 200px;
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'} !important;
+    border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'} !important;
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+
+    &::placeholder {
+        color: ${(props) => props.theme.colors?.textTertiary || 'rgba(0, 0, 0, 0.25)'} !important;
+    }
 `;
 
 const Schedule = styled.div`
@@ -51,6 +59,7 @@ const AdvancedSchedule = styled.div`
 
 const AdvancedCheckBox = styled(Typography.Text)`
     margin-right: 10px;
+    color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'} !important;
 `;
 
 const CronSuccessCheck = styled(CheckCircleOutlined)`
@@ -65,24 +74,53 @@ const ControlsContainer = styled.div`
 `;
 
 const StyledFormItem = styled(Form.Item)`
+    .ant-form-item-label > label {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-typography {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-typography-secondary {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+
     .cron-builder {
-        color: ${ANTD_GRAY[7]};
+        color: ${(props) => props.theme.colors?.textSecondary || ANTD_GRAY[7]};
     }
     .cron-builder-select {
         min-width: 100px;
     }
+
+    .ant-select-selector {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'} !important;
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'} !important;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-select-selection-item {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-select-arrow {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'};
+    }
 `;
 
 const WarningContainer = styled.div`
-    color: ${ANTD_GRAY[7]};
+    color: ${(props) => props.theme.colors?.textSecondary || ANTD_GRAY[7]};
 `;
 
 const StyledWarningOutlined = styled(WarningOutlined)`
     margin-right: 4px;
     margin-top: 12px;
+    color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'};
 `;
 
-const ItemDescriptionText = styled(Typography.Paragraph)``;
+const ItemDescriptionText = styled(Typography.Paragraph)`
+    color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.65)'} !important;
+`;
 
 const DAILY_MIDNIGHT_CRON_INTERVAL = '0 0 * * *';
 
@@ -142,7 +180,7 @@ export const CreateScheduleStep = ({ state, updateState, goTo, prev }: StepProps
                 <SelectTemplateHeader level={5}>Configure an Ingestion Schedule</SelectTemplateHeader>
             </Section>
             <RequiredFieldForm layout="vertical">
-                <Form.Item
+                <StyledFormItem
                     tooltip="Enable to run ingestion syncs on a schedule. Running syncs on a schedule helps to keep information up to date."
                     label={
                         <Typography.Text strong>
@@ -157,7 +195,7 @@ export const CreateScheduleStep = ({ state, updateState, goTo, prev }: StepProps
                             Running ingestion without a schedule may result in out-of-date information.
                         </WarningContainer>
                     )}
-                </Form.Item>
+                </StyledFormItem>
                 <StyledFormItem required label={<Typography.Text strong>Schedule</Typography.Text>}>
                     <Schedule>
                         {advancedCronCheck ? (
@@ -199,10 +237,10 @@ export const CreateScheduleStep = ({ state, updateState, goTo, prev }: StepProps
                         )}
                     </CronText>
                 </StyledFormItem>
-                <Form.Item required label={<Typography.Text strong>Timezone</Typography.Text>}>
+                <StyledFormItem required label={<Typography.Text strong>Timezone</Typography.Text>}>
                     <ItemDescriptionText>Choose a timezone for the schedule.</ItemDescriptionText>
                     <TimezoneSelect value={scheduleTimezone} onChange={setScheduleTimezone} />
-                </Form.Item>
+                </StyledFormItem>
             </RequiredFieldForm>
             <ControlsContainer>
                 <Button variant="outline" color="gray" onClick={prev}>

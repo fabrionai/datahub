@@ -5,12 +5,12 @@ import { useShowNavBarRedesign } from '@app/useShowNavBarRedesign';
 import { colors } from '@src/alchemy-components';
 
 const Container = styled.div<{ $isShowNavBarRedesign?: boolean }>`
-    color: ${(props) => (props.$isShowNavBarRedesign ? colors.gray[1700] : '#dcdcdc')};
-    background-color: ${(props) => (props.$isShowNavBarRedesign ? colors.white : '#171723')};
+    color: ${(props) => props.theme.colors?.textSecondary || (props.$isShowNavBarRedesign ? colors.gray[1700] : '#dcdcdc')};
+    background-color: ${(props) => props.theme.colors?.bgSurfaceDarker || (props.$isShowNavBarRedesign ? colors.white : '#171723')};
     opacity: 0.9;
     border-color: black;
     border-radius: 6px;
-    border: 1px solid ${(props) => (props.$isShowNavBarRedesign ? colors.gray[1700] : '#dcdcdc')};
+    border: 1px solid ${(props) => props.theme.colors?.border || (props.$isShowNavBarRedesign ? colors.gray[1700] : '#dcdcdc')};
     padding-right: 6px;
     padding-left: 6px;
     margin-right: 4px;

@@ -33,11 +33,97 @@ const SourceContainer = styled.div`
 const PaginationContainer = styled.div`
     display: flex;
     justify-content: center;
+
+    .ant-pagination-item {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+
+        a {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+
+        &:hover {
+            border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+            a {
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-item-active {
+        background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+        border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+        a {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+        }
+
+        &:hover {
+            background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+            border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+            a {
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-prev,
+    .ant-pagination-next {
+        button {
+            background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
+            border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+            &:hover {
+                border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-disabled {
+        button {
+            background-color: ${(props) => props.theme.colors?.bgDisabled || '#f5f5f5'};
+            border-color: ${(props) => props.theme.colors?.borderDisabled || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+
+            &:hover {
+                border-color: ${(props) => props.theme.colors?.borderDisabled || '#d9d9d9'};
+                color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+            }
+        }
+    }
 `;
 
-const RoleName = styled.span`
+const RoleName = styled.span<{ $editable?: boolean }>`
     cursor: pointer;
     font-weight: 700;
+    color: ${(props) => {
+        // If theme colors are available (dark mode), use them
+        if (props.theme.colors?.text) {
+            return props.$editable ? props.theme.colors.text : props.theme.colors.textSecondary;
+        }
+        // Otherwise use original light mode colors
+        return props.$editable ? '#000000' : ANTD_GRAY[8];
+    }};
+`;
+
+const RoleDescription = styled.span`
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+`;
+
+const NoUsersText = styled(Typography.Text)`
+    && {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
+
+const StyledEmpty = styled(Empty)`
+    .ant-empty-description {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
 `;
 
 const PageContainer = styled.span`
@@ -158,7 +244,7 @@ export const ManageRoles = () => {
                     <>
                         <RoleName
                             onClick={() => onViewRole(record.role)}
-                            style={{ color: record?.editable ? '#000000' : ANTD_GRAY[8] }}
+                            $editable={record?.editable}
                         >
                             {record?.name}
                         </RoleName>
@@ -170,7 +256,7 @@ export const ManageRoles = () => {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
-            render: (description: string) => description || '',
+            render: (description: string) => <RoleDescription>{description || ''}</RoleDescription>,
         },
         {
             title: 'Users',
@@ -200,7 +286,7 @@ export const ManageRoles = () => {
                                     </Avatar>
                                 )}
                             </>
-                        )) || <Typography.Text type="secondary">No assigned users</Typography.Text>}
+                        )) || <NoUsersText type="secondary">No assigned users</NoUsersText>}
                     </>
                 );
             },
@@ -286,7 +372,7 @@ export const ManageRoles = () => {
                     dataSource={tableData}
                     rowKey="urn"
                     locale={{
-                        emptyText: <Empty description="No Roles!" image={Empty.PRESENTED_IMAGE_SIMPLE} />,
+                        emptyText: <StyledEmpty description="No Roles!" image={Empty.PRESENTED_IMAGE_SIMPLE} />,
                     }}
                     pagination={false}
                 />

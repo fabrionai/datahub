@@ -4,18 +4,18 @@ import { getHeaderSubtitleStyles, getHeaderTitleStyles } from '@components/compo
 import { colors, typography } from '@components/theme';
 
 // Text Styles
-const titleStyles = {
+const titleStyles = (theme: any) => ({
     display: 'flex',
     alignItems: 'center',
     gap: 8,
     fontWeight: typography.fontWeights.bold,
-    color: colors.gray[600],
-};
+    color: theme?.colors?.text || colors.gray[600],
+});
 
-const subTitleStyles = {
+const subTitleStyles = (theme: any) => ({
     fontWeight: typography.fontWeights.normal,
-    color: colors.gray[1700],
-};
+    color: theme?.colors?.textSecondary || colors.gray[1700],
+});
 
 // Default styles
 const baseStyles = {
@@ -41,14 +41,14 @@ export const Container = styled.div`
     justify-content: start;
 `;
 
-export const Title = styled.div<{ variant: string }>(({ variant }) => ({
+export const Title = styled.div<{ variant: string }>(({ variant, theme }) => ({
     ...baseStyles,
-    ...titleStyles,
+    ...titleStyles(theme),
     ...getHeaderTitleStyles(variant),
 }));
 
-export const SubTitle = styled.div<{ variant: string }>(({ variant }) => ({
+export const SubTitle = styled.div<{ variant: string }>(({ variant, theme }) => ({
     ...baseStyles,
-    ...subTitleStyles,
+    ...subTitleStyles(theme),
     ...getHeaderSubtitleStyles(variant),
 }));

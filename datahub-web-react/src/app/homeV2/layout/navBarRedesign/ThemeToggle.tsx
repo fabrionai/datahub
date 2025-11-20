@@ -18,15 +18,15 @@ const ToggleButton = styled.button<{ isCollapsed: boolean }>`
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    color: #94a3b8;
+    color: ${(props) => props.theme.colors?.icon || '#94a3b8'};
     font-size: 14px;
     font-weight: 500;
     width: 100%;
     transition: all 0.2s ease;
 
     &:hover {
-        background: rgba(148, 163, 184, 0.1);
-        color: #e2e8f0;
+        background: ${(props) => props.theme.colors?.bgHover || 'rgba(148, 163, 184, 0.1)'};
+        color: ${(props) => props.theme.colors?.text || '#e2e8f0'};
     }
 
     svg {
@@ -49,20 +49,17 @@ interface ThemeToggleProps {
 export default function ThemeToggle({ isCollapsed = false }: ThemeToggleProps) {
     const { theme, updateTheme } = useCustomTheme();
 
-    const isDarkMode = theme?.id === 'fabrionDark' || theme?.id === 'themeV2Dark';
+    const isDarkMode = theme?.id === 'fabrionDark';
 
     const toggleTheme = useCallback(() => {
-        // Detect which theme family we're in
-        const isFabrion = theme?.id?.startsWith('fabrion');
-        const newTheme = isDarkMode
-            ? (isFabrion ? themes.fabrionLight : themes.themeV2)
-            : (isFabrion ? themes.fabrionDark : themes.themeV2Dark);
+        // Toggle between themeV2 (light) and fabrionDark (dark)
+        const newTheme = isDarkMode ? themes.themeV2 : themes.fabrionDark;
 
         updateTheme(newTheme);
 
         // Save preference to localStorage
         localStorage.setItem('customThemeId', newTheme.id);
-    }, [isDarkMode, theme?.id, updateTheme]);
+    }, [isDarkMode, updateTheme]);
 
     return (
         <ToggleButton

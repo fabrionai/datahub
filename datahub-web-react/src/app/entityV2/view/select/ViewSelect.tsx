@@ -1,7 +1,7 @@
 import { Popover, colors } from '@components';
 import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 import { useUserContext } from '@app/context/useUserContext';
 import { ANTD_GRAY, REDESIGN_COLORS } from '@app/entityV2/shared/constants';
@@ -61,13 +61,21 @@ const overlayInnerStyle = {
     width: '100%',
 };
 
-const getOverlayInnerStyle = (isShowNavBarRedesign?: boolean) => {
+const ViewSelectPopoverStyles = styled.div`
+    .view-select-popover {
+        .ant-popover-inner {
+            background-color: ${(props) => props.theme.colors?.bgSurfaceNewNav || colors.gray[1600]} !important;
+        }
+    }
+`;
+
+const getOverlayInnerStyle = (isShowNavBarRedesign?: boolean, themeBgColor?: string) => {
     if (isShowNavBarRedesign)
         return {
             display: 'flex',
             width: '100%',
             opacity: 0.97,
-            backgroundColor: colors.gray[1600],
+            backgroundColor: themeBgColor || colors.gray[1600],
             borderRadius: '0 0 12px 12px',
             paddingTop: '1px',
             boxShadow: '0px 525px 20px 500px rgba(0, 0, 0, 0.12), 0px 65px 60px 0px rgba(0, 0, 0, 0.12)',
@@ -120,6 +128,7 @@ const Blur = styled.div<{ $isOpen?: boolean }>`
  */
 export const ViewSelect = () => {
     const userContext = useUserContext();
+    const theme = useTheme() as any;
 
     const {
         isInternalOpen,
@@ -155,6 +164,7 @@ export const ViewSelect = () => {
     return (
         <>
             {isShowNavBarRedesign && createPortal(<Blur $isOpen={isInternalOpen} />, document.body)}
+            <ViewSelectPopoverStyles>
             <ViewSelectContainer>
                 <Popover
                     open={isInternalOpen}
@@ -207,7 +217,7 @@ export const ViewSelect = () => {
                     }
                     trigger="click"
                     overlayClassName="view-select-popover"
-                    overlayInnerStyle={getOverlayInnerStyle(isShowNavBarRedesign)}
+                    overlayInnerStyle={getOverlayInnerStyle(isShowNavBarRedesign, theme?.colors?.bgSurfaceNewNav)}
                     overlayStyle={getOverlayStyle(isShowNavBarRedesign)}
                     showArrow={false}
                     popupVisible={false}
@@ -225,6 +235,7 @@ export const ViewSelect = () => {
                     />
                 )}
             </ViewSelectContainer>
+            </ViewSelectPopoverStyles>
         </>
     );
 };

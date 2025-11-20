@@ -31,13 +31,15 @@ const GROUP_PAGE_SIZE = 20;
  * Styled Components
  */
 const UserProfileWrapper = styled.div`
+    background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+
     &&& .ant-tabs-nav {
         margin: 0;
     }
 `;
 
 const Content = styled.div`
-    color: #262626;
+    color: ${(props) => props.theme.colors?.text || '#262626'};
     height: calc(100vh - 60px);
 
     &&& .ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap {
@@ -48,7 +50,7 @@ const Content = styled.div`
 export const EmptyValue = styled.div`
     &:after {
         content: 'None';
-        color: #b7b7b7;
+        color: ${(props) => props.theme.colors?.textSecondary || '#b7b7b7'};
         font-style: italic;
         font-weight: 100;
     }
@@ -132,7 +134,7 @@ export default function UserProfile() {
                     <Col xl={5} lg={5} md={5} sm={24} xs={24}>
                         <UserInfoSideBar sideBarData={sideBarData} refetch={refetch} />
                     </Col>
-                    <Col xl={19} lg={19} md={19} sm={24} xs={24} style={{ borderLeft: '1px solid #E9E9E9' }}>
+                    <Col xl={19} lg={19} md={19} sm={24} xs={24} style={{ borderLeft: '1px solid var(--border-color, #E9E9E9)' }}>
                         <Content>
                             <RoutedTabs defaultPath={defaultTabPath} tabs={getTabs()} onTabChange={onTabChange} />
                         </Content>

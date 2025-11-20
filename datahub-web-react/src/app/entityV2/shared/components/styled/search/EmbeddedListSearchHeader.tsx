@@ -44,9 +44,36 @@ const ImpactAnalysisWarning = styled.div`
     z-index: 1;
 `;
 
+const StyledSearchBarWrapper = styled.div`
+    .ant-input-affix-wrapper,
+    .ant-input-affix-wrapper input {
+        background-color: ${(props) => props.theme.colors?.bg || '#fff'} !important;
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-input-affix-wrapper input::placeholder {
+        color: ${(props) => props.theme.colors?.textTertiary || 'rgba(0, 0, 0, 0.45)'};
+    }
+
+    .ant-input-affix-wrapper:hover,
+    .ant-input-affix-wrapper:focus,
+    .ant-input-affix-wrapper:focus-within {
+        border-color: ${(props) => props.theme.styles['primary-color']};
+    }
+
+    .ant-input-clear-icon {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+
+    .ant-input-prefix {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
+
 const StyledButton = styled(Button)`
     margin-left: auto;
-    color: #ee9521;
+    color: ${(props) => props.theme.colors?.textWarning || '#ee9521'};
     padding: 0;
 `;
 
@@ -96,33 +123,35 @@ export default function EmbeddedListSearchHeader({
         <>
             <TabToolbar>
                 <HeaderContainer>
-                    <AntButton type="text" onClick={onToggleFilters}>
+                    <AntButton type="text" onClick={onToggleFilters} style={{ color: colors.gray[200] }}>
                         <FilterOutlined />
-                        <Typography.Text>Filters</Typography.Text>
+                        <Typography.Text style={{ color: 'inherit' }}>Filters</Typography.Text>
                     </AntButton>
                     <SearchAndDownloadContainer>
-                        <SearchBar
-                            data-testid="embedded-search-bar"
-                            initialQuery=""
-                            placeholderText={placeholderText || 'Search entities...'}
-                            suggestions={[]}
-                            style={
-                                searchBarStyle || {
-                                    maxWidth: 220,
-                                    padding: 0,
+                        <StyledSearchBarWrapper>
+                            <SearchBar
+                                data-testid="embedded-search-bar"
+                                initialQuery=""
+                                placeholderText={placeholderText || 'Search entities...'}
+                                suggestions={[]}
+                                style={
+                                    searchBarStyle || {
+                                        maxWidth: 220,
+                                        padding: 0,
+                                    }
                                 }
-                            }
-                            inputStyle={
-                                searchBarInputStyle || {
-                                    height: 32,
-                                    fontSize: 12,
+                                inputStyle={
+                                    searchBarInputStyle || {
+                                        height: 32,
+                                        fontSize: 12,
+                                    }
                                 }
-                            }
-                            onSearch={onSearch}
-                            onQueryChange={onSearch}
-                            entityRegistry={entityRegistry}
-                            hideRecommendations
-                        />
+                                onSearch={onSearch}
+                                onQueryChange={onSearch}
+                                entityRegistry={entityRegistry}
+                                hideRecommendations
+                            />
+                        </StyledSearchBarWrapper>
                         <SearchMenuContainer>
                             <SearchSortSelect
                                 selectedSortOption={selectedSortOption}

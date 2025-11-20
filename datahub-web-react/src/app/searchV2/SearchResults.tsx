@@ -64,6 +64,40 @@ const PaginationControlContainer = styled.div`
     text-align: start;
 `;
 
+const StyledPagination = styled(Pagination)`
+    .ant-pagination-item {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+        a {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
+    .ant-pagination-item-active {
+        background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+        border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+        a {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+        }
+    }
+    .ant-pagination-prev,
+    .ant-pagination-next,
+    .ant-pagination-jump-prev,
+    .ant-pagination-jump-next {
+        .ant-pagination-item-link {
+            background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+            border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+    }
+    .ant-pagination-disabled {
+        .ant-pagination-item-link {
+            color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+            background-color: ${(props) => props.theme.colors?.bgSurfaceDarker || '#f5f5f5'};
+            border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+        }
+    }
+`;
+
 const PaginationInfoContainer = styled.div<{ v2Styles: boolean }>`
     padding: 4px 8px 4px 12px;
     display: flex;
@@ -85,12 +119,12 @@ const SearchResultsScrollContainer = styled.div<{ $isShowNavBarRedesign?: boolea
 
 const LeftControlsContainer = styled.div`
     display: flex;
-    color: ${colors.gray[1700]};
+    color: ${(props) => props.theme.colors?.text || colors.gray[1700]};
     gap: 4px;
 `;
 
 const StyledTabToolbar = styled.div`
-    background-color: #fff;
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
     border-radius: 12px;
     margin: 4px 16px 4px 8px;
     padding: 12px 24px;
@@ -282,7 +316,7 @@ export const SearchResults = ({
                                             />
                                             {totalResults > 0 && (
                                                 <PaginationControlContainer id="search-pagination">
-                                                    <Pagination
+                                                    <StyledPagination
                                                         current={page}
                                                         pageSize={numResultsPerPage}
                                                         total={totalResults}

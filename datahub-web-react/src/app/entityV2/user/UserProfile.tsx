@@ -56,7 +56,7 @@ const UserProfileWrapper = styled.div<{ $isShowNavBarRedesign?: boolean }>`
     &&& .ant-tabs-nav {
         margin: 0;
     }
-    background-color: #fff;
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
     height: 100%;
     overflow: hidden;
     display: flex;
@@ -77,7 +77,7 @@ const UserProfileWrapper = styled.div<{ $isShowNavBarRedesign?: boolean }>`
 export const EmptyValue = styled.div`
     &:after {
         content: 'None';
-        color: #b7b7b7;
+        color: ${(props) => props.theme.colors?.textSecondary || '#b7b7b7'};
         font-style: italic;
         font-weight: 100;
     }
@@ -85,7 +85,7 @@ export const EmptyValue = styled.div`
 
 const ContentContainer = styled.div<{ isVisible: boolean }>`
     flex: 1;
-    ${(props) => props.isVisible && 'border-right: 1px solid #e8e8e8;'}
+    ${(props) => props.isVisible && `border-right: 1px solid ${props.theme.colors?.border || '#e8e8e8'};`}
     overflow: inherit;
 `;
 
@@ -227,7 +227,7 @@ export default function UserProfile({ urn }: Props) {
                     md={17}
                     sm={24}
                     xs={24}
-                    style={{ borderLeft: `1px solid ${colors.gray[100]}`, height: '100%' }}
+                    style={{ borderLeft: `1px solid var(--border-color, ${colors.gray[100]})`, height: '100%' }}
                 >
                     <RoutedTabs defaultPath={defaultTabPath} tabs={getTabs()} onTabChange={onTabChange} />
                 </Col>

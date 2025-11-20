@@ -18,7 +18,7 @@ import { useShowNavBarRedesign } from '@app/useShowNavBarRedesign';
 const PageContainer = styled.div<{ $isShowNavBarRedesign?: boolean }>`
     padding-top: 16px;
     padding-right: 16px;
-    background-color: white;
+    background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -58,11 +58,28 @@ const StyledTabs = styled(Tabs)`
         margin-bottom: 0;
         padding-left: 20px;
     }
+
+    &&& .ant-tabs-tab {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.65)'};
+
+        &:hover {
+            color: ${(props) => props.theme.styles?.['primary-color'] || '#1890ff'};
+        }
+    }
+
+    &&& .ant-tabs-tab-active .ant-tabs-tab-btn {
+        color: ${(props) => props.theme.styles?.['primary-color'] || '#1890ff'};
+    }
+
+    &&& .ant-tabs-ink-bar {
+        background: ${(props) => props.theme.styles?.['primary-color'] || '#1890ff'};
+    }
 `;
 
 const Tab = styled(Tabs.TabPane)`
     font-size: 14px;
     line-height: 22px;
+    color: ${(props) => props.theme.colors?.text};
 `;
 
 const ListContainer = styled.div`

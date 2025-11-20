@@ -59,6 +59,24 @@ const PersonTokenDescriptionText = styled(Typography.Paragraph)`
         max-width: 700px;
         margin-top: 12px;
         margin-bottom: 16px;
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
+
+const StyledTitle = styled(Typography.Title)`
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+`;
+
+const StyledButton = styled(Button)`
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+        &:hover {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.04)'};
+        }
     }
 `;
 
@@ -70,10 +88,94 @@ const ActionButtonContainer = styled.div`
 const PaginationContainer = styled.div`
     display: flex;
     justify-content: center;
+
+    .ant-pagination-item {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+
+        a {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+
+        &:hover {
+            border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+            a {
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-item-active {
+        background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+        border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+        a {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+        }
+
+        &:hover {
+            background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+            border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+            a {
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-prev,
+    .ant-pagination-next {
+        button {
+            background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
+            border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+            &:hover {
+                border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-disabled {
+        button {
+            background-color: ${(props) => props.theme.colors?.bgDisabled || '#f5f5f5'};
+            border-color: ${(props) => props.theme.colors?.borderDisabled || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+
+            &:hover {
+                border-color: ${(props) => props.theme.colors?.borderDisabled || '#d9d9d9'};
+                color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+            }
+        }
+    }
 `;
 
 const NeverExpireText = styled.span`
     color: ${red[5]};
+`;
+
+const StyledEmpty = styled(Empty)`
+    .ant-empty-description {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
+
+const TableText = styled.span`
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+`;
+
+const TableBoldText = styled.b`
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+`;
+
+const TableLink = styled(Link)`
+    color: ${(props) => props.theme.colors?.hyperlinks || '#1890ff'};
+
+    &:hover {
+        color: ${(props) => props.theme.colors?.textBrand || '#40a9ff'};
+    }
 `;
 
 const SelectContainer = styled.div`
@@ -242,13 +344,13 @@ export const AccessTokens = () => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (name: string) => <b>{name}</b>,
+            render: (name: string) => <TableBoldText>{name}</TableBoldText>,
         },
         {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
-            render: (description: string) => description || '',
+            render: (description: string) => <TableText>{description || ''}</TableText>,
         },
         {
             title: 'Expires At',
@@ -259,7 +361,7 @@ export const AccessTokens = () => {
                 const localeTimezone = getLocaleTimezone();
                 const formattedExpireAt = new Date(expiresAt);
                 return (
-                    <span>{`${formattedExpireAt.toLocaleDateString()} at ${formattedExpireAt.toLocaleTimeString()} (${localeTimezone})`}</span>
+                    <TableText>{`${formattedExpireAt.toLocaleDateString()} at ${formattedExpireAt.toLocaleTimeString()} (${localeTimezone})`}</TableText>
                 );
             },
         },
@@ -272,7 +374,7 @@ export const AccessTokens = () => {
                 const displayName = ownerUrn?.replace('urn:li:corpuser:', '');
                 const link = `/user/${ownerUrn}/owner of`;
                 const ownerName = displayName || '';
-                return <Link to={link}>{ownerName}</Link>;
+                return <TableLink to={link}>{ownerName}</TableLink>;
             },
         },
         {
@@ -324,7 +426,7 @@ export const AccessTokens = () => {
                     }
                 />
             )}
-            <Typography.Title level={5}>Personal Access Tokens</Typography.Title>
+            <StyledTitle level={5}>Personal Access Tokens</StyledTitle>
             <PersonTokenDescriptionText type="secondary">
                 Personal Access Tokens allow you to make programmatic requests to DataHub&apos;s APIs. They inherit your
                 privileges and have a finite lifespan. Do not share Personal Access Tokens.
@@ -352,9 +454,9 @@ export const AccessTokens = () => {
                             ],
                         }}
                     >
-                        <Button type="text" data-testid="add-token-button" disabled={!canGeneratePersonalAccessTokens}>
+                        <StyledButton type="text" data-testid="add-token-button" disabled={!canGeneratePersonalAccessTokens}>
                             <PlusOutlined /> Generate new token
-                        </Button>
+                        </StyledButton>
                     </Dropdown>
                 </div>
                 <SelectContainer>
@@ -404,7 +506,7 @@ export const AccessTokens = () => {
                 dataSource={tableData}
                 rowKey="urn"
                 locale={{
-                    emptyText: <Empty description="No Access Tokens!" image={Empty.PRESENTED_IMAGE_SIMPLE} />,
+                    emptyText: <StyledEmpty description="No Access Tokens!" image={Empty.PRESENTED_IMAGE_SIMPLE} />,
                 }}
                 pagination={false}
             />

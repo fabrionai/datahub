@@ -9,7 +9,6 @@ const radioBorderColors = {
 const radioCheckmarkColors = {
     default: colors.white,
     disabled: colors.gray[300],
-    checked: colors.violet[500],
     error: colors.red[500],
 };
 
@@ -19,9 +18,9 @@ export function getRadioBorderColor(disabled: boolean, error: string) {
     return radioBorderColors.default;
 }
 
-export function getRadioCheckmarkColor(checked: boolean, disabled: boolean, error: string) {
+export function getRadioCheckmarkColor(checked: boolean, disabled: boolean, error: string, primaryColor?: string) {
     if (disabled) return radioCheckmarkColors.disabled;
     if (error) return radioCheckmarkColors.error;
-    if (checked) return radioCheckmarkColors.checked;
+    if (checked) return primaryColor || colors.violet[500]; // Use theme primary color or fallback to violet
     return radioCheckmarkColors.default;
 }

@@ -2,7 +2,7 @@ import { CloseCircleFilled, SearchOutlined } from '@ant-design/icons';
 import { AutoComplete, Input, Skeleton } from 'antd';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
-import styled from 'styled-components/macro';
+import styled, { createGlobalStyle } from 'styled-components/macro';
 
 import analytics, { Event, EventType } from '@app/analytics';
 import { useUserContext } from '@app/context/useUserContext';
@@ -31,6 +31,30 @@ import { EntityRegistry } from '@src/entityRegistryContext';
 
 import { useListRecommendationsQuery } from '@graphql/recommendations.generated';
 import { AutoCompleteResultForEntity, FacetFilterInput, ScenarioType } from '@types';
+
+const SearchBarDropdownStyles = createGlobalStyle`
+    .search-bar-autocomplete-dropdown {
+        ${(props) => props.theme.colors?.bgSurface && `background-color: ${props.theme.colors.bgSurface} !important;`}
+        ${(props) => props.theme.colors?.border && `border: 1px solid ${props.theme.colors.border} !important;`}
+
+        .ant-select-item-option {
+            ${(props) => props.theme.colors?.bgSurface && `background-color: ${props.theme.colors.bgSurface} !important;`}
+            ${(props) => props.theme.colors?.text && `color: ${props.theme.colors.text} !important;`}
+
+            &:hover {
+                ${(props) => props.theme.colors?.bgHover && `background-color: ${props.theme.colors.bgHover} !important;`}
+            }
+        }
+
+        .ant-select-item-option-disabled {
+            ${(props) => props.theme.colors?.bgSurface && `background-color: ${props.theme.colors.bgSurface} !important;`}
+        }
+
+        .ant-select-item-group {
+            ${(props) => props.theme.colors?.bgSurface && `background-color: ${props.theme.colors.bgSurface} !important;`}
+        }
+    }
+`;
 
 const StyledAutoComplete = styled(AutoComplete)<{ $isShowNavBarRedesign?: boolean }>`
     width: 100%;
@@ -399,6 +423,7 @@ export const SearchBar = ({
 
     return (
         <>
+            <SearchBarDropdownStyles />
             {isLoading ? (
                 <SkeletonContainer>
                     <SkeletonButton shape="square" active block />
@@ -419,6 +444,7 @@ export const SearchBar = ({
                         style={autoCompleteStyle}
                         options={options}
                         filterOption={false}
+                        popupClassName="search-bar-autocomplete-dropdown"
                         onSelect={(value, option) => {
                             // If the autocomplete option type is NOT an entity, then render as a normal search query.
                             if (

@@ -30,6 +30,86 @@ const ButtonContainer = styled.div`
     align-items: center;
     justify-content: end;
     gap: 16px;
+
+    button, span, p {
+        color: ${(props) => props.theme.colors?.text || '#2b2b2b'} !important;
+    }
+`;
+
+const StyledModal = styled(Modal)`
+    .ant-modal-content {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+    }
+
+    .ant-modal-header {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+        border-bottom-color: ${(props) => props.theme.colors?.border || '#f0f0f0'};
+    }
+
+    .ant-modal-title {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-modal-body {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+    }
+
+    .ant-modal-footer {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
+        border-top-color: ${(props) => props.theme.colors?.border || '#f0f0f0'};
+    }
+
+    .ant-modal-close {
+        color: ${(props) => props.theme.colors?.icon || '#666'};
+
+        &:hover {
+            color: ${(props) => props.theme.colors?.text || '#333'};
+            background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+        }
+    }
+
+    .ant-form-item-label > label {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-typography {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
+
+    .ant-input,
+    .ant-input-affix-wrapper {
+        background-color: ${(props) => props.theme.colors?.bg || '#fff'} !important;
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'} !important;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-input::placeholder {
+        color: ${(props) => props.theme.colors?.textTertiary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+
+    .ant-input-affix-wrapper input {
+        background-color: ${(props) => props.theme.colors?.bg || '#fff'} !important;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-collapse {
+        background-color: transparent;
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+    }
+
+    .ant-collapse-header {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-collapse-arrow {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+
+    .ant-collapse-content {
+        background-color: transparent;
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
 `;
 
 interface Props {
@@ -125,7 +205,7 @@ function CreateGlossaryEntityModal(props: Props) {
     }
 
     return (
-        <Modal
+        <StyledModal
             title={`Create ${
                 !selectedParentUrn && entityType === EntityType.GlossaryNode
                     ? 'Glossary'
@@ -254,7 +334,7 @@ function CreateGlossaryEntityModal(props: Props) {
                     </Collapse.Panel>
                 </Collapse>
             </Form>
-        </Modal>
+        </StyledModal>
     );
 }
 

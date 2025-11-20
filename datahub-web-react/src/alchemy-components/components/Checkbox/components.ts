@@ -6,8 +6,7 @@ import {
     getCheckboxSize,
     getCheckmarkPosition,
 } from '@components/components/Checkbox/utils';
-import { formLabelTextStyles } from '@components/components/commonStyles';
-import { borders, colors, radius, spacing, transform, zIndices } from '@components/theme';
+import { borders, colors, radius, spacing, transform, typography, zIndices } from '@components/theme';
 
 import { SizeOptions } from '@src/alchemy-components/theme/config';
 
@@ -20,10 +19,12 @@ export const CheckboxContainer = styled.div<{ justifyContent?: 'center' | 'flex-
     }),
 );
 
-export const Label = styled.div<{ clickable?: boolean }>(({ clickable }) => ({
-    ...formLabelTextStyles,
-    ...(clickable ? { cursor: 'pointer' } : {}),
-}));
+export const Label = styled.div<{ clickable?: boolean }>`
+    font-weight: ${typography.fontWeights.normal};
+    font-size: ${typography.fontSizes.md};
+    color: ${(props) => props.theme.colors?.text || colors.gray[600]};
+    ${({ clickable }) => clickable && 'cursor: pointer;'}
+`;
 
 export const Required = styled.span({
     color: colors.red[500],

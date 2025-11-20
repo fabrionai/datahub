@@ -8,6 +8,7 @@ import { UnionType } from '@app/search/utils/constants';
 const UserAssetsWrapper = styled.div`
     height: 100%;
     overflow: auto;
+    background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
 `;
 
 type Props = {

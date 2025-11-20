@@ -50,8 +50,8 @@ export const ResultWrapper = styled.div<{
     // z-index: 2;
     ${(props) =>
         props.showUpdatedStyles &&
-        `    
-        background-color: white;
+        `
+        background-color: ${props.theme.colors?.bgSurface || 'white'};
         border-radius: ${props.$isShowNavBarRedesign ? props.theme.styles['border-radius-navbar-redesign'] : '8px'};
         padding: 16px 20px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.08);

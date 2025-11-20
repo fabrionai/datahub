@@ -13,30 +13,30 @@ const CapabilityWrapper = styled.div`
 `;
 
 const CapabilityName = styled.span`
-    color: ${ANTD_GRAY[8]};
+    color: ${(props) => props.theme.colors?.text || ANTD_GRAY[8]};
     font-size: 18px;
     margin-right: 12px;
 `;
 
 const CapabilityMessage = styled.span<{ success: boolean }>`
-    color: ${(props) => (props.success ? `${green[6]}` : `${red[5]}`)};
+    color: ${(props) => (props.success ? props.theme.colors?.textSuccess || green[6] : props.theme.colors?.textError || red[5])};
     font-size: 12px;
     flex: 1;
     padding-left: 4px;
 `;
 
 const StyledQuestion = styled(QuestionCircleOutlined)`
-    color: rgba(0, 0, 0, 0.45);
+    color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
     margin-left: 4px;
 `;
 
 export const StyledCheck = styled(CheckOutlined)`
-    color: ${green[6]};
+    color: ${(props) => props.theme.colors?.iconSuccess || green[6]};
     margin-right: 15px;
 `;
 
 export const StyledClose = styled(CloseOutlined)`
-    color: ${red[5]};
+    color: ${(props) => props.theme.colors?.iconError || red[5]};
     margin-right: 15px;
 `;
 

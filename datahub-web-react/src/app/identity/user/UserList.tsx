@@ -46,6 +46,85 @@ const UserStyledList = styled(List)`
 const UserPaginationContainer = styled.div`
     display: flex;
     justify-content: center;
+
+    .ant-pagination-item {
+        background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+
+        a {
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+        }
+
+        &:hover {
+            border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+            a {
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-item-active {
+        background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+        border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+        a {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+        }
+
+        &:hover {
+            background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.06)'};
+            border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+
+            a {
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-prev,
+    .ant-pagination-next {
+        button {
+            background-color: ${(props) => props.theme.colors?.bgSurface || '#fff'};
+            border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+            &:hover {
+                border-color: ${(props) => props.theme.colors?.borderBrand || '#1890ff'};
+                color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            }
+        }
+    }
+
+    .ant-pagination-disabled {
+        button {
+            background-color: ${(props) => props.theme.colors?.bgDisabled || '#f5f5f5'};
+            border-color: ${(props) => props.theme.colors?.borderDisabled || '#d9d9d9'};
+            color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+
+            &:hover {
+                border-color: ${(props) => props.theme.colors?.borderDisabled || '#d9d9d9'};
+                color: ${(props) => props.theme.colors?.textDisabled || 'rgba(0, 0, 0, 0.25)'};
+            }
+        }
+    }
+`;
+
+const StyledEmpty = styled(Empty)`
+    .ant-empty-description {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'};
+    }
+`;
+
+const StyledButton = styled(Button)`
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+        &:hover {
+            color: ${(props) => props.theme.colors?.textBrand || '#1890ff'};
+            background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.04)'};
+        }
+    }
 `;
 
 export const UserList = () => {
@@ -125,14 +204,14 @@ export const UserList = () => {
             <UserContainer>
                 <TabToolbar>
                     <div>
-                        <Button
+                        <StyledButton
                             id={USERS_INVITE_LINK_ID}
                             disabled={!canManageUserCredentials}
                             type="text"
                             onClick={() => setIsViewingInviteToken(true)}
                         >
                             <UsergroupAddOutlined /> Invite Users
-                        </Button>
+                        </StyledButton>
                     </div>
                     <SearchBar
                         initialQuery={query || ''}
@@ -159,7 +238,7 @@ export const UserList = () => {
                 <UserStyledList
                     bordered
                     locale={{
-                        emptyText: <Empty description="No Users!" image={Empty.PRESENTED_IMAGE_SIMPLE} />,
+                        emptyText: <StyledEmpty description="No Users!" image={Empty.PRESENTED_IMAGE_SIMPLE} />,
                     }}
                     dataSource={usersList}
                     renderItem={(item: any) => (

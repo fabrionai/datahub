@@ -36,6 +36,16 @@ const FormItemNoMargin = styled(FormItem)`
     margin-bottom: 0px;
 `;
 
+const StyledCollapse = styled(Collapse)`
+    .ant-collapse-header {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-collapse-arrow {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+`;
+
 type Props = {
     onClose: () => void;
     onCreate?: (
@@ -214,8 +224,8 @@ export default function CreateDomainModal({ onClose, onCreate }: Props) {
                         defaultOwners={defaultOwners}
                     />
                 </FormItemNoMargin>
-                <Collapse ghost>
-                    <Collapse.Panel header={<Label>Advanced Options</Label>} key="1">
+                <StyledCollapse ghost>
+                    <StyledCollapse.Panel header={<Label>Advanced Options</Label>} key="1">
                         <FormItemWithMargin
                             name={ID_FIELD_NAME}
                             rules={[
@@ -231,8 +241,8 @@ export default function CreateDomainModal({ onClose, onCreate }: Props) {
                         >
                             <Input label="Custom Id" data-testid="create-domain-id" placeholder="engineering" />
                         </FormItemWithMargin>
-                    </Collapse.Panel>
-                </Collapse>
+                    </StyledCollapse.Panel>
+                </StyledCollapse>
             </Form>
         </Modal>
     );

@@ -19,17 +19,17 @@ const Content = styled.div`
         padding-bottom: 12px;
         &:not(:last-child) {
             border-bottom: 1px solid;
-            border-color: ${colors.gray[100]};
+            border-color: ${(props) => props.theme.colors?.border || colors.gray[100]};
             border-radius: 0px;
         }
     }
     &::-webkit-scrollbar {
         height: 12px;
         width: 2px;
-        background: #f2f2f2;
+        background: ${(props) => props.theme.colors?.bgSurfaceDarker || '#f2f2f2'};
     }
     &::-webkit-scrollbar-thumb {
-        background: #cccccc;
+        background: ${(props) => props.theme.colors?.border || '#cccccc'};
         -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
     }
 `;

@@ -7,10 +7,10 @@ import { ANTD_GRAY } from '@app/entity/shared/constants';
 import { SourceConfig } from '@app/ingest/source/builder/types';
 
 const Container = styled.div`
-    background-color: #ffffff;
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
     border-radius: 8px;
     padding: 12px 12px 16px 24px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid ${(props) => props.theme.colors?.border || '#e0e0e0'};
     margin-bottom: 20px;
 `;
 
@@ -24,15 +24,17 @@ const Header = styled.div`
 const Title = styled.div`
     font-size: 16px;
     font-weight: bold;
+    color: ${(props) => props.theme.colors?.text};
 `;
 
 const Description = styled.div`
     font-size: 14px;
     max-width: 90%;
+    color: ${(props) => props.theme.colors?.text};
 `;
 
 const StyledCloseOutlined = styled(CloseOutlined)`
-    color: ${ANTD_GRAY[6]};
+    color: ${(props) => props.theme.colors?.icon || ANTD_GRAY[6]};
 `;
 
 interface Props {

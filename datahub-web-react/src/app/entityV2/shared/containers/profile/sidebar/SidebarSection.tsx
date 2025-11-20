@@ -15,6 +15,7 @@ const StyledCollapse = styled(Collapse)`
     .ant-collapse-header {
         padding: 0px 0px !important;
         align-items: center;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
     }
 
     .ant-collapse-content-box {
@@ -41,14 +42,23 @@ const StyledCollapse = styled(Collapse)`
 
     .ant-collapse-header-text {
         max-width: calc(100% - 50px);
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
     }
 
     &.ant-collapse {
         border-radius: 0 !important;
+        background-color: transparent;
+        border: none;
     }
 
     .ant-collapse-item {
         border-radius: 0 !important;
+        border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+    }
+
+    .ant-collapse-content {
+        background-color: transparent;
+        border-top-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
     }
 `;
 
@@ -62,7 +72,7 @@ const Title = styled(Typography.Text)`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: ${colors.gray[600]};
+    color: ${(props) => props.theme.colors?.text || colors.gray[600]};
     font-weight: 700;
     font-size: 14px;
     display: flex;
@@ -73,7 +83,7 @@ const StyledIcon = styled.div`
     svg {
         height: 16px;
         width: 16px;
-        color: ${colors.gray[1800]};
+        color: ${(props) => props.theme.colors?.icon || colors.gray[1800]};
     }
 `;
 
