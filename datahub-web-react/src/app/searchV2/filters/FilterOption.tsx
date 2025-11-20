@@ -45,7 +45,7 @@ const FilterOptionWrapper = styled.div<{ addPadding?: boolean }>`
 
     ${(props) => props.addPadding && 'padding-left: 16px;'}
     &:hover {
-        background-color: ${ANTD_GRAY[3]};
+        background-color: ${(props) => props.theme.colors?.bgHover || ANTD_GRAY[3]};
     }
 `;
 
@@ -80,7 +80,7 @@ export const TagColor = styled.span<{ color: string; colorHash?: string | null }
 const CountText = styled.span`
     font-size: 12px;
     margin-left: 6px;
-    color: ${ANTD_GRAY[8]};
+    color: ${(props) => props.theme.colors?.textSecondary || ANTD_GRAY[8]};
 `;
 
 const LabelCountWrapper = styled.div`

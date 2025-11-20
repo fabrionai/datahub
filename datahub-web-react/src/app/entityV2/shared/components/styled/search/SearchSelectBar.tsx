@@ -34,6 +34,12 @@ const StyledButton = styled(Button)`
     color: ${(props) => props.theme.styles['primary-color']};
 `;
 
+const StyledTypographyText = styled(Typography.Text)`
+    && {
+        color: ${(props) => props.theme.colors?.textSecondary || 'rgba(0, 0, 0, 0.45)'} !important;
+    }
+`;
+
 type Props = {
     isSelectAll: boolean;
     totalResults?: number;
@@ -100,13 +106,13 @@ export const SearchSelectBar = ({
                     id="search-select-bar"
                     disabled={limit !== undefined && limit > 0}
                 />
-                <Typography.Text strong type="secondary">
+                <StyledTypographyText strong type="secondary">
                     {areAllEntitiesSelected ? (
                         <>All {totalResults} assets selected</>
                     ) : (
                         <>{selectedEntityCount} selected</>
                     )}
-                </Typography.Text>
+                </StyledTypographyText>
                 {areAllEntitiesSelected && (
                     <StyledButton
                         type="text"

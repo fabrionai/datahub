@@ -20,6 +20,23 @@ const StyledEmpty = styled(Empty)`
 
 const StyledButton = styled(Button)`
     margin-right: 8px;
+    background-color: ${(props) => props.theme.colors?.bgSurface || '#ffffff'};
+    border-color: ${(props) => props.theme.colors?.border || '#d9d9d9'};
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+    &:hover {
+        background-color: ${(props) => props.theme.colors?.bgHover || '#fafafa'};
+        border-color: ${(props) => props.theme.colors?.textBrand || '#40a9ff'};
+        color: ${(props) => props.theme.colors?.textBrand || '#40a9ff'};
+    }
+
+    .anticon {
+        color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'};
+    }
+
+    &:hover .anticon {
+        color: ${(props) => props.theme.colors?.textBrand || '#40a9ff'};
+    }
 `;
 
 interface Props {

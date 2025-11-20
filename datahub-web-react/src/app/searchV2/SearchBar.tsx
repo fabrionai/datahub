@@ -105,8 +105,8 @@ const StyledSearchBar = styled(Input)<{
         height: 40px;
         font-size: 14px;
         color: #dcdcdc;
-        background-color: ${ANTD_GRAY_V2[2]};
-        border: 2px solid transparent;
+        background-color: ${(props) => props.theme.colors?.bgSurfaceDarker || ANTD_GRAY_V2[2]};
+        border: 2px solid ${(props) => props.theme.colors?.border || 'transparent'};
         padding-right: 2.5px;
         ${(props) =>
             !props.viewsEnabled &&
@@ -118,11 +118,12 @@ const StyledSearchBar = styled(Input)<{
 
     > .ant-input::placeholder {
         color: ${(props) =>
-            props.$placeholderColor || (props.$isShowNavBarRedesign ? REDESIGN_COLORS.GREY_300 : '#dcdcdc')};
+            props.$placeholderColor || (props.$isShowNavBarRedesign ? REDESIGN_COLORS.GREY_300 : props.theme.colors?.textTertiary || '#dcdcdc')};
     }
 
     > .ant-input {
-        color: ${(props) => props.$textColor || (props.$isShowNavBarRedesign ? '#000' : '#fff')};
+        color: ${(props) => props.$textColor || (props.$isShowNavBarRedesign ? '#000' : props.theme.colors?.text || '#fff')};
+        background-color: transparent;
     }
 
     .ant-input-clear-icon {
@@ -149,14 +150,14 @@ const ViewSelectContainer = styled.div`
 `;
 
 const SearchIcon = styled(SearchOutlined)<{ $isShowNavBarRedesign?: boolean }>`
-    color: ${(props) => (props.$isShowNavBarRedesign ? colors.gray[1800] : '#dcdcdc')};
+    color: ${(props) => (props.$isShowNavBarRedesign ? colors.gray[1800] : props.theme.colors?.icon || '#dcdcdc')};
     ${(props) =>
         props.$isShowNavBarRedesign &&
         `
         && svg {
             width: 16px;
             height: 16px;
-        }    
+        }
     `}
 `;
 

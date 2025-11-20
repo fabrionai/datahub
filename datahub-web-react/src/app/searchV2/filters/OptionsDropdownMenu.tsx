@@ -17,7 +17,7 @@ const StyledButton = styled(Button)`
 `;
 
 export const DropdownMenu = styled.div<{ type: 'card' | 'default' }>`
-    background-color: white;
+    background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
     ${(props) => props.type === 'card' && 'border-radius: 5px;'}
     ${(props) =>
         props.type === 'card' &&
@@ -26,13 +26,29 @@ export const DropdownMenu = styled.div<{ type: 'card' | 'default' }>`
     min-width: 200px;
 
     .ant-dropdown-menu-title-content {
-        background-color: white;
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
         &:hover {
-            background-color: white;
+            background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
         }
     }
     .ant-dropdown-menu {
         padding: 7px;
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
+    }
+    .ant-dropdown-menu-item {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+        &:hover {
+            background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.04)'} !important;
+        }
+    }
+    .ant-menu {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
+    }
+    .ant-menu-item {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+        &:hover {
+            background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.04)'} !important;
+        }
     }
 `;
 
@@ -46,6 +62,7 @@ const LoadingWrapper = styled.div`
     display: flex;
     justify-content: center;
     padding: 9px;
+    color: ${(props) => props.theme.colors?.icon || 'rgba(0, 0, 0, 0.45)'};
 
     svg {
         height: 16px;

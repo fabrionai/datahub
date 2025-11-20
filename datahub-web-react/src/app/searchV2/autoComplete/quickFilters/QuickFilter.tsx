@@ -26,18 +26,41 @@ const QuickFilterWrapper = styled(Button)<{ selected: boolean }>`
     font-size: 14px;
     margin: 4px;
 
+    .typeIcon,
+    .anticon {
+        color: ${(props) => props.theme.colors?.icon || 'black'} !important;
+    }
+
     &:hover {
         color: ${(props) => props.theme.colors?.text || 'black'};
         background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.04)'};
+
+        .typeIcon,
+        .anticon {
+            color: ${(props) => props.theme.colors?.icon || 'black'} !important;
+        }
     }
 
     ${(props) =>
         props.selected &&
         `
         border: 1px solid ${props.theme.styles['primary-color-dark']};
-        background-color: ${props.theme.styles['primary-color-light']};
+        background-color: ${props.theme.styles['primary-color']};
+        color: ${props.theme.colors?.textBrandOnBgFill || '#1a1a1a'};
+
+        .typeIcon,
+        .anticon {
+            color: ${props.theme.colors?.textBrandOnBgFill || '#1a1a1a'} !important;
+        }
+
         &:hover {
-            background-color: ${props.theme.styles['primary-color-light']};
+            background-color: ${props.theme.styles['primary-color']};
+            color: ${props.theme.colors?.textBrandOnBgFill || '#1a1a1a'};
+
+            .typeIcon,
+            .anticon {
+                color: ${props.theme.colors?.textBrandOnBgFill || '#1a1a1a'} !important;
+            }
         }
     `}
 `;

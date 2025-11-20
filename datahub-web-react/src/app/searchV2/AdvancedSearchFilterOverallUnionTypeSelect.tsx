@@ -15,9 +15,23 @@ const { Option } = Select;
 
 const StyledSelect = styled(Select)`
     border-radius: 5px;
-    background: ${ANTD_GRAY[4]};
+    background: ${(props) => props.theme.colors?.bgHover || ANTD_GRAY[4]};
+
+    .ant-select-selector {
+        background: ${(props) => props.theme.colors?.bgHover || ANTD_GRAY[4]} !important;
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
+    .ant-select-selection-item {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'} !important;
+    }
+
     :hover {
-        background: ${ANTD_GRAY[4.5]};
+        background: ${(props) => props.theme.colors?.bgHover || ANTD_GRAY[4.5]};
+
+        .ant-select-selector {
+            background: ${(props) => props.theme.colors?.bgHover || ANTD_GRAY[4.5]} !important;
+        }
     }
 `;
 

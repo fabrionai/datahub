@@ -69,6 +69,9 @@ export const TextButton = styled(Button)<{ marginTop?: number; height?: number }
 
 export const Label = styled(Typography.Text)`
     max-width: 125px;
+    && {
+        color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+    }
 `;
 
 export const IconSpacer = styled.span`

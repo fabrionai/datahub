@@ -3,7 +3,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Popover } from '@components';
 import { Dropdown, Menu } from 'antd';
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import { IconStyleType } from '@app/entity/Entity';
 import { ANTD_GRAY } from '@app/entity/shared/constants';
@@ -12,6 +12,30 @@ import { FieldType, FilterField, FilterPredicate } from '@app/searchV2/filters/t
 import ValueMenu from '@app/searchV2/filters/value/ValueMenu';
 import { getDefaultFieldOperatorType } from '@app/searchV2/filters/value/utils';
 import { useEntityRegistry } from '@app/useEntityRegistry';
+
+const AddFilterDropdownStyles = createGlobalStyle`
+    .ant-dropdown {
+        background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
+
+        .ant-dropdown-menu {
+            background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
+        }
+
+        .ant-menu {
+            background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
+        }
+    }
+
+    .search-filter-popover {
+        .ant-popover-inner {
+            background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
+        }
+
+        .ant-popover-inner-content {
+            background-color: ${(props) => props.theme.colors?.bgSurface || 'white'} !important;
+        }
+    }
+`;
 
 const StyledPlusOutlined = styled(PlusOutlined)`
     && {
@@ -23,11 +47,17 @@ const FieldMenu = styled(Menu)`
     max-height: 400px;
     overflow: auto;
     border-radius: 8px;
+    background-color: ${(props) => props.theme.colors?.bgSurface || 'white'};
 
     &&& {
         .ant-dropdown-menu-item {
             border-radius: 8px;
             margin: 4px 8px;
+            color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
+
+            &:hover {
+                background-color: ${(props) => props.theme.colors?.bgHover || 'rgba(0, 0, 0, 0.04)'};
+            }
         }
 
         .ant-dropdown-menu-submenu-expand-icon {
@@ -42,12 +72,13 @@ const Icon = styled.div`
     margin-right: 8px;
 
     && {
-        color: ${ANTD_GRAY[7]};
+        color: ${(props) => props.theme.colors?.icon || ANTD_GRAY[7]};
     }
 `;
 
 const Text = styled.div`
     font-size: 14px;
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
 `;
 
 const Option = styled.div`
@@ -89,18 +120,21 @@ export default function AddFilterDropdown({ fields = DEFAULT_FILTER_FIELDS, onAd
     });
 
     return (
-        <Dropdown
-            open={dropdownOpen}
-            onOpenChange={setDropdownOpen}
-            trigger={['click']}
-            menu={{ items }}
-            dropdownRender={(menu) => <FieldMenu>{menu}</FieldMenu>}
-        >
-            <AddFilterButton variant="text">
-                <StyledPlusOutlined />
-                Add filter
-            </AddFilterButton>
-        </Dropdown>
+        <>
+            <AddFilterDropdownStyles />
+            <Dropdown
+                open={dropdownOpen}
+                onOpenChange={setDropdownOpen}
+                trigger={['click']}
+                menu={{ items }}
+                dropdownRender={(menu) => <FieldMenu>{menu}</FieldMenu>}
+            >
+                <AddFilterButton variant="text">
+                    <StyledPlusOutlined />
+                    Add filter
+                </AddFilterButton>
+            </Dropdown>
+        </>
     );
 }
 

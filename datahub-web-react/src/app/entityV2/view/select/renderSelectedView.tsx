@@ -12,7 +12,11 @@ import { colors } from '@src/alchemy-components';
 const SelectButton = styled(Button)<{ $selectedViewName: string; $isShowNavBarRedesign?: boolean }>`
     background-color: ${(props) => {
         if (props.$isShowNavBarRedesign) {
-            return props.$selectedViewName ? colors.gray[1000] : 'transparent';
+            // Only apply dark mode fix when a view is selected
+            if (props.$selectedViewName) {
+                return props.theme.colors?.bgHover || colors.gray[1000];
+            }
+            return 'transparent';
         }
         return props.$selectedViewName ? props.theme.styles['primary-color'] : 'transparent';
     }};
@@ -43,7 +47,11 @@ const SelectButton = styled(Button)<{ $selectedViewName: string; $isShowNavBarRe
     &: hover {
         background: ${(props) => {
             if (props.$isShowNavBarRedesign) {
-                return props.$selectedViewName ? colors.gray[1000] : 'transparent';
+                // Only apply dark mode fix when a view is selected
+                if (props.$selectedViewName) {
+                    return props.theme.colors?.bgHover || colors.gray[1000];
+                }
+                return 'transparent';
             }
             return props.theme.styles['primary-color'];
         }};
@@ -63,7 +71,7 @@ const SelectButton = styled(Button)<{ $selectedViewName: string; $isShowNavBarRe
         ${(props) =>
             props.$isShowNavBarRedesign &&
             `
-            background-color: ${colors.gray[1000]};
+            background-color: ${props.$selectedViewName ? (props.theme.colors?.bgHover || colors.gray[1000]) : 'transparent'};
 
             & svg {
                 color: ${REDESIGN_COLORS.GREY_300};

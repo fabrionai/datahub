@@ -58,11 +58,12 @@ const NavBarTitle = styled.div`
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 4px;
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
 `;
 
 const NavBarSubTitle = styled.div`
     font-size: 14px;
-    color: ${colors.gray[1700]};
+    color: ${(props) => props.theme.colors?.textSecondary || colors.gray[1700]};
     margin-bottom: 8px;
 `;
 

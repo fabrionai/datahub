@@ -37,6 +37,7 @@ export const FilterButtonsWrapper = styled.div`
 
 const AnyAllToggle = styled.div`
     margin-top: 8px;
+    color: ${(props) => props.theme.colors?.text || 'rgba(0, 0, 0, 0.85)'};
 `;
 
 interface Props {
